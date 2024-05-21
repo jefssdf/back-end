@@ -2,6 +2,7 @@
 using AgendaApi.Domain.Interfaces;
 using AutoMapper;
 using MediatR;
+using System.Diagnostics.CodeAnalysis;
 
 namespace AgendaApi.Application.UseCases.LegalPersonUseCases.UpdateLegalEntity
 {
@@ -27,7 +28,14 @@ namespace AgendaApi.Application.UseCases.LegalPersonUseCases.UpdateLegalEntity
 
             if (entity is null) return default;
 
-            entity = _mapper.Map<LegalEntity>(request);
+            entity.Name = request.name;
+            entity.Email = request.email;
+            entity.Password = request.password;
+            entity.PhoneNumber = request.phoneNumber;
+            entity.Address = request.address;
+            entity.Cnpj = request.cnpj;
+            entity.SocialName = request.socialName;
+
             _legalEntityRepository.Update(entity);
 
             await _unitOfWork.Commit(cancellationToken);

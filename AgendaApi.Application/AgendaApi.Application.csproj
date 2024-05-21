@@ -12,8 +12,6 @@
 
   <ItemGroup>
     <Folder Include="Shared\Exceptions\" />
-    <Folder Include="UseCases\LegalPersonUseCases\DeleteLegalEntity\" />
-    <Folder Include="UseCases\NaturalPersonUseCases\DeleteNaturalPerson\" />
     <Folder Include="UseCases\NaturalPersonUseCases\GetAllNaturalPerson\" />
     <Folder Include="UseCases\NaturalPersonUseCases\UpdateNaturalPerson\" />
   </ItemGroup>

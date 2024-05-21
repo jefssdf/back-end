@@ -1,4 +1,5 @@
 ﻿using AgendaApi.Application.UseCases.LegalPersonUseCases.CreateLegalEntity;
+using AgendaApi.Application.UseCases.LegalPersonUseCases.DeleteLegalEntity;
 using AgendaApi.Application.UseCases.LegalPersonUseCases.GetAllLegalEntity;
 using AgendaApi.Application.UseCases.LegalPersonUseCases.UpdateLegalEntity;
 using MediatR;
@@ -31,7 +32,7 @@ namespace AgendaApi.API.Controllers
             return Ok(response);
         }
 
-        [HttpPut("{id}")]
+        [HttpPut("{id:Guid}")]
         public async Task<ActionResult<UpdateLegalEntityResponse>> Update(Guid id, 
             UpdateLegalEntityRequest request, CancellationToken cancellationToken)
         {
@@ -39,6 +40,18 @@ namespace AgendaApi.API.Controllers
 
             var result = await _mediator.Send(request, cancellationToken);
             return Ok(result);
+        }
+
+        [HttpDelete("{id:Guid}")]
+        public async Task<ActionResult<DeleteLegalEntityResponse>> Delete(Guid? id,
+            CancellationToken cancellationToken)
+        {
+            if (id is null) return BadRequest();
+
+            var deleteLegalEntityRequest = new DeleteLegalEntityRequest(id.Value);
+
+            var response = await _mediator.Send(deleteLegalEntityRequest, cancellationToken);
+            return Ok(response);
         }
     }
 }
