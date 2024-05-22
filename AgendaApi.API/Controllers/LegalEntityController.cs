@@ -26,8 +26,8 @@ namespace AgendaApi.API.Controllers
             return Ok(response);
         }
 
-        [HttpGet("{email:string}")]
-        public async Task<ActionResult<GetLegalEntityByEmailResponse>> GetByEmail(string email, 
+        [HttpGet("{email}")]
+        public async Task<ActionResult<GetLegalEntityByEmailResponse>> GetByEmail(string email,
             CancellationToken cancellationToken)
         {
             var response = await _mediator.Send(new GetLegalEntityByEmailRequest(email), cancellationToken);
@@ -38,6 +38,7 @@ namespace AgendaApi.API.Controllers
         public async Task<ActionResult<CreateLegalEntityResponse>> Create(CreateLegalEntityRequest request,
             CancellationToken cancellationToken)
         {
+            if (request is null) return BadRequest();
             var response = await _mediator.Send(request, cancellationToken);
             return Ok(response);
         }
@@ -58,9 +59,7 @@ namespace AgendaApi.API.Controllers
         {
             if (id is null) return BadRequest();
 
-            var deleteLegalEntityRequest = new DeleteLegalEntityRequest(id.Value);
-
-            var response = await _mediator.Send(deleteLegalEntityRequest, cancellationToken);
+            var response = await _mediator.Send(new DeleteLegalEntityRequest(id.Value), cancellationToken);
             return Ok(response);
         }
     }
