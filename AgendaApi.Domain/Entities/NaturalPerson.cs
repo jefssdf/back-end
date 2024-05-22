@@ -2,8 +2,10 @@
 
 namespace AgendaApi.Domain.Entities
 {
-    public sealed class NaturalPerson : Person
+    public class NaturalPerson : Person
     {
+        [Key]
+        public Guid NaturalPersonId { get; set; }
         [Required]
         [StringLength(15)]
         public string? Cpf { get; set; }

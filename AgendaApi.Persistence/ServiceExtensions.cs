@@ -21,6 +21,7 @@ namespace AgendaApi.Persistence
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddScoped<INaturalPersonRepository, NaturalPersonRepository>();
             services.AddScoped<ILegalEntityRepository, LegalEntityRepository>();
+            services.AddScoped<IServiceCategoryRepository, ServiceCategoryRepository>();
         }
     }
 }

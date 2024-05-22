@@ -5,8 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace AgendaApi.Persistence.Repositories
 {
-    public class BaseRepository<T> : IBaseRepository<T> where T : Person
-    {
+    public class BaseRepository<T> : IBaseRepository<T> where T : Person    {
         protected readonly AgendaApiDbContext Context;
         public BaseRepository(AgendaApiDbContext context)
         {
@@ -28,13 +27,7 @@ namespace AgendaApi.Persistence.Repositories
 
         public async Task<IEnumerable<T>> GetAll(CancellationToken cancellationToken)
         {
-            return await Context.Set<T>().ToListAsync(cancellationToken);
+            return await Context.Set<T>().AsNoTracking().ToListAsync(cancellationToken);
         }
-
-        public async Task<T> GetById(Guid id, CancellationToken cancellationToken)
-        {
-            return await Context.Set<T>().FirstOrDefaultAsync(p => p.Id == id ,cancellationToken);
-        }
-
     }
 }

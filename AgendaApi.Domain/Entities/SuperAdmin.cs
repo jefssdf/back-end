@@ -5,7 +5,7 @@ namespace AgendaApi.Domain.Entities
     public class SuperAdmin
     {
         [Key]
-        public Guid Id { get; set; }
+        public Guid SuperAdminId { get; set; }
         [Required]
         [StringLength(70)]
         public string? Email { get; set; }

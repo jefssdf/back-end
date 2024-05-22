@@ -4,8 +4,6 @@ namespace AgendaApi.Domain.Entities
 {
     public abstract class Person
     {
-        [Key]
-        public Guid Id { get; set; }
         [Required]
         [StringLength(70)]
         public string? Name { get; set; }

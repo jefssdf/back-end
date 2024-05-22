@@ -3,7 +3,7 @@
 namespace AgendaApi.Domain.Interfaces
 {
     public interface ISuperAdminRepository<T> where T : SuperAdmin
-    {
+    { 
         void Create(T entity);
         void Update(T entity);
         void Delete(T entity);

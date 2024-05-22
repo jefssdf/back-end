@@ -11,7 +11,11 @@ namespace AgendaApi.Persistence.Repositories
 
         public async Task<LegalEntity> GetByEmail(string email, CancellationToken cancellationToken)
         {
-            return await Context.LegalEntities.FirstOrDefaultAsync(lp => lp.Email == email, cancellationToken);
+            return await Context.LegalEntities.AsNoTracking().FirstOrDefaultAsync(lp => lp.Email == email, cancellationToken);
+        }
+        public async Task<LegalEntity> GetById(Guid id, CancellationToken cancellationToken)
+        {
+            return await Context.LegalEntities.AsNoTracking().FirstOrDefaultAsync(lp => lp.LegalEntityId == id, cancellationToken);
         }
     }
 }

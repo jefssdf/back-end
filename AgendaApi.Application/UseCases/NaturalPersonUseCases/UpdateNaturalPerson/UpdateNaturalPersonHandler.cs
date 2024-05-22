@@ -26,7 +26,6 @@ namespace AgendaApi.Application.UseCases.NaturalPersonUseCases.UpdateNaturalPers
 
             if (naturalPerson is null) return default;
 
-            naturalPerson.Id = request.id;
             naturalPerson.Name = request.name;
             naturalPerson.Email = request.email;
             naturalPerson.Password = request.password;
