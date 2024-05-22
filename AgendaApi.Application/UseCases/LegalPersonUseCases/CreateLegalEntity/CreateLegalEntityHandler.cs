@@ -5,7 +5,7 @@ using MediatR;
 
 namespace AgendaApi.Application.UseCases.LegalPersonUseCases.CreateLegalEntity
 {
-    public class CreateLegalEntityHandler :
+    public sealed class CreateLegalEntityHandler :
         IRequestHandler<CreateLegalEntityRequest, CreateLegalEntityResponse>
     {
         private readonly IUnitOfWork _unitOfWork;

@@ -2,6 +2,5 @@
 
 namespace AgendaApi.Application.UseCases.LegalPersonUseCases.CreateLegalEntity
 {
-    public sealed record CreateLegalEntityResponse : LegalEntityBaseReponse
-    {}
+    public sealed record CreateLegalEntityResponse : LegalEntityBaseReponse;
 }

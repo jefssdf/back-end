@@ -1,12 +1,10 @@
-﻿using AgendaApi.Domain.Entities;
-using AgendaApi.Domain.Interfaces;
+﻿using AgendaApi.Domain.Interfaces;
 using AutoMapper;
 using MediatR;
-using System.Diagnostics.CodeAnalysis;
 
 namespace AgendaApi.Application.UseCases.LegalPersonUseCases.UpdateLegalEntity
 {
-    public class UpdateLegalEntityHandler : 
+    public sealed class UpdateLegalEntityHandler : 
         IRequestHandler<UpdateLegalEntityRequest, UpdateLegalEntityResponse>
     {
         private readonly IUnitOfWork _unitOfWork;
@@ -24,7 +22,7 @@ namespace AgendaApi.Application.UseCases.LegalPersonUseCases.UpdateLegalEntity
         public async Task<UpdateLegalEntityResponse> Handle(UpdateLegalEntityRequest request,
             CancellationToken cancellationToken)
         {
-            var entity = await _legalEntityRepository.GetById(request.Id, cancellationToken);
+            var entity = await _legalEntityRepository.GetById(request.id, cancellationToken);
 
             if (entity is null) return default;
 
@@ -37,7 +35,6 @@ namespace AgendaApi.Application.UseCases.LegalPersonUseCases.UpdateLegalEntity
             entity.SocialName = request.socialName;
 
             _legalEntityRepository.Update(entity);
-
             await _unitOfWork.Commit(cancellationToken);
 
             return _mapper.Map<UpdateLegalEntityResponse>(entity);

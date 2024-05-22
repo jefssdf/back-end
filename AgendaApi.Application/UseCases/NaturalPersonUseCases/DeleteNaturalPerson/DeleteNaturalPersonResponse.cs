@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using AgendaApi.Application.UseCases.NaturalPersonUseCases.DTOs;
 
 namespace AgendaApi.Application.UseCases.NaturalPersonUseCases.DeleteNaturalPerson
 {
-    internal class DeleteNaturalPersonResponse
-    {
-    }
+    public sealed record DeleteNaturalPersonResponse : NaturalPersonBaseResponse;
 }

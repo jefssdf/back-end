@@ -3,7 +3,7 @@ using System.Text.RegularExpressions;
 
 namespace AgendaApi.Application.UseCases.LegalPersonUseCases.CreateLegalEntity
 {
-    public sealed class CreateLegalEntityValidator : AbstractValidator<CreateLegalEntityRequest>
+    public class CreateLegalEntityValidator : AbstractValidator<CreateLegalEntityRequest>
     {
         public CreateLegalEntityValidator() 
         {
@@ -28,7 +28,7 @@ namespace AgendaApi.Application.UseCases.LegalPersonUseCases.CreateLegalEntity
                 .MaximumLength(20);
             RuleFor(le => le.socialName).NotEmpty()
                 .WithMessage("Nome social é um campo obrigatório")
-                .MinimumLength(8).MaximumLength(70);
+                .MaximumLength(70);
         }
 
     }

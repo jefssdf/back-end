@@ -1,12 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using FluentValidation;
 
 namespace AgendaApi.Application.UseCases.NaturalPersonUseCases.DeleteNaturalPerson
 {
-    internal class DeleteNaturalPersonValidator
+    public class DeleteNaturalPersonValidator : AbstractValidator<DeleteNaturalPersonRequest>
     {
+        public DeleteNaturalPersonValidator() 
+        {
+            RuleFor(np => np.id).NotEmpty();
+        }
     }
 }

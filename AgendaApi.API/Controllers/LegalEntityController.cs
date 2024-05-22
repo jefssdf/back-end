@@ -1,6 +1,7 @@
 ﻿using AgendaApi.Application.UseCases.LegalPersonUseCases.CreateLegalEntity;
 using AgendaApi.Application.UseCases.LegalPersonUseCases.DeleteLegalEntity;
 using AgendaApi.Application.UseCases.LegalPersonUseCases.GetAllLegalEntity;
+using AgendaApi.Application.UseCases.LegalPersonUseCases.GetLegalEntityByEmail;
 using AgendaApi.Application.UseCases.LegalPersonUseCases.UpdateLegalEntity;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -17,10 +18,19 @@ namespace AgendaApi.API.Controllers
         {
             _mediator = mediator;
         }
+
         [HttpGet]
         public async Task<ActionResult<List<GetAllLegalEntityResponse>>> GetAll(CancellationToken cancellationToken)
         {
             var response = await _mediator.Send(new GetAllLegalEntityRequest(), cancellationToken);
+            return Ok(response);
+        }
+
+        [HttpGet("{email:string}")]
+        public async Task<ActionResult<GetLegalEntityByEmailResponse>> GetByEmail(string email, 
+            CancellationToken cancellationToken)
+        {
+            var response = await _mediator.Send(new GetLegalEntityByEmailRequest(email), cancellationToken);
             return Ok(response);
         }
 
@@ -36,7 +46,7 @@ namespace AgendaApi.API.Controllers
         public async Task<ActionResult<UpdateLegalEntityResponse>> Update(Guid id, 
             UpdateLegalEntityRequest request, CancellationToken cancellationToken)
         {
-            if (id != request.Id) return BadRequest();
+            if (id != request.id) return BadRequest();
 
             var result = await _mediator.Send(request, cancellationToken);
             return Ok(result);

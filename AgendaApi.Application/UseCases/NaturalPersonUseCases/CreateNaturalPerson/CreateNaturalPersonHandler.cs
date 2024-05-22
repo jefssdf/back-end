@@ -6,7 +6,7 @@ using MediatR;
 
 namespace AgendaApi.Application.UseCases.NaturalPersonUseCases.CreateNaturalPerson
 {
-    public class CreateNaturalPersonHandler :
+    public sealed class CreateNaturalPersonHandler :
         IRequestHandler<CreateNaturalPersonRequest, CreateNaturalPersonResponse>
     {
         private readonly IUnitOfWork _unitOfWork;
