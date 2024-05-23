@@ -24,7 +24,7 @@ namespace AgendaApi.Persistence.Migrations
 
             modelBuilder.Entity("AgendaApi.Domain.Entities.LegalEntity", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<Guid>("LegalEntityId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
@@ -63,14 +63,14 @@ namespace AgendaApi.Persistence.Migrations
                         .HasMaxLength(70)
                         .HasColumnType("nvarchar(70)");
 
-                    b.HasKey("Id");
+                    b.HasKey("LegalEntityId");
 
                     b.ToTable("LegalEntities");
                 });
 
             modelBuilder.Entity("AgendaApi.Domain.Entities.NaturalPerson", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<Guid>("NaturalPersonId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
@@ -107,14 +107,62 @@ namespace AgendaApi.Persistence.Migrations
                         .HasMaxLength(15)
                         .HasColumnType("nvarchar(15)");
 
-                    b.HasKey("Id");
+                    b.HasKey("NaturalPersonId");
 
                     b.ToTable("NaturalPersons");
                 });
 
+            modelBuilder.Entity("AgendaApi.Domain.Entities.Service", b =>
+                {
+                    b.Property<Guid>("ServiceId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasMaxLength(150)
+                        .HasColumnType("nvarchar(150)");
+
+                    b.Property<TimeSpan>("Duration")
+                        .HasColumnType("time");
+
+                    b.Property<Guid>("Id")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(70)
+                        .HasColumnType("nvarchar(70)");
+
+                    b.Property<decimal>("Price")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.HasKey("ServiceId");
+
+                    b.HasIndex("Id");
+
+                    b.ToTable("Services");
+                });
+
+            modelBuilder.Entity("AgendaApi.Domain.Entities.ServiceCategory", b =>
+                {
+                    b.Property<Guid>("ServiceCategoryId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(70)
+                        .HasColumnType("nvarchar(70)");
+
+                    b.HasKey("ServiceCategoryId");
+
+                    b.ToTable("ServiceCategories");
+                });
+
             modelBuilder.Entity("AgendaApi.Domain.Entities.SuperAdmin", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<Guid>("SuperAdminId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
@@ -128,9 +176,33 @@ namespace AgendaApi.Persistence.Migrations
                         .HasMaxLength(30)
                         .HasColumnType("nvarchar(30)");
 
-                    b.HasKey("Id");
+                    b.HasKey("SuperAdminId");
 
                     b.ToTable("SuperAdmins");
+                });
+
+            modelBuilder.Entity("AgendaApi.Domain.Entities.Service", b =>
+                {
+                    b.HasOne("AgendaApi.Domain.Entities.LegalEntity", "LegalEntity")
+                        .WithMany()
+                        .HasForeignKey("Id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("AgendaApi.Domain.Entities.ServiceCategory", "ServiceCategory")
+                        .WithMany("Services")
+                        .HasForeignKey("Id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("LegalEntity");
+
+                    b.Navigation("ServiceCategory");
+                });
+
+            modelBuilder.Entity("AgendaApi.Domain.Entities.ServiceCategory", b =>
+                {
+                    b.Navigation("Services");
                 });
 #pragma warning restore 612, 618
         }
