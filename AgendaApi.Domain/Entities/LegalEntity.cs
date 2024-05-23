@@ -12,5 +12,10 @@ namespace AgendaApi.Domain.Entities
         [Required]
         [StringLength(70)]
         public string? SocialName { get; set; }
+
+
+
     }
+
+
 }

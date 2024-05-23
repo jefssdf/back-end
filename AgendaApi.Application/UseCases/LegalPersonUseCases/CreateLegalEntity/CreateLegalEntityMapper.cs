@@ -8,7 +8,8 @@ namespace AgendaApi.Application.UseCases.LegalPersonUseCases.CreateLegalEntity
         public CreateLegalEntityMapper() 
         {
             CreateMap<CreateLegalEntityRequest, LegalEntity>();
-            CreateMap<LegalEntity, CreateLegalEntityResponse>();
+            CreateMap<LegalEntity, CreateLegalEntityResponse>()
+                .ForMember(dest => dest.id, opt => opt.MapFrom(src => src.LegalEntityId));
         }
     }
 }
