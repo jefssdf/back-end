@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace AgendaApi.Persistence.Repositories
 {
-    public class ServiceRepository<T> : IBaseRepository<T> where T : Service
+    public class ServiceRepository : IServiceRepository
     {
         private readonly AgendaApiDbContext _dbContext;
 
@@ -14,28 +14,28 @@ namespace AgendaApi.Persistence.Repositories
             _dbContext = context;
         }
 
-        public void Create(T entity)
+        public void Create(Service entity)
         {
             _dbContext.Add(entity);
         }
-        public void Update(T entity)
+        public void Update(Service entity)
         {
             _dbContext.Update(entity);
         }
 
-        public void Delete(T entity)
+        public void Delete(Service entity)
         {
             _dbContext.Remove(entity);
         }
 
-        public async Task<IEnumerable<T>> GetAll(CancellationToken cancellationToken)
+        public async Task<IEnumerable<Service>> GetAll(CancellationToken cancellationToken)
         {
-            return await _dbContext.Set<T>().AsNoTracking().ToListAsync(cancellationToken);
+            return await _dbContext.Services.AsNoTracking().ToListAsync(cancellationToken);
         }
 
-        public async Task<T> GetById(Guid id, CancellationToken cancellationToken)
+        public async Task<Service> GetById(Guid id, CancellationToken cancellationToken)
         {
-            return await _dbContext.Set<T>().AsNoTracking().FirstOrDefaultAsync(s => s.ServiceId == id, cancellationToken);
+            return await _dbContext.Services.AsNoTracking().FirstOrDefaultAsync(s => s.ServiceId == id, cancellationToken);
         }
 
     }

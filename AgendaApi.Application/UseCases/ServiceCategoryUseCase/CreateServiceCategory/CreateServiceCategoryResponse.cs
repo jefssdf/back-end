@@ -2,5 +2,5 @@
 
 namespace AgendaApi.Application.UseCases.ServiceCategoryUseCase.CreateServiceCategory
 {
-    public sealed record CreateServiceCategoryResponse : ServiceCategoryBaseResponse{ }
+    public sealed record CreateServiceCategoryResponse : ServiceCategoryBaseResponse;
 }

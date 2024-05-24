@@ -2,5 +2,5 @@
 
 namespace AgendaApi.Application.UseCases.NaturalPersonUseCases.CreateNaturalPerson
 {
-    public sealed record CreateNaturalPersonResponse : NaturalPersonBaseResponse { }
+    public sealed record CreateNaturalPersonResponse : NaturalPersonBaseResponse;
 }

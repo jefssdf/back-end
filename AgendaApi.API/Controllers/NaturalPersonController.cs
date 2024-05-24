@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace AgendaApi.API.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("[controller]")]
     [ApiController]
     public class NaturalPersonController : ControllerBase
     {
@@ -20,7 +20,8 @@ namespace AgendaApi.API.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<List<GetAllNaturalPersonResponse>>> GetAll(CancellationToken cancellationToken)
+        public async Task<ActionResult<List<GetAllNaturalPersonResponse>>> 
+            GetAll(CancellationToken cancellationToken)
         {
             var result = await _mediator.Send(new GetAllNaturalPersonRequest(), cancellationToken);
             return Ok(result);

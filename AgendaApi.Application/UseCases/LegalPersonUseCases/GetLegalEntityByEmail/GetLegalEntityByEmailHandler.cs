@@ -20,9 +20,9 @@ namespace AgendaApi.Application.UseCases.LegalPersonUseCases.GetLegalEntityByEma
         public async Task<GetLegalEntityByEmailResponse> Handle(GetLegalEntityByEmailRequest request,
             CancellationToken cancellationToken)
         {
-            if (request.email is null) return default;
-
             var entity = await _legalEntityRepository.GetByEmail(request.email, cancellationToken);
+            if (entity is null) return default;
+
             return _mapper.Map<GetLegalEntityByEmailResponse>(entity);
         }
     }

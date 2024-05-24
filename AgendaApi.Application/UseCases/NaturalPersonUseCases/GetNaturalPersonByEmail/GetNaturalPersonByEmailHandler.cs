@@ -20,9 +20,9 @@ namespace AgendaApi.Application.UseCases.NaturalPersonUseCases.GetNaturalPersonB
         public async Task<GetNaturalPersonByEmailResponse> Handle(GetNaturalPersonByEmailRequest request,
             CancellationToken cancellationToken)
         {
-            if (request.email is null) return default;
-
             var naturalPerson = await _naturalPersonRepository.GetByEmail(request.email, cancellationToken);
+            if (naturalPerson is null) return default;
+
             return _mapper.Map<GetNaturalPersonByEmailResponse>(naturalPerson);
         }
     }

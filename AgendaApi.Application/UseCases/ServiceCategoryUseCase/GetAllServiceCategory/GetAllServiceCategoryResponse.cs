@@ -2,5 +2,5 @@
 
 namespace AgendaApi.Application.UseCases.ServiceCategoryUseCase.GetAllServiceCategory
 {
-    public sealed record GetAllServiceCategoryResponse : ServiceCategoryBaseResponse { }
+    public sealed record GetAllServiceCategoryResponse : ServiceCategoryBaseResponse;
 }

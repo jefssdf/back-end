@@ -20,7 +20,8 @@ namespace AgendaApi.API.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<List<GetAllLegalEntityResponse>>> GetAll(CancellationToken cancellationToken)
+        public async Task<ActionResult<List<GetAllLegalEntityResponse>>> 
+            GetAll(CancellationToken cancellationToken)
         {
             var response = await _mediator.Send(new GetAllLegalEntityRequest(), cancellationToken);
             return Ok(response);
@@ -30,6 +31,7 @@ namespace AgendaApi.API.Controllers
         public async Task<ActionResult<GetLegalEntityByEmailResponse>> GetByEmail(string email,
             CancellationToken cancellationToken)
         {
+            if (email is null) return BadRequest();
             var response = await _mediator.Send(new GetLegalEntityByEmailRequest(email), cancellationToken);
             return Ok(response);
         }

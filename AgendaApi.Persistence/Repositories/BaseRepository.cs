@@ -5,7 +5,8 @@ using Microsoft.EntityFrameworkCore;
 
 namespace AgendaApi.Persistence.Repositories
 {
-    public class BaseRepository<T> : IBaseRepository<T> where T : Person    {
+    public class BaseRepository<T> : IBaseRepository<T> where T : Person   
+    {
         protected readonly AgendaApiDbContext Context;
         public BaseRepository(AgendaApiDbContext context)
         {

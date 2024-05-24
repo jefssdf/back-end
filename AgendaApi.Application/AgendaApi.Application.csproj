@@ -12,9 +12,6 @@
 
   <ItemGroup>
     <Folder Include="Shared\Exceptions\" />
-    <Folder Include="UseCases\ServiceCategoryUseCase\GetServiceCategoryById\" />
-    <Folder Include="UseCases\ServiceCategoryUseCase\UpdateServiceCategory\" />
-    <Folder Include="UseCases\ServiceUseCase\" />
   </ItemGroup>
 
   <ItemGroup>

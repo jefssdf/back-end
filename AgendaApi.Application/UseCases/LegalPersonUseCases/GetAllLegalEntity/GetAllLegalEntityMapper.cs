@@ -7,8 +7,7 @@ namespace AgendaApi.Application.UseCases.LegalPersonUseCases.GetAllLegalEntity
     {
         public GetAllLegalEntityMapper() 
         {
-            CreateMap<LegalEntity, GetAllLegalEntityResponse>()
-                .ForMember(dest => dest.id, opt => opt.MapFrom(src => src.LegalEntityId));
+            CreateMap<LegalEntity, GetAllLegalEntityResponse>();
         }
     }
     

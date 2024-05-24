@@ -123,10 +123,8 @@ namespace AgendaApi.Persistence.Migrations
                         .HasMaxLength(150)
                         .HasColumnType("nvarchar(150)");
 
-                    b.Property<TimeSpan>("Duration")
-                        .HasColumnType("time");
-
-                    b.Property<Guid>("Id")
+                    b.Property<Guid?>("LegalEntityId")
+                        .IsRequired()
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Name")
@@ -135,11 +133,16 @@ namespace AgendaApi.Persistence.Migrations
                         .HasColumnType("nvarchar(70)");
 
                     b.Property<decimal>("Price")
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("decimal(100,2)");
+
+                    b.Property<Guid?>("ServiceCategoryId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.HasKey("ServiceId");
 
-                    b.HasIndex("Id");
+                    b.HasIndex("LegalEntityId");
+
+                    b.HasIndex("ServiceCategoryId");
 
                     b.ToTable("Services");
                 });
@@ -185,19 +188,15 @@ namespace AgendaApi.Persistence.Migrations
                 {
                     b.HasOne("AgendaApi.Domain.Entities.LegalEntity", "LegalEntity")
                         .WithMany()
-                        .HasForeignKey("Id")
+                        .HasForeignKey("LegalEntityId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("AgendaApi.Domain.Entities.ServiceCategory", "ServiceCategory")
+                    b.HasOne("AgendaApi.Domain.Entities.ServiceCategory", null)
                         .WithMany("Services")
-                        .HasForeignKey("Id")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("ServiceCategoryId");
 
                     b.Navigation("LegalEntity");
-
-                    b.Navigation("ServiceCategory");
                 });
 
             modelBuilder.Entity("AgendaApi.Domain.Entities.ServiceCategory", b =>
