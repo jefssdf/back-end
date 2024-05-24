@@ -1,10 +1,13 @@
 ﻿using AgendaApi.Application.UseCases.ServiceCategoryUseCase.GetAllServiceCategory;
 using AgendaApi.Application.UseCases.ServiceUseCase.CreateService;
 using AgendaApi.Application.UseCases.ServiceUseCase.DeleteService;
+using AgendaApi.Application.UseCases.ServiceUseCase.GetAllService;
 using AgendaApi.Application.UseCases.ServiceUseCase.GetServiceById;
 using AgendaApi.Application.UseCases.ServiceUseCase.UpdateService;
+using AgendaApi.Persistence.Context;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace AgendaApi.API.Controllers
 {
@@ -13,17 +16,19 @@ namespace AgendaApi.API.Controllers
     public class ServiceController : ControllerBase
     {
         private readonly IMediator _mediator;
+        private readonly AgendaApiDbContext _dbContext;
 
-        public ServiceController(IMediator mediator)
+        public ServiceController(IMediator mediator, AgendaApiDbContext context)
         {
             _mediator = mediator;
+            _dbContext = context;
         }
 
         [HttpGet]
-        public async Task<ActionResult<List<GetAllServiceCategoryResponse>>> 
+        public async Task<ActionResult<List<GetAllServiceResponse>>> 
             GetAll(CancellationToken cancellationToken)
         {
-            var result = await _mediator.Send(new GetAllServiceCategoryRequest(), cancellationToken);
+            var result = await _mediator.Send(new GetAllServiceRequest(), cancellationToken);
             return Ok(result);
         }
 
@@ -50,7 +55,7 @@ namespace AgendaApi.API.Controllers
             UpdateServiceRequest request, CancellationToken cancellationToken)
         {
             if (id != request.id) return BadRequest();
-            var result = _mediator.Send(request, cancellationToken);
+            var result = await _mediator.Send(request, cancellationToken);
             return Ok(result);
         }
 

@@ -30,12 +30,12 @@ namespace AgendaApi.Persistence.Repositories
 
         public async Task<IEnumerable<Service>> GetAll(CancellationToken cancellationToken)
         {
-            return await _dbContext.Services.AsNoTracking().ToListAsync(cancellationToken);
+            return await _dbContext.Services.ToListAsync(cancellationToken);
         }
 
         public async Task<Service> GetById(Guid id, CancellationToken cancellationToken)
         {
-            return await _dbContext.Services.AsNoTracking().FirstOrDefaultAsync(s => s.ServiceId == id, cancellationToken);
+            return await _dbContext.Services.FirstOrDefaultAsync(s => s.ServiceId == id, cancellationToken);
         }
 
     }
