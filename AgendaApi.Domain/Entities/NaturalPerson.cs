@@ -7,7 +7,7 @@ namespace AgendaApi.Domain.Entities
         [Key]
         public Guid NaturalPersonId { get; set; }
         [Required]
-        [StringLength(15)]
+        [StringLength(15, MinimumLength = 11)]
         public string? Cpf { get; set; }
         [Required]
         public DateTimeOffset BirthDate { get; set; }

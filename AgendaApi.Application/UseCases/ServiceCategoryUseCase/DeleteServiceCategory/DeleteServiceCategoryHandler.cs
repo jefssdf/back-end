@@ -5,14 +5,11 @@ namespace AgendaApi.Application.UseCases.ServiceCategoryUseCase.DeleteServiceCat
 {
     public sealed class DeleteServiceCategoryHandler
     {
-        private readonly IServiceCategoryRepository _seviceCategoryRepository;
         private readonly IMapper _mapper;
         private readonly IUnitOfWork _unitOfWork;
 
-        public DeleteServiceCategoryHandler(IServiceCategoryRepository seviceCategoryRepository,
-            IMapper mapper, IUnitOfWork unitOfWork)
+        public DeleteServiceCategoryHandler(IMapper mapper, IUnitOfWork unitOfWork)
         {
-            _seviceCategoryRepository = seviceCategoryRepository;
             _mapper = mapper;
             _unitOfWork = unitOfWork;
         }
@@ -20,10 +17,11 @@ namespace AgendaApi.Application.UseCases.ServiceCategoryUseCase.DeleteServiceCat
         public async Task<DeleteServiceCategoryResponse> Handle(DeleteServiceCategoryRequest request,
             CancellationToken cancellationToken)
         {
-            var serviceCategory = await _seviceCategoryRepository.GetById(request.id, cancellationToken);
+            var serviceCategory = await _unitOfWork.ServiceCategoryRepository.GetById(
+                sc => sc.ServiceCategoryId == request.id, cancellationToken);
             if (serviceCategory is null) return default;
 
-            _seviceCategoryRepository.Delete(serviceCategory);
+            _unitOfWork.ServiceCategoryRepository.Delete(serviceCategory);
             await _unitOfWork.Commit(cancellationToken);
 
             return _mapper.Map<DeleteServiceCategoryResponse>(serviceCategory);

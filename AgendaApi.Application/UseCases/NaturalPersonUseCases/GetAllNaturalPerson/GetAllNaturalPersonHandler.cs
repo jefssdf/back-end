@@ -7,20 +7,20 @@ namespace AgendaApi.Application.UseCases.NaturalPersonUseCases.GetAllNaturalPers
     public sealed class GetAllNaturalPersonHandler
         : IRequestHandler<GetAllNaturalPersonRequest, List<GetAllNaturalPersonResponse>>
     {
-        private readonly INaturalPersonRepository _naturalPersonRepository;
+        private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
 
-        public GetAllNaturalPersonHandler(INaturalPersonRepository naturalPersonRepository, 
+        public GetAllNaturalPersonHandler(IUnitOfWork unitOfWork, 
             IMapper mapper)
         {
-            _naturalPersonRepository = naturalPersonRepository;
+            _unitOfWork = unitOfWork;
             _mapper = mapper;
         }
 
         public async Task<List<GetAllNaturalPersonResponse>> Handle(GetAllNaturalPersonRequest request,
             CancellationToken cancellationToken)
         {
-            var naturalPersons = await _naturalPersonRepository.GetAll(cancellationToken);
+            var naturalPersons = await _unitOfWork.NaturalPersonRepository.GetAll(cancellationToken);
             return _mapper.Map<List<GetAllNaturalPersonResponse>>(naturalPersons);
         }
     }

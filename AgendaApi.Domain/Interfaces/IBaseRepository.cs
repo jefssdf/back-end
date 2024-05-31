@@ -1,4 +1,5 @@
 ﻿using AgendaApi.Domain.Entities;
+using System.Linq.Expressions;
 
 namespace AgendaApi.Domain.Interfaces
 {
@@ -8,5 +9,6 @@ namespace AgendaApi.Domain.Interfaces
         void Update(T entity);
         void Delete(T entity);
         Task<IEnumerable<T>> GetAll(CancellationToken cancellationToken);
+        Task<T> GetById(Expression<Func<T, bool>> predicate, CancellationToken cancellationToken);
     }
 }

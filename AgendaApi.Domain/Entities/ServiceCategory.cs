@@ -13,10 +13,6 @@ namespace AgendaApi.Domain.Entities
         public string? Name { get; set; }
         [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
         public ICollection<Service>? Services { get; set; }
-
-        public ServiceCategory() 
-        {
-            Services = new Collection<Service>();
-        }
+        public ServiceCategory() { Services = new Collection<Service>(); }
     }
 }

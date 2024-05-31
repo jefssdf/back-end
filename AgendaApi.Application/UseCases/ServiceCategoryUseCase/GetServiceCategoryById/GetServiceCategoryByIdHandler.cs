@@ -7,20 +7,20 @@ namespace AgendaApi.Application.UseCases.ServiceCategoryUseCase.GetServiceCatego
     public sealed class GetServiceCategoryByIdHandler
         : IRequestHandler<GetServiceCategoryByIdRequest, GetServiceCategoryByIdResponse>
     {
-        private readonly IServiceCategoryRepository _serviceCategoryRepository;
+        private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
 
-        public GetServiceCategoryByIdHandler(IServiceCategoryRepository serviceCategoryRepository,
-            IMapper mapper)
+        public GetServiceCategoryByIdHandler(IUnitOfWork unitOfWork, IMapper mapper)
         {
-            _serviceCategoryRepository = serviceCategoryRepository;
+            _unitOfWork = unitOfWork;
             _mapper = mapper;
         }
 
         public async Task<GetServiceCategoryByIdResponse> Handle(GetServiceCategoryByIdRequest request,
             CancellationToken cancellationToken)
         {
-            var serviceCategory = await _serviceCategoryRepository.GetById(request.id, cancellationToken);
+            var serviceCategory = await _unitOfWork.ServiceCategoryRepository.GetById(
+                sc => sc.ServiceCategoryId == request.id, cancellationToken);
             if (serviceCategory is null) return default;
 
             return _mapper.Map<GetServiceCategoryByIdResponse>(serviceCategory);

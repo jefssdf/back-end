@@ -8,14 +8,9 @@ namespace AgendaApi.Persistence.Repositories
     public class LegalEntityRepository : BaseRepository<LegalEntity>, ILegalEntityRepository
     {
         public LegalEntityRepository(AgendaApiDbContext context) : base(context) { }
-
         public async Task<LegalEntity> GetByEmail(string email, CancellationToken cancellationToken)
         {
             return await Context.LegalEntities.AsNoTracking().FirstOrDefaultAsync(lp => lp.Email == email, cancellationToken);
-        }
-        public async Task<LegalEntity> GetById(Guid id, CancellationToken cancellationToken)
-        {
-            return await Context.LegalEntities.AsNoTracking().FirstOrDefaultAsync(lp => lp.LegalEntityId == id, cancellationToken);
         }
     }
 }

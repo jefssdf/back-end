@@ -8,14 +8,11 @@ namespace AgendaApi.Application.UseCases.ServiceUseCase.CreateService
     public sealed class CreateServiceHandler
         : IRequestHandler<CreateServiceRequest, CreateServiceResponse>
     {
-        private readonly IServiceRepository _serviceRepository;
         private readonly IMapper _mapper;
         private readonly IUnitOfWork _unitOfWork;
 
-        public CreateServiceHandler(IServiceRepository serviceRepository,
-            IMapper mapper, IUnitOfWork unitOfWork)
+        public CreateServiceHandler(IMapper mapper, IUnitOfWork unitOfWork)
         {
-            _serviceRepository = serviceRepository;
             _mapper = mapper;
             _unitOfWork = unitOfWork;
         }
@@ -24,7 +21,7 @@ namespace AgendaApi.Application.UseCases.ServiceUseCase.CreateService
             CancellationToken cancellationToken)
         {
             var service = _mapper.Map<Service>(request);
-            _serviceRepository.Create(service);
+            _unitOfWork.ServiceRepository.Create(service);
             await _unitOfWork.Commit(cancellationToken);
 
             return _mapper.Map<CreateServiceResponse>(service);

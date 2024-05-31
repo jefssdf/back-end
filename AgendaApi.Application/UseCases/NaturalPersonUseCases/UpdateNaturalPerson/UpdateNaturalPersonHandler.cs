@@ -7,14 +7,11 @@ namespace AgendaApi.Application.UseCases.NaturalPersonUseCases.UpdateNaturalPers
     public sealed class UpdateNaturalPersonHandler
         : IRequestHandler<UpdateNaturalPersonRequest, UpdateNaturalPersonResponse>
     {
-        private readonly INaturalPersonRepository _naturalPersonRepository;
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
 
-        public UpdateNaturalPersonHandler(INaturalPersonRepository naturalPersonRepository,
-            IUnitOfWork unitOfWork, IMapper mapper)
+        public UpdateNaturalPersonHandler(IUnitOfWork unitOfWork, IMapper mapper)
         {
-            _naturalPersonRepository = naturalPersonRepository;
             _unitOfWork = unitOfWork;
             _mapper = mapper;
         }
@@ -22,7 +19,8 @@ namespace AgendaApi.Application.UseCases.NaturalPersonUseCases.UpdateNaturalPers
         public async Task<UpdateNaturalPersonResponse> Handle(UpdateNaturalPersonRequest request,
             CancellationToken cancellationToken)
         {
-            var naturalPerson = await _naturalPersonRepository.GetById(request.id, cancellationToken);
+            var naturalPerson = await _unitOfWork.NaturalPersonRepository.GetById(
+                np => np.NaturalPersonId == request.id, cancellationToken);
 
             if (naturalPerson is null) return default;
 
@@ -34,7 +32,7 @@ namespace AgendaApi.Application.UseCases.NaturalPersonUseCases.UpdateNaturalPers
             naturalPerson.Cpf = request.cpf;
             naturalPerson.BirthDate = request.birthDate;
 
-            _naturalPersonRepository.Update(naturalPerson);
+            _unitOfWork.NaturalPersonRepository.Update(naturalPerson);
             await _unitOfWork.Commit(cancellationToken);
 
             return _mapper.Map<UpdateNaturalPersonResponse>(naturalPerson);

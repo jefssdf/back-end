@@ -7,14 +7,11 @@ namespace AgendaApi.Application.UseCases.NaturalPersonUseCases.DeleteNaturalPers
     public sealed class DeleteNaturalPersonHandler 
         : IRequestHandler<DeleteNaturalPersonRequest, DeleteNaturalPersonResponse>
     {
-        private readonly INaturalPersonRepository _naturalPersonRepository;
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
 
-        public DeleteNaturalPersonHandler(INaturalPersonRepository naturalPersonRepository, 
-            IUnitOfWork unitOfWork, IMapper mapper)
+        public DeleteNaturalPersonHandler(IUnitOfWork unitOfWork, IMapper mapper)
         {
-            _naturalPersonRepository = naturalPersonRepository;
             _unitOfWork = unitOfWork;
             _mapper = mapper;
         }
@@ -22,11 +19,12 @@ namespace AgendaApi.Application.UseCases.NaturalPersonUseCases.DeleteNaturalPers
         public async Task<DeleteNaturalPersonResponse> Handle(DeleteNaturalPersonRequest request,
             CancellationToken cancellationToken)
         {
-            var naturalPerson = await _naturalPersonRepository.GetById(request.id, cancellationToken);
+            var naturalPerson = await _unitOfWork.NaturalPersonRepository.GetById(
+                np => np.NaturalPersonId ==request.id, cancellationToken);
             
             if (naturalPerson == null) return default;
 
-            _naturalPersonRepository.Delete(naturalPerson);
+            _unitOfWork.NaturalPersonRepository.Delete(naturalPerson);
             await _unitOfWork.Commit(cancellationToken);
 
             return _mapper.Map<DeleteNaturalPersonResponse>(naturalPerson);

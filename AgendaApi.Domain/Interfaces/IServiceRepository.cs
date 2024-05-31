@@ -2,8 +2,5 @@
 
 namespace AgendaApi.Domain.Interfaces
 {
-    public interface IServiceRepository : IBaseRepository<Service>
-    {
-        Task<Service> GetById(Guid id, CancellationToken cancellationToken);
-    }
+    public interface IServiceRepository : IBaseRepository<Service>;
 }

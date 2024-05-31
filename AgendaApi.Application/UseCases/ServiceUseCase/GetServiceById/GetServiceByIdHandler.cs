@@ -7,20 +7,21 @@ namespace AgendaApi.Application.UseCases.ServiceUseCase.GetServiceById
     public sealed class GetServiceByIdHandler
         : IRequestHandler<GetServiceByIdRequest, GetServiceByIdResponse>
     {
-        private readonly IServiceRepository _serviceRepository;
+        private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
 
-        public GetServiceByIdHandler(IServiceRepository serviceRepository,
+        public GetServiceByIdHandler(IUnitOfWork unitOfWork,
             IMapper mapper)
         {
-            _serviceRepository = serviceRepository;
+            _unitOfWork = unitOfWork;
             _mapper = mapper;
         }
 
         public async Task<GetServiceByIdResponse> Handle(GetServiceByIdRequest request,
             CancellationToken cancellationToken)
         {
-            var service = await _serviceRepository.GetById(request.id, cancellationToken);
+            var service = await _unitOfWork.ServiceRepository.GetById(s => s.ServiceId == request.id,
+                cancellationToken);
             if (service is null) return default;
 
             return _mapper.Map<GetServiceByIdResponse>(service);

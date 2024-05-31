@@ -7,20 +7,20 @@ namespace AgendaApi.Application.UseCases.LegalPersonUseCases.GetLegalEntityByEma
     public sealed class GetLegalEntityByEmailHandler 
         : IRequestHandler<GetLegalEntityByEmailRequest, GetLegalEntityByEmailResponse>
     {
-        private readonly ILegalEntityRepository _legalEntityRepository;
+        private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
 
-        public GetLegalEntityByEmailHandler(ILegalEntityRepository legalEntityRepository,
+        public GetLegalEntityByEmailHandler(IUnitOfWork unitOfWork,
             IMapper mapper)
         {
-            _legalEntityRepository = legalEntityRepository;
+            _unitOfWork = unitOfWork;
             _mapper = mapper;
         }
 
         public async Task<GetLegalEntityByEmailResponse> Handle(GetLegalEntityByEmailRequest request,
             CancellationToken cancellationToken)
         {
-            var entity = await _legalEntityRepository.GetByEmail(request.email, cancellationToken);
+            var entity = await _unitOfWork.LegalEntityRepository.GetByEmail(request.email, cancellationToken);
             if (entity is null) return default;
 
             return _mapper.Map<GetLegalEntityByEmailResponse>(entity);

@@ -7,20 +7,19 @@ namespace AgendaApi.Application.UseCases.ServiceUseCase.GetAllService
     public sealed class GetAllServiceHandler
         : IRequestHandler<GetAllServiceRequest, List<GetAllServiceResponse>>
     {
-        private readonly IServiceRepository _serviceRepository;
+        private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
 
-        public GetAllServiceHandler(IServiceRepository serviceRepository,
-            IMapper mapper)
+        public GetAllServiceHandler(IUnitOfWork unitOfWork, IMapper mapper)
         {
-            _serviceRepository = serviceRepository;
+            _unitOfWork = unitOfWork;
             _mapper = mapper;
         }
 
         public async Task<List<GetAllServiceResponse>> Handle(GetAllServiceRequest request,
             CancellationToken cancellationToken)
         {
-            var services = await _serviceRepository.GetAll(cancellationToken);
+            var services = await _unitOfWork.ServiceRepository.GetAll(cancellationToken);
             return _mapper.Map<List<GetAllServiceResponse>>(services);
         }
     }
