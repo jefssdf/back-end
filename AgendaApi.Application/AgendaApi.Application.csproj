@@ -12,6 +12,12 @@
 
   <ItemGroup>
     <Folder Include="Shared\Exceptions\" />
+    <Folder Include="UseCases\SchedulingStatusUseCase\CreateSchedulingStatus\" />
+    <Folder Include="UseCases\SchedulingStatusUseCase\DeleteSchedulingStatus\" />
+    <Folder Include="UseCases\SchedulingStatusUseCase\DTOs\" />
+    <Folder Include="UseCases\SchedulingStatusUseCase\GetAllSchedulingStatus\" />
+    <Folder Include="UseCases\SchedulingStatusUseCase\GetSchedulingStatusById\" />
+    <Folder Include="UseCases\SchedulingStatusUseCase\UpdateSchedulingStatus\" />
   </ItemGroup>
 
   <ItemGroup>

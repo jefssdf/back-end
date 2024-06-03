@@ -1,9 +1,4 @@
 ﻿using MediatR;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace AgendaApi.Application.UseCases.NaturalPersonUseCases.CreateNaturalPerson
 {
@@ -11,9 +6,6 @@ namespace AgendaApi.Application.UseCases.NaturalPersonUseCases.CreateNaturalPers
         string name, 
         string email, 
         string password, 
-        string phoneNumber, 
-        string address, 
-        string cpf, 
-        DateTimeOffset birthDate)
+        string phoneNumber)
         : IRequest<CreateNaturalPersonResponse>;
 }

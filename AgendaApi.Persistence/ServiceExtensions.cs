@@ -14,15 +14,21 @@ namespace AgendaApi.Persistence
         {
             string connectionString = configuration.GetConnectionString("DefaultConnection");
             services.AddDbContext<AgendaApiDbContext>(options =>
-             options.UseSqlServer(connectionString, sqlOptions =>
-             {
-                 sqlOptions.MigrationsAssembly("AgendaApi.Persistence");
-             }));
+                options.UseSqlServer(connectionString, sqlOptions =>
+                    {
+                        sqlOptions.MigrationsAssembly("AgendaApi.Persistence");
+                    }));
             services.AddScoped<IUnitOfWork, UnitOfWork>();
+            services.AddScoped<ISuperAdminRepository, SuperAdminRepository>();
             services.AddScoped<INaturalPersonRepository, NaturalPersonRepository>();
             services.AddScoped<ILegalEntityRepository, LegalEntityRepository>();
             services.AddScoped<IServiceCategoryRepository, ServiceCategoryRepository>();
             services.AddScoped<IServiceRepository, ServiceRepository>();
+            services.AddScoped<IWeekDayRepository, WeekDayRepository>();
+            services.AddScoped<ITimetableRepository, TimetableRepository>();
+            services.AddScoped<ISchedulingStatusRepository, SchedulingStatusRepository>();
+            services.AddScoped<ISchedulingRepository, SchedulingRepository>();
+            services.AddScoped<ICancellationRepository, CancellationRepository>();
         }
     }
 }

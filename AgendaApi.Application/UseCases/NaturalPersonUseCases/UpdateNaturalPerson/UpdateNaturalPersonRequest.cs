@@ -7,10 +7,7 @@ namespace AgendaApi.Application.UseCases.NaturalPersonUseCases.UpdateNaturalPers
         string name,
         string email,
         string password,
-        string phoneNumber,
-        string address,
-        string cpf,
-        DateTimeOffset birthDate) 
+        string phoneNumber) 
         : IRequest<UpdateNaturalPersonResponse>
     {
     }

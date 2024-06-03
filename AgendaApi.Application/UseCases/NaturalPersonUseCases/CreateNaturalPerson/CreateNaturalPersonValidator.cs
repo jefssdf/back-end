@@ -23,15 +23,6 @@ namespace AgendaApi.Application.UseCases.NaturalPersonUsecases.CreateNaturalPers
                 .WithMessage("Contato celular é um campo obrigatório.")
                 .Matches(new Regex("^\\(?[1-9]{2}\\)? ?(?:[2-8]|9[0-9])[0-9]{3}\\-?[0-9]{4}$"))
                 .WithMessage("Número inserido inválido.");
-            RuleFor(np => np.address).NotEmpty()
-                .WithMessage("Endereço é um campo obrigatório.")
-                .MaximumLength(100);
-            RuleFor(np => np.cpf).NotEmpty()
-                .WithMessage("Cpf é um campo obrigatório.")
-                .MaximumLength(15);
-            RuleFor(np => np.birthDate).NotEmpty()
-                .WithMessage("Data de nascimento é um campo obrigatório.")
-                .LessThan(np => DateTime.Now).WithMessage("Data inválida.");
         }
     }
 }

@@ -1,9 +1,12 @@
 using AgendaApi.Application.Services;
-using Microsoft.EntityFrameworkCore.Design;
 using AgendaApi.Persistence;
 using AgendaApi.API.Extensions;
+using System.Text.Json.Serialization;
+using Microsoft.OpenApi.Models;
+using Microsoft.OpenApi.Any;
 
 namespace AgendaApi.API
+
 {
     public class Program
     {
@@ -15,9 +18,24 @@ namespace AgendaApi.API
             builder.Services.ConfigureApplicationApp();
             builder.Services.ConfigureCorsPolicy();
 
-            builder.Services.AddControllers();
+            builder.Services.AddControllers()
+                .AddJsonOptions(options =>
+                {
+                    options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
+                    options.JsonSerializerOptions.RegisterJsonConverters();
+                    options.JsonSerializerOptions.DefaultIgnoreCondition =
+                    JsonIgnoreCondition.WhenWritingNull;
+                });
             builder.Services.AddEndpointsApiExplorer();
-            builder.Services.AddSwaggerGen();
+            builder.Services.AddSwaggerGen(c =>
+            {
+                c.MapType<TimeOnly>(() => new OpenApiSchema
+                {
+                    Type = "string",
+                    Format = "time",
+                    Example = new OpenApiString("00:00")
+                });
+            });
 
             var app = builder.Build();
 

@@ -4,6 +4,7 @@ using AgendaApi.Application.UseCases.ServiceUseCase.DeleteService;
 using AgendaApi.Application.UseCases.ServiceUseCase.GetAllService;
 using AgendaApi.Application.UseCases.ServiceUseCase.GetServiceById;
 using AgendaApi.Application.UseCases.ServiceUseCase.UpdateService;
+using AgendaApi.Application.UseCases.ServiceUseCases.GetServiceByLegalEntityId;
 using AgendaApi.Persistence.Context;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -16,12 +17,10 @@ namespace AgendaApi.API.Controllers
     public class ServiceController : ControllerBase
     {
         private readonly IMediator _mediator;
-        private readonly AgendaApiDbContext _dbContext;
 
-        public ServiceController(IMediator mediator, AgendaApiDbContext context)
+        public ServiceController(IMediator mediator)
         {
             _mediator = mediator;
-            _dbContext = context;
         }
 
         [HttpGet]
@@ -38,6 +37,15 @@ namespace AgendaApi.API.Controllers
         {
             if (id is null) return BadRequest();
             var result = await _mediator.Send(new GetServiceByIdRequest(id.Value), cancellationToken);
+            return Ok(result);
+        }
+
+        [HttpGet("LegalEntityId/{id:Guid}")]
+        public async Task<ActionResult<List<GetServiceByLegalEntityIdResponse>>> GetByLegalEntityId(Guid? id,
+            CancellationToken cancellationToken)
+        {
+            if (id is null) return BadRequest();
+            var result = await _mediator.Send(new GetServiceByLegalEntityIdRequest(id.Value), cancellationToken);
             return Ok(result);
         }
 

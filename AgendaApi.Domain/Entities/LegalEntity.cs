@@ -1,17 +1,14 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace AgendaApi.Domain.Entities
+﻿namespace AgendaApi.Domain.Entities
 {
     public class LegalEntity : Person
     {
-        [Key]
         public Guid LegalEntityId { get; set; }
-        [Required]
-        [StringLength(20, MinimumLength = 14)]
         public string? Cnpj { get; set; }
-        [Required]
-        [StringLength(70)]
         public string? SocialName { get; set; }
+        public string? Address { get; set; }
+        public ICollection<Service> Services { get; set; }
+        public ICollection<Timetable> Timetables { get; set; }
+        public ICollection<Scheduling> Schedulings { get; set; }
     }
 
 

@@ -24,13 +24,6 @@ namespace AgendaApi.Application.UseCases.LegalPersonUseCases.UpdateLegalEntity
 
             if (entity is null) return default;
 
-            //entity.Name = request.name;
-            //entity.Email = request.email;
-            //entity.Password = request.password;
-            //entity.PhoneNumber = request.phoneNumber;
-            //entity.Address = request.address;
-            //entity.Cnpj = request.cnpj;
-            //entity.SocialName = request.socialName;
             _mapper.Map(request, entity);
             _unitOfWork.LegalEntityRepository.Update(entity);
             await _unitOfWork.Commit(cancellationToken);

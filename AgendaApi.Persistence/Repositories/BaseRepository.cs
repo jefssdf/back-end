@@ -25,11 +25,11 @@ namespace AgendaApi.Persistence.Repositories
         {
             Context.Set<T>().Remove(entity);
         }
-        public async Task<IEnumerable<T>> GetAll(CancellationToken cancellationToken)
+        public async virtual Task<IEnumerable<T>> GetAll(CancellationToken cancellationToken)
         {
             return await Context.Set<T>().AsNoTracking().ToListAsync(cancellationToken);
         }
-        public async Task<T> GetById(Expression<Func<T, bool>> predicate, CancellationToken cancellationToken)
+        public async virtual Task<T> GetById(Expression<Func<T, bool>> predicate, CancellationToken cancellationToken)
         {
             return await Context.Set<T>().AsNoTracking().FirstOrDefaultAsync(predicate, cancellationToken);
         }

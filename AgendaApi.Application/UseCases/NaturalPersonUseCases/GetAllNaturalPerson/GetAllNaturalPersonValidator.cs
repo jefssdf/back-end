@@ -4,6 +4,6 @@ namespace AgendaApi.Application.UseCases.NaturalPersonUseCases.GetAllNaturalPers
 {
     public class GetAllNaturalPersonValidator : AbstractValidator<GetAllNaturalPersonRequest>
     {
-        public GetAllNaturalPersonValidator() { }
+        //public GetAllNaturalPersonValidator() { }
     }
 }

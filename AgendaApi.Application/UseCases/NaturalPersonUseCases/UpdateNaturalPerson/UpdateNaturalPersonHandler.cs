@@ -24,14 +24,7 @@ namespace AgendaApi.Application.UseCases.NaturalPersonUseCases.UpdateNaturalPers
 
             if (naturalPerson is null) return default;
 
-            naturalPerson.Name = request.name;
-            naturalPerson.Email = request.email;
-            naturalPerson.Password = request.password;
-            naturalPerson.PhoneNumber = request.phoneNumber;
-            naturalPerson.Address = request.address;
-            naturalPerson.Cpf = request.cpf;
-            naturalPerson.BirthDate = request.birthDate;
-
+            _mapper.Map(request, naturalPerson);
             _unitOfWork.NaturalPersonRepository.Update(naturalPerson);
             await _unitOfWork.Commit(cancellationToken);
 

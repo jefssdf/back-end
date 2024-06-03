@@ -3,8 +3,5 @@
 namespace AgendaApi.Application.UseCases.LegalPersonUseCases.GetAllLegalEntity
 {
     public class GetAllLegalEntityValidator 
-        : AbstractValidator<GetAllLegalEntityRequest>
-    {
-        public GetAllLegalEntityValidator() { }
-    }
+        : AbstractValidator<GetAllLegalEntityRequest>;
 }

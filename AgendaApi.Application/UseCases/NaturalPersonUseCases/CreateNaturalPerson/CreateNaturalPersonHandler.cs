@@ -20,6 +20,9 @@ namespace AgendaApi.Application.UseCases.NaturalPersonUseCases.CreateNaturalPers
         public async Task<CreateNaturalPersonResponse> Handle(CreateNaturalPersonRequest request,
             CancellationToken cancellationToken)
         {
+            var validEmail = await _unitOfWork.NaturalPersonRepository.GetByEmail(request.email, cancellationToken);
+            if (validEmail != null) return default;
+
             NaturalPerson naturalPerson = _mapper.Map<NaturalPerson>(request);
             _unitOfWork.NaturalPersonRepository.Create(naturalPerson);
             await _unitOfWork.Commit(cancellationToken);
