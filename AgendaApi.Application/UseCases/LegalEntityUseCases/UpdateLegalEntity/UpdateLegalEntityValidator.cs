@@ -1,4 +1,5 @@
-﻿using FluentValidation;
+﻿using AgendaApi.Application.Shared.GlobalValidators;
+using FluentValidation;
 using System.Text.RegularExpressions;
 
 
@@ -8,7 +9,8 @@ namespace AgendaApi.Application.UseCases.LegalPersonUseCases.UpdateLegalEntity
     {
         public UpdateLegalEntityValidator()
         {
-            RuleFor(le => le.id).NotEmpty();
+            RuleFor(le => le.id).NotEmpty()
+                .Must(GuidValidator.BeValid);
             RuleFor(le => le.name).NotEmpty()
                 .WithMessage("Nome é um campo obrigatório.")
                 .MinimumLength(3).MaximumLength(70);

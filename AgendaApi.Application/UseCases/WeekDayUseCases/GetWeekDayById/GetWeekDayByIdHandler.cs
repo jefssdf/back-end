@@ -20,8 +20,6 @@ namespace AgendaApi.Application.UseCases.WeekDayUseCases.GetWeekDayById
             var weekDay = await _unitOfWork.WeekDayRepository.GetById(
                 wd => wd.WeekDayId == request.id, cancellationToken);
 
-            if (weekDay is null) return default;
-
             List<AvailableTimeDTOById> availableTimeList = new List<AvailableTimeDTOById>();
             foreach (var timetable in weekDay.Timetables)
             {

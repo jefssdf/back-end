@@ -1,4 +1,5 @@
-﻿using FluentValidation;
+﻿using AgendaApi.Application.Shared.GlobalValidators;
+using FluentValidation;
 
 namespace AgendaApi.Application.UseCases.TimetableUseCases.CreateTimetable
 {
@@ -17,7 +18,7 @@ namespace AgendaApi.Application.UseCases.TimetableUseCases.CreateTimetable
                 .Must(TimeOnlyValidFormat)
                 .WithMessage("O tempo deve estar no formato HH:mm.");
             RuleFor(tt => tt.endTime).NotEmpty()
-                .Must(TimeOnlyValidFormat)
+                .Must(TimeOnlyValidator.Format)
                 .WithMessage("O tempo deve estar no formato HH:mm.");
             RuleFor(tt => tt.legalEntityId).NotEmpty();
             RuleFor(tt => tt.weekDayId).NotEmpty()

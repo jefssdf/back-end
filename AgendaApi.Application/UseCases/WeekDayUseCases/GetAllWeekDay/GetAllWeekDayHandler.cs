@@ -18,7 +18,7 @@ namespace AgendaApi.Application.UseCases.WeekDayUseCases.GetAllWeekDay
             CancellationToken cancellationToken)
         {
             var weekDays = await _unitOfWork.WeekDayRepository.GetAll(cancellationToken);
-            //return _mapper.Map<List<GetAllWeekDayResponse>>(weekDays);
+
             List<AvailableTimeDTO> availableTimeList = new List<AvailableTimeDTO>();
             foreach (var weekDay in weekDays)
             {

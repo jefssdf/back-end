@@ -1,8 +1,8 @@
 ﻿namespace AgendaApi.Application.UseCases.WeekDayUseCases.DTOs
 {
-    public abstract record WeekDayBaseResponse
+    public abstract record BaseFreeSchedulingResponse
     {
+        public string AvailableTime { get; set; }
         public int WeekDayId { get; set; }
-        public string Name { get; set; }
     }
 }

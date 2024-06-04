@@ -12,6 +12,9 @@
 
   <ItemGroup>
     <Folder Include="Shared\Exceptions\" />
+    <Folder Include="UseCases\CancellationUseCase\DeleteCancellation\" />
+    <Folder Include="UseCases\CancellationUseCase\GetAllCancellation\" />
+    <Folder Include="UseCases\CancellationUseCase\GetAllCancellationByOwner\" />
     <Folder Include="UseCases\SchedulingStatusUseCase\CreateSchedulingStatus\" />
     <Folder Include="UseCases\SchedulingStatusUseCase\DeleteSchedulingStatus\" />
     <Folder Include="UseCases\SchedulingStatusUseCase\DTOs\" />
