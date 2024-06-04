@@ -1,4 +1,5 @@
-﻿using FluentValidation;
+﻿using AgendaApi.Application.Shared.GlobalValidators;
+using FluentValidation;
 
 namespace AgendaApi.Application.UseCases.CancellationUseCase.CreateCancellation
 {
@@ -9,15 +10,10 @@ namespace AgendaApi.Application.UseCases.CancellationUseCase.CreateCancellation
             RuleFor(c => c.cancellationTime).NotEmpty()
                 .LessThan(DateTime.Now)
                 .WithMessage("O cancelamento não pode ser feito em uma data no passado.");
-            RuleFor(c => c.owner).NotEmpty();
+            RuleFor(c => c.owner).NotEmpty()
+                .Must(GuidValidator.BeValid);
+            RuleFor(c => c.schedulingId).NotEmpty()
+                .Must(GuidValidator.BeValid);
         }
     }
 }
-
-
-
-/*
- DateTime? cancellationTime, 
-                Guid owner, 
-                Guid? schedulingId
- */

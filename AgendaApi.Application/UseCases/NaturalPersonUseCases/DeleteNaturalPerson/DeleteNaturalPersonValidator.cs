@@ -1,4 +1,5 @@
-﻿using FluentValidation;
+﻿using AgendaApi.Application.Shared.GlobalValidators;
+using FluentValidation;
 
 namespace AgendaApi.Application.UseCases.NaturalPersonUseCases.DeleteNaturalPerson
 {
@@ -6,7 +7,8 @@ namespace AgendaApi.Application.UseCases.NaturalPersonUseCases.DeleteNaturalPers
     {
         public DeleteNaturalPersonValidator() 
         {
-            RuleFor(np => np.id).NotEmpty();
+            RuleFor(np => np.id).NotEmpty()
+                .Must(GuidValidator.BeValid);
         }
     }
 }

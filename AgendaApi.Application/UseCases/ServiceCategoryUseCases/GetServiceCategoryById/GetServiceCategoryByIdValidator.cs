@@ -1,4 +1,5 @@
-﻿using FluentValidation;
+﻿using AgendaApi.Application.Shared.GlobalValidators;
+using FluentValidation;
 
 namespace AgendaApi.Application.UseCases.ServiceCategoryUseCase.GetServiceCategoryById
 {
@@ -6,7 +7,8 @@ namespace AgendaApi.Application.UseCases.ServiceCategoryUseCase.GetServiceCatego
     {
         public GetServiceCategoryByIdValidator() 
         {
-            RuleFor(cs => cs.id).NotEmpty();
+            RuleFor(cs => cs.id).NotEmpty()
+               .Must(GuidValidator.BeValid);
         }
     }
 }

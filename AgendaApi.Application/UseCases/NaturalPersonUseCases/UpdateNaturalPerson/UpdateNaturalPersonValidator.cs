@@ -1,4 +1,5 @@
-﻿using FluentValidation;
+﻿using AgendaApi.Application.Shared.GlobalValidators;
+using FluentValidation;
 using System.Text.RegularExpressions;
 
 namespace AgendaApi.Application.UseCases.NaturalPersonUseCases.UpdateNaturalPerson
@@ -7,7 +8,8 @@ namespace AgendaApi.Application.UseCases.NaturalPersonUseCases.UpdateNaturalPers
     {
         public UpdateNaturalPersonValidator() 
         {
-            RuleFor(np => np.id).NotEmpty();
+            RuleFor(np => np.id).NotEmpty()
+                .Must(GuidValidator.BeValid);
             RuleFor(np => np.name).NotEmpty()
                 .WithMessage("Nome é um campo obrigatório.")
                 .MinimumLength(3).MaximumLength(70);

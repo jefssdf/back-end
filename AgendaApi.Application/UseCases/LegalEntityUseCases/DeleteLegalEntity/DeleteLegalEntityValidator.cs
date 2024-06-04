@@ -1,4 +1,5 @@
-﻿using FluentValidation;
+﻿using AgendaApi.Application.Shared.GlobalValidators;
+using FluentValidation;
 
 namespace AgendaApi.Application.UseCases.LegalPersonUseCases.DeleteLegalEntity
 {
@@ -6,7 +7,8 @@ namespace AgendaApi.Application.UseCases.LegalPersonUseCases.DeleteLegalEntity
     {
         public DeleteLegalEntityValidator() 
         {
-            RuleFor(le => le.Id).NotEmpty();
+            RuleFor(le => le.Id).NotEmpty()
+                .Must(GuidValidator.BeValid);
         }
     }
 }

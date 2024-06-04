@@ -7,6 +7,6 @@ namespace AgendaApi.Application.UseCases.ServiceUseCase.UpdateService
         string? name,
         string? description,
         decimal price,
-        Guid? legalEntityId)
+        Guid legalEntityId)
         : IRequest<UpdateServiceResponse>;
 }
