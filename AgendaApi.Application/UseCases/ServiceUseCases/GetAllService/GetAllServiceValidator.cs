@@ -3,8 +3,5 @@
 namespace AgendaApi.Application.UseCases.ServiceUseCase.GetAllService
 {
     public class GetAllServiceValidator 
-        : AbstractValidator<GetAllServiceRequest>
-    {
-        public GetAllServiceValidator() { }
-    }
+        : AbstractValidator<GetAllServiceRequest>;
 }
