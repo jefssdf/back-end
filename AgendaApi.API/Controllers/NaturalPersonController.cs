@@ -32,6 +32,7 @@ namespace AgendaApi.API.Controllers
             CancellationToken cancellationToken)
         {
             if (email is null) return BadRequest();
+
             var result = await _mediator.Send(new GetNaturalPersonByEmailRequest(email), cancellationToken);
             return Ok(result);
         }
@@ -41,6 +42,7 @@ namespace AgendaApi.API.Controllers
             CancellationToken cancellationToken)
         {
             if (request is null) return BadRequest();
+
             var result = await _mediator.Send(request, cancellationToken);
             return Ok(result);
         }
@@ -50,6 +52,7 @@ namespace AgendaApi.API.Controllers
             CancellationToken cancellationToken)
         {
             if (id != request.id) return BadRequest();
+
             var result = await _mediator.Send(request, cancellationToken);
             return Ok(result);
         }
@@ -59,6 +62,7 @@ namespace AgendaApi.API.Controllers
             CancellationToken cancellationToken)
         {
             if (id is null) return BadRequest();
+
             var result = await _mediator.Send(new DeleteNaturalPersonRequest(id.Value), cancellationToken);
             return Ok(result);
         }

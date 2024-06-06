@@ -2,6 +2,7 @@
 using AgendaApi.Domain.Interfaces;
 using AgendaApi.Persistence.Context;
 using Microsoft.EntityFrameworkCore;
+using System.Linq.Expressions;
 
 namespace AgendaApi.Persistence.Repositories
 {
@@ -13,6 +14,10 @@ namespace AgendaApi.Persistence.Repositories
             var timetables = await Context.Timetables.ToListAsync();
             Context.Timetables.RemoveRange(timetables);
             return timetables;
+        }
+        public async Task<Timetable> GetByWeekDayId(Expression<Func<Timetable, bool>> predicate, CancellationToken cancellationToken)
+        {
+            return await Context.Timetables.FirstOrDefaultAsync(predicate, cancellationToken);
         }
     }
 }

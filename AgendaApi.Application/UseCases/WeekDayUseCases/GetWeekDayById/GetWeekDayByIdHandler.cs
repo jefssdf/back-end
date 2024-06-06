@@ -1,4 +1,5 @@
-﻿using AgendaApi.Domain.Interfaces;
+﻿using AgendaApi.Application.Shared.Extensions;
+using AgendaApi.Domain.Interfaces;
 using AutoMapper;
 using MediatR;
 
@@ -21,6 +22,7 @@ namespace AgendaApi.Application.UseCases.WeekDayUseCases.GetWeekDayById
                 wd => wd.WeekDayId == request.id, cancellationToken);
 
             List<AvailableTimeDTOById> availableTimeList = new List<AvailableTimeDTOById>();
+            //availableTimeList = weekDay.Timetables.PrintFormatedTimetable(availableTimeList);
             foreach (var timetable in weekDay.Timetables)
             {
                 while (timetable.StartTime < timetable.EndTime)

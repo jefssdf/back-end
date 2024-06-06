@@ -3,9 +3,9 @@
     public class Scheduling
     {
         public Guid SchedulingId { get; set; }
-        public DateTime Solicitation {  get; set; }
-        public DateTime Confirmation { get; set; }
-        public DateTime ConfirmedScheduling { get; set; }
+        public DateTime SolicitationDate {  get; set; }
+        public DateTime ConfirmationDate { get; set; }
+        public DateTime SchedulingDate { get; set; }
         public Guid SchedulingStatusId { get; set; }
         public SchedulingStatus SchedulingStatus { get; set; }
         public Guid NaturalPersonId { get; set; }
@@ -15,5 +15,7 @@
         public Guid ServiceId { get; set; }
         public Service Service { get; set; }
         public Cancellation Cancellation { get; set; }
+        public Guid TimetableId { get; set; }
+        public Timetable Timetable { get; set; }
     }
 }

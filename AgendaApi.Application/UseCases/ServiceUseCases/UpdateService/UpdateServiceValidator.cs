@@ -11,6 +11,9 @@ namespace AgendaApi.Application.UseCases.ServiceUseCase.UpdateService
                 .WithMessage("Nome é um campo obrigatório")
                 .MinimumLength(3).MaximumLength(70);
             RuleFor(s => s.description).NotEmpty();
+            RuleFor(s => s.duration).NotEmpty()
+                .Must(TimeSpanValidator.BeMultipleOf30Minutes);
+            RuleFor(s => s.price).NotEmpty();
             RuleFor(s => s.legalEntityId).NotEmpty()
                 .Must(GuidValidator.BeValid);
         }

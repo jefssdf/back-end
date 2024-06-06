@@ -32,6 +32,7 @@ namespace AgendaApi.API.Controllers
             CancellationToken cancellationToken)
         {
             if (email is null) return BadRequest();
+
             var response = await _mediator.Send(new GetLegalEntityByEmailRequest(email), cancellationToken);
             return Ok(response);
         }

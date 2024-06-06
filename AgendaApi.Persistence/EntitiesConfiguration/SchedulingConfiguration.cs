@@ -9,13 +9,13 @@ namespace AgendaApi.Persistence.EntitiesConfiguration
         public void Configure(EntityTypeBuilder<Scheduling> builder)
         {
             builder.HasKey(s => s.SchedulingId);
-            builder.Property(s => s.Solicitation)
+            builder.Property(s => s.SolicitationDate)
                 .HasColumnType("datetime2").HasPrecision(0)
                 .IsRequired();
-            builder.Property(s => s.Confirmation)
+            builder.Property(s => s.ConfirmationDate)
                 .HasColumnType("datetime2").HasPrecision(0)
                 .IsRequired();
-            builder.Property(s => s.ConfirmedScheduling)
+            builder.Property(s => s.SchedulingDate)
                 .HasColumnType("datetime2").HasPrecision(0)
                 .IsRequired();
             builder.HasOne(s => s.SchedulingStatus)
@@ -30,6 +30,9 @@ namespace AgendaApi.Persistence.EntitiesConfiguration
             builder.HasOne(s => s.Service)
                 .WithOne(s => s.Scheduling)
                 .HasForeignKey<Scheduling>(s => s.ServiceId);
+            builder.HasOne(s => s.Timetable)
+                .WithMany(tt => tt.Schedulings)
+                .HasForeignKey(s => s.TimetableId);
         }
     }
 }

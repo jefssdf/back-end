@@ -1,7 +1,5 @@
-﻿using AgendaApi.Application.UseCases.TimetableUseCases.DTOs;
-using AgendaApi.Application.UseCases.TimetableUseCases.GetAllTimetables;
+﻿using AgendaApi.Application.UseCases.TimetableUseCases.GetAllTimetables;
 using AgendaApi.Application.UseCases.WeekDayUseCases.DTOs;
-using AgendaApi.Domain.Entities;
 
 namespace AgendaApi.Application.UseCases.WeekDayUseCases.GetWeekDayById
 {

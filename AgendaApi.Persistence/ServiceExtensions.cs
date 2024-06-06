@@ -14,10 +14,10 @@ namespace AgendaApi.Persistence
         {
             string connectionString = configuration.GetConnectionString("DefaultConnection");
             services.AddDbContext<AgendaApiDbContext>(options =>
-                options.UseSqlServer(connectionString, sqlOptions =>
-                    {
-                        sqlOptions.MigrationsAssembly("AgendaApi.Persistence");
-                    }));
+             options.UseSqlServer(connectionString, sqlOptions =>
+             {
+                 sqlOptions.MigrationsAssembly("AgendaApi.Persistence");
+             }));
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddScoped<ISuperAdminRepository, SuperAdminRepository>();
             services.AddScoped<INaturalPersonRepository, NaturalPersonRepository>();
