@@ -26,12 +26,12 @@ namespace AgendaApi.API.Controllers
         }
 
         [HttpGet("{id:Guid}")]
-        public async Task<ActionResult<GetSchedulingStatusByIdResponse>> GetById(Guid? id,
+        public async Task<ActionResult<GetSchedulingStatusByIdResponse>> GetById(int id,
             CancellationToken cancellationToken)
         {
-            if (id is null) return BadRequest();
+            if (id == null) return BadRequest();
 
-            var result = _mediator.Send(new GetSchedulingStatusByIdRequest(id.Value), cancellationToken);
+            var result = _mediator.Send(new GetSchedulingStatusByIdRequest(id), cancellationToken);
             return Ok(result);
         }
 
