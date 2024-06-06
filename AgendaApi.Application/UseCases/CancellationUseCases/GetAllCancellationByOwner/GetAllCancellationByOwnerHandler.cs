@@ -18,7 +18,7 @@ namespace AgendaApi.Application.UseCases.CancellationUseCase.GetAllCancellationB
         public async Task<List<GetAllCancellationByOwnerResponse>> Handle(GetAllCancellationByOwnerRequest request,
             CancellationToken cancellationToken)
         {
-            var cancellations = await _unitOfWork.CancellationRepository.GetAllByOwner(request.id, cancellationToken);
+            var cancellations = await _unitOfWork.CancellationRepository.GetAllByOwner(c => c.Owner == request.id, cancellationToken);
             return _mapper.Map<List<GetAllCancellationByOwnerResponse>>(cancellations);
         }
     }

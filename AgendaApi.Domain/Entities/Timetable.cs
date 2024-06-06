@@ -1,5 +1,4 @@
-﻿
-namespace AgendaApi.Domain.Entities
+﻿namespace AgendaApi.Domain.Entities
 {
     public class Timetable
     {

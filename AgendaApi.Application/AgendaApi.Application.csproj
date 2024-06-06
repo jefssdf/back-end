@@ -12,12 +12,6 @@
 
   <ItemGroup>
     <Folder Include="Shared\Exceptions\" />
-    <Folder Include="UseCases\SchedulingUseCases\DeleteScheduling\" />
-    <Folder Include="UseCases\SchedulingUseCases\GetAllScheduling\" />
-    <Folder Include="UseCases\SchedulingUseCases\GetAllSchedulingByLegalEntity\" />
-    <Folder Include="UseCases\SchedulingUseCases\GetAllSchedulingByNaturalPerson\" />
-    <Folder Include="UseCases\SchedulingUseCases\GetSchedulingById\" />
-    <Folder Include="UseCases\SchedulingUseCases\UpdateScheduling\" />
   </ItemGroup>
 
   <ItemGroup>

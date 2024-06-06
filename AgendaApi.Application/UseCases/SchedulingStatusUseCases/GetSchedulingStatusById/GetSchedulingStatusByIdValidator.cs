@@ -7,8 +7,7 @@ namespace AgendaApi.Application.UseCases.SchedulingStatusUseCase.GetSchedulingSt
     {
         public GetSchedulingStatusByIdValidator() 
         {
-            RuleFor(ss => ss.id).NotEmpty()
-                .Must(GuidValidator.BeValid);
+            RuleFor(ss => ss.id).NotEmpty();
         }
     }
 }

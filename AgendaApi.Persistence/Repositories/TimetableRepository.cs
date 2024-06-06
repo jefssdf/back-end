@@ -15,7 +15,7 @@ namespace AgendaApi.Persistence.Repositories
             Context.Timetables.RemoveRange(timetables);
             return timetables;
         }
-        public async Task<Timetable> GetByWeekDayId(Expression<Func<Timetable, bool>> predicate, CancellationToken cancellationToken)
+        public async Task<Timetable> GetAllById(Expression<Func<Timetable, bool>> predicate, CancellationToken cancellationToken)
         {
             return await Context.Timetables.FirstOrDefaultAsync(predicate, cancellationToken);
         }

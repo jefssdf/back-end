@@ -17,7 +17,7 @@ namespace AgendaApi.Application.UseCases.ServiceUseCases.GetServiceByLegalEntity
         public async Task<List<GetServiceByLegalEntityIdResponse>> Handle(GetServiceByLegalEntityIdRequest request,
             CancellationToken cancellationToken)
         {
-            var services = await _unitOfWork.ServiceRepository.GetAllServicesByLegalEntityId(request.id, cancellationToken);
+            var services = await _unitOfWork.ServiceRepository.GetAllById(s => s.LegalEntityId == request.id, cancellationToken);
             return _mapper.Map<List<GetServiceByLegalEntityIdResponse>>(services);
         }
     }

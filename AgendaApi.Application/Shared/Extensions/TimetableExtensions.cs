@@ -1,5 +1,6 @@
 ﻿using AgendaApi.Application.UseCases.WeekDayUseCases.GetAllWeekDay;
 using AgendaApi.Domain.Entities;
+using System.Reflection.Metadata.Ecma335;
 
 namespace AgendaApi.Application.Shared.Extensions
 {
@@ -22,15 +23,24 @@ namespace AgendaApi.Application.Shared.Extensions
             }
             return list;
         }
-        //public static bool VerifyAvailability(this Timetable timetable, DateTime startTime, TimeSpan duration)
-        //{
-        //    DateTime endTime = startTime.Add(duration);
-        //    TimeOnly timeOnlyStartTime = TimeOnly.FromDateTime(startTime);
-        //    TimeOnly timeOnlyEndTime = TimeOnly.FromDateTime(endTime);
+        public static bool VerifyAvailability(this ICollection<Timetable> timetables, DateTime startTime, Service service)
+        {
+            DateTime endTime = startTime.Add(service.Duration);
+            TimeOnly timeOnlyStartTime = TimeOnly.FromDateTime(startTime);
+            TimeOnly timeOnlyEndTime = TimeOnly.FromDateTime(endTime);
 
-        //    if (timeOnlyStartTime < timetable.StartTime || timeOnlyEndTime >= timetable.EndTime) return false;
+            foreach (var timetable in timetables)
+            {
+                if (timeOnlyStartTime < timetable.StartTime || timeOnlyEndTime >= timetable.EndTime) return false;
 
-        //    foreach ()
-        //}
+                foreach (var scheduling in timetable.Schedulings)
+                {
+                    if ((startTime >= scheduling.ConfirmationDate && startTime < scheduling.ConfirmationDate.Add(scheduling.Service.Duration)) ||
+                        (endTime > scheduling.ConfirmationDate && endTime <= scheduling.ConfirmationDate.Add(scheduling.Service.Duration)) ||
+                        (startTime <= scheduling.ConfirmationDate && endTime >= scheduling.ConfirmationDate.Add(scheduling.Service.Duration)))  return false;
+                }
+            }
+            return true;
+        }
     }
 }

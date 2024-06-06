@@ -3,7 +3,7 @@
 namespace AgendaApi.Application.UseCases.SchedulingStatusUseCase.UpdateSchedulingStatus
 {
     public sealed record UpdateSchedulingStatusRequest(
-                Guid id, 
+                int id, 
                 string statusName)
                     : IRequest<UpdateSchedulingStatusResponse>;
 }

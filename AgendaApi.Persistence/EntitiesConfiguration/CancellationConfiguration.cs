@@ -12,6 +12,7 @@ namespace AgendaApi.Persistence.EntitiesConfiguration
             builder.Property(c => c.CancellationTime)
                 .HasColumnType("datetime2").HasPrecision(0).IsRequired();
             builder.Property(c => c.Owner).IsRequired();
+            builder.Property(c => c.SchedulingId).IsRequired();
             builder.HasOne(c => c.Scheduling)
                 .WithOne(s => s.Cancellation)
                 .HasForeignKey<Cancellation>(c => c.SchedulingId);

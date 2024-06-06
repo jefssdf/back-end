@@ -13,11 +13,11 @@ namespace AgendaApi.Persistence.Repositories
         {
             Context = context;
         }
-        public void Create(T entity)
+        public virtual void Create(T entity)
         {
             Context.Set<T>().Add(entity);
         }
-        public void Update(T entity)
+        public virtual void Update(T entity)
         {
             Context.Set<T>().Update(entity);
         }

@@ -7,8 +7,7 @@ namespace AgendaApi.Application.UseCases.SchedulingStatusUseCase.DeleteSchedulin
     {
         public DeleteSchedulingStatusValidator() 
         {
-            RuleFor(ss => ss.id).NotEmpty()
-                .Must(GuidValidator.BeValid);
+            RuleFor(ss => ss.id).NotEmpty();
         }
     }
 }

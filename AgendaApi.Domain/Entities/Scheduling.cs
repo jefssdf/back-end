@@ -6,7 +6,7 @@
         public DateTime SolicitationDate {  get; set; }
         public DateTime ConfirmationDate { get; set; }
         public DateTime SchedulingDate { get; set; }
-        public Guid SchedulingStatusId { get; set; }
+        public int SchedulingStatusId { get; set; }
         public SchedulingStatus SchedulingStatus { get; set; }
         public Guid NaturalPersonId { get; set; }
         public NaturalPerson NaturalPerson { get; set; }

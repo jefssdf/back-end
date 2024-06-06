@@ -11,7 +11,20 @@ namespace AgendaApi.Persistence.Repositories
     {
         public SchedulingRepository(AgendaApiDbContext context) : base(context) { }
 
-        public async Task<IEnumerable<Scheduling>> GetAllSchedulingsByTimetableId(Expression<Func<Scheduling, bool>> predicate, CancellationToken cancellationToken)
+        public override void Create(Scheduling entity)
+        {
+            entity.SchedulingStatusId = 0;
+            entity.SolicitationDate = DateTime.Now;
+            base.Create(entity);
+        }
+
+        public override void Update(Scheduling entity)
+        {
+            entity.ConfirmationDate = DateTime.Now;
+            base.Update(entity);
+        }
+
+        public async Task<IEnumerable<Scheduling>> GetAllById(Expression<Func<Scheduling, bool>> predicate, CancellationToken cancellationToken)
         {
             return await Context.Schedulings.Where(predicate).ToListAsync(cancellationToken);
         }

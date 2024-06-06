@@ -1,9 +1,10 @@
 ﻿using AgendaApi.Domain.Entities;
+using System.Linq.Expressions;
 
 namespace AgendaApi.Domain.Interfaces
 {
     public interface IServiceRepository : IBaseRepository<Service>
     {
-        Task<IEnumerable<Service>> GetAllServicesByLegalEntityId(Guid id, CancellationToken cancellationToken);
+        Task<IEnumerable<Service>> GetAllById(Expression<Func<Service, bool>> predicate, CancellationToken cancellationToken);
     }
 }
