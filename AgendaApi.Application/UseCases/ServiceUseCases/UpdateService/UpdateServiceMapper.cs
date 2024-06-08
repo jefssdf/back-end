@@ -7,7 +7,8 @@ namespace AgendaApi.Application.UseCases.ServiceUseCase.UpdateService
     {
         public UpdateServiceMapper() 
         {
-            CreateMap<Service, UpdateServiceResponse>();
+            CreateMap<Service, UpdateServiceResponse>()
+                .ForMember(dest => dest.Duration, opt => opt.MapFrom(src => TimeSpan.Parse(src.Duration.ToString("00:00"))));
         }
     }
 }

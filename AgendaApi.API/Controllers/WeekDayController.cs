@@ -28,7 +28,7 @@ namespace AgendaApi.API.Controllers
         }
 
         [HttpGet("{id:int}")]
-        public async Task<ActionResult<List<FreeSchedulingResponseById>>> 
+        public async Task<ActionResult<GetWeekDayByIdResponseComplete>> 
             GetById(int id, CancellationToken cancellationToken)
         {
             if (id == null) return BadRequest();

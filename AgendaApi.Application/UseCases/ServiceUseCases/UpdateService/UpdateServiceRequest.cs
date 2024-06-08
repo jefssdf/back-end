@@ -6,7 +6,7 @@ namespace AgendaApi.Application.UseCases.ServiceUseCase.UpdateService
         Guid id,
         string? name,
         string? description,
-        TimeSpan duration,
+        string duration,
         decimal price,
         Guid legalEntityId)
         : IRequest<UpdateServiceResponse>;

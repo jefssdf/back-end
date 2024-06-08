@@ -16,9 +16,6 @@ namespace AgendaApi.Persistence.Migrations
                 columns: table => new
                 {
                     LegalEntityId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Cnpj = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
-                    SocialName = table.Column<string>(type: "nvarchar(70)", maxLength: 70, nullable: false),
-                    Address = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
                     Name = table.Column<string>(type: "nvarchar(70)", maxLength: 70, nullable: false),
                     Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Password = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: false),
@@ -48,8 +45,7 @@ namespace AgendaApi.Persistence.Migrations
                 name: "SchedulingStatus",
                 columns: table => new
                 {
-                    SchedulingStatusId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                    SchedulingStatusId = table.Column<int>(type: "int", nullable: false),
                     StatusName = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false)
                 },
                 constraints: table =>
@@ -74,8 +70,7 @@ namespace AgendaApi.Persistence.Migrations
                 name: "WeekDays",
                 columns: table => new
                 {
-                    WeekDayId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                    WeekDayId = table.Column<int>(type: "int", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false)
                 },
                 constraints: table =>
@@ -101,7 +96,8 @@ namespace AgendaApi.Persistence.Migrations
                         name: "FK_Services_LegalEntities_LegalEntityId",
                         column: x => x.LegalEntityId,
                         principalTable: "LegalEntities",
-                        principalColumn: "LegalEntityId");
+                        principalColumn: "LegalEntityId",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(

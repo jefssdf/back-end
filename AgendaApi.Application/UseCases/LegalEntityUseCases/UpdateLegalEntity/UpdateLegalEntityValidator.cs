@@ -24,15 +24,6 @@ namespace AgendaApi.Application.UseCases.LegalPersonUseCases.UpdateLegalEntity
                 .WithMessage("Contato de celular é um campo obrigatório.")
                 .Matches(new Regex("^\\(?[1-9]{2}\\)? ?(?:[2-8]|9[0-9])[0-9]{3}\\-?[0-9]{4}$"))
                 .WithMessage("Número inserido inválido.");
-            RuleFor(le => le.address).NotEmpty()
-                .WithMessage("Endereço é um campo obrigatório.")
-                .MaximumLength(100);
-            RuleFor(le => le.cnpj).NotEmpty()
-                .WithMessage("Cnpj é um campo obrigatório.")
-                .MaximumLength(20);
-            RuleFor(le => le.socialName).NotEmpty()
-                .WithMessage("Nome social é um campo obrigatório.")
-                .MinimumLength(8).MaximumLength(70);
         }
 
     }

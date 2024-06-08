@@ -6,6 +6,7 @@ namespace AgendaApi.Application.UseCases.SchedulingStatusUseCase.CreateSchedulin
     {
         public CreateSchedulingStatusValidator() 
         {
+            RuleFor(ss => ss.SchedulingStatusId).NotEmpty();
             RuleFor(ss => ss.statusName).NotEmpty();
         }
     }

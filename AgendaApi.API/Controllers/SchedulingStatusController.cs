@@ -31,7 +31,7 @@ namespace AgendaApi.API.Controllers
         {
             if (id == null) return BadRequest();
 
-            var result = _mediator.Send(new GetSchedulingStatusByIdRequest(id), cancellationToken);
+            var result = await _mediator.Send(new GetSchedulingStatusByIdRequest(id), cancellationToken);
             return Ok(result);
         }
 
@@ -41,7 +41,7 @@ namespace AgendaApi.API.Controllers
         {
             if (request is null) return BadRequest();
 
-            var result = _mediator.Send(request, cancellationToken);
+            var result = await _mediator.Send(request, cancellationToken);
             return Ok(result);
         }
 

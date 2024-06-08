@@ -2,7 +2,7 @@
 {
     public abstract record SchedulingStatusBaseResponse
     {
-        public Guid SchedulingStatusId { get; set; }
+        public int SchedulingStatusId { get; set; }
         public string StatusName { get; set; }
     }
 }

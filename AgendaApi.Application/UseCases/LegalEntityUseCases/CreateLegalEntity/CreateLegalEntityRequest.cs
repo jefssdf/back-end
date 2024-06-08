@@ -6,9 +6,6 @@ namespace AgendaApi.Application.UseCases.LegalPersonUseCases.CreateLegalEntity
         string name,
         string email,
         string password,
-        string phoneNumber,
-        string address,
-        string cnpj,
-        string socialName)
+        string phoneNumber)
         : IRequest<CreateLegalEntityResponse>;
 }

@@ -6,9 +6,7 @@ namespace AgendaApi.Application.UseCases.WeekDayUseCases.CreateWeekDay
     {
         public CreateWeekDayValidator()
         {
-            RuleFor(wd => wd.weekDayId).NotEmpty()
-                .InclusiveBetween(0, 6)
-                .WithMessage("O dia da semana deve estar entre 0 (domingo) e 6 (sábado).");
+            RuleFor(wd => wd.WeekDayId).NotEmpty();
             RuleFor(wd => wd.name).NotEmpty();
         }
     }

@@ -15,11 +15,6 @@ namespace AgendaApi.Persistence.EntitiesConfiguration
             builder.Property(le => le.PhoneNumber).HasMaxLength(11)
                 .HasAnnotation("RegularExpression", 
                 "^\\(?[1-9]{2}\\)? ?(?:[2-8]|9[0-9])[0-9]{3}\\-?[0-9]{4}$").IsRequired();
-            builder.Property(le => le.Address).HasMaxLength(100);
-            builder.Property(le => le.Cnpj).HasMaxLength(20)
-                .HasAnnotation("RegularExpression", "\\d{2}\\.?\\d{3}\\.?\\d{3}\\/?\\d{4}\\-?\\d{2}\\")
-                .IsRequired();
-            builder.Property(le => le.SocialName).HasMaxLength(70).IsRequired();
             builder.HasMany(le => le.Services)
                 .WithOne(s => s.LegalEntity)
                 .HasForeignKey(s => s.LegalEntityId);

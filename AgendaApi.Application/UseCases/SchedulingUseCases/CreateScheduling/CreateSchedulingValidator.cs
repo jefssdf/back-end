@@ -8,7 +8,7 @@ namespace AgendaApi.Application.UseCases.SchedulingUseCases.CreateScheduling
         public CreateSchedulingValidator() 
         {
             RuleFor(s => s.schedulingDate).NotEmpty()
-                .LessThan(DateTime.Now);
+                .GreaterThan(DateTime.Now);
             RuleFor(s => s.naturalPersonId).NotEmpty()
                 .Must(GuidValidator.BeValid);
             RuleFor(s => s.legalEntityId).NotEmpty()
