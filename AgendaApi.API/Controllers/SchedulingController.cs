@@ -37,7 +37,7 @@ namespace AgendaApi.API.Controllers
         }
 
         [HttpGet("/legalEntity/{id:Guid}")]
-        public async Task<ActionResult<List<GetAllSchedulingByLegalEntityResponse>>> 
+        public async Task<ActionResult<List<GetAllSchedulingByLegalEntityResponse>>>
             GetAllByLegalEntity(Guid? id, CancellationToken cancellationToken)
         {
             if (id is null) return BadRequest();
@@ -46,7 +46,7 @@ namespace AgendaApi.API.Controllers
         }
 
         [HttpGet("/naturalPerson/{id:Guid}")]
-        public async Task<ActionResult<List<GetAllSchedulingByNaturalPersonResponse>>> 
+        public async Task<ActionResult<List<GetAllSchedulingByNaturalPersonResponse>>>
             GetAllByNaturalPerson(Guid? id, CancellationToken cancellationToken)
         {
             if (id is null) return BadRequest();
@@ -59,24 +59,30 @@ namespace AgendaApi.API.Controllers
             CancellationToken cancellationToken)
         {
             if (request is null) return BadRequest();
-            var result = await _mediator.Send(request, cancellationToken);
+            try
+            {
+                var result = await _mediator.Send(request, cancellationToken);
+                return Ok(result);
+            } catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPut("/confirme/{id:Guid}")]
+        public async Task<ActionResult<ConfirmeSchedulingResponse>> Confirme(Guid? id,
+            CancellationToken cancellationToken)
+        {
+            if (id is null) return BadRequest();
+            var result = await _mediator.Send(new ConfirmeSchedulingRequest(id.Value), cancellationToken);
             return Ok(result);
         }
 
-        [HttpPut("/confirme")]
-        public async Task<ActionResult<ConfirmeSchedulingResponse>> Confirme(ConfirmeSchedulingRequest request,
+        [HttpPut("/cancel/{id:Guid}")]
+        public async Task<ActionResult<CancelSchedulingResponse>> Cancel(Guid id, CancelSchedulingRequest request,
             CancellationToken cancellationToken)
         {
-            if (request is null) return BadRequest();
-            var result = await _mediator.Send(request, cancellationToken);
-            return Ok(result);
-        }
-
-        [HttpPut("/cancel")]
-        public async Task<ActionResult<CancelSchedulingResponse>> Cancel(CancelSchedulingRequest request,
-            CancellationToken cancellationToken)
-        {
-            if (request is null) return BadRequest();
+            if (request.schedulingId != id) return BadRequest();
             var result = _mediator.Send(request, cancellationToken);
             return Ok(result);
         }

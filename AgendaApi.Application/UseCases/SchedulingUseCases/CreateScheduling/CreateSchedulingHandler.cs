@@ -1,4 +1,4 @@
-﻿using AgendaApi.Application.Shared.Extensions;
+﻿using AgendaApi.Application.Shared.Exceptions.SchedulingExceptions;
 using AgendaApi.Domain.Entities;
 using AgendaApi.Domain.Interfaces;
 using AutoMapper;
@@ -20,16 +20,35 @@ namespace AgendaApi.Application.UseCases.SchedulingUseCases.CreateScheduling
             CancellationToken cancellationToken)
         {
             int weekDayId = (int)request.schedulingDate.DayOfWeek + 1;
-            Service service = await _unitOfWork.ServiceRepository.GetById(s => s.ServiceId == request.serviceId, cancellationToken);
             WeekDay weekDay = await _unitOfWork.WeekDayRepository.GetById(wd => wd.WeekDayId == weekDayId, cancellationToken);
+            Service service = await _unitOfWork.ServiceRepository.GetById(s => s.ServiceId == request.serviceId, cancellationToken);
+            IEnumerable<Scheduling> schedulings= await _unitOfWork.SchedulingRepository.GetAllByDate(s => s.SchedulingDate.Date == request.schedulingDate.Date, cancellationToken);
+            TimeOnly schedulingStartTime = TimeOnly.FromDateTime(request.schedulingDate);
+            TimeOnly schedulingEndTime = schedulingStartTime.Add(service.Duration);
+            bool verificator = false;
 
-            if (!weekDay.Timetables.VerifyAvailability(request.schedulingDate, service)) return default;
+            foreach (var timetable in weekDay.Timetables)
+            {
+                if (timetable.StartTime < schedulingStartTime && timetable.EndTime > schedulingEndTime) verificator = true; 
+            }
 
-            Scheduling scheduling = _mapper.Map<Scheduling>(request);
-            _unitOfWork.SchedulingRepository.Create(scheduling);
+            if (verificator) throw new UnavailableScheduling("Horário indisponível.");
+
+            foreach (var scheduling in schedulings)
+            {
+                if ((request.schedulingDate >= scheduling.SchedulingDate && request.schedulingDate < scheduling.SchedulingDate.Add(scheduling.Service.Duration)) ||
+                    (request.schedulingDate.Add(service.Duration) > scheduling.SchedulingDate && request.schedulingDate.Add(service.Duration) <= scheduling.SchedulingDate.Add(scheduling.Service.Duration)) ||
+                    request.schedulingDate <= scheduling.SchedulingDate && request.schedulingDate.Add(service.Duration) >= scheduling.SchedulingDate.Add(scheduling.Service.Duration))
+                {
+                        throw new UnavailableScheduling("Horário solicitado conflita com outros agendamentos.");
+                }
+            }
+
+            Scheduling newScheduling = _mapper.Map<Scheduling>(request);
+            _unitOfWork.SchedulingRepository.Create(newScheduling);
             await _unitOfWork.Commit(cancellationToken);
 
-            return _mapper.Map<CreateSchedulingResponse>(scheduling);
+            return _mapper.Map<CreateSchedulingResponse>(newScheduling);
         }
     }
 }

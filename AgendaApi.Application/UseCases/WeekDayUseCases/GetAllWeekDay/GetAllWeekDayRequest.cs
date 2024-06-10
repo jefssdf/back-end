@@ -2,7 +2,7 @@
 
 namespace AgendaApi.Application.UseCases.WeekDayUseCases.GetAllWeekDay
 {
-    public sealed record GetAllWeekDayRequest 
-        : IRequest<List<FreeSchedulingResponse>>;
+    public sealed record GetAllWeekDayRequest(DateTime date) 
+        : IRequest<GetAllWeekDayResponse>;
     
 }

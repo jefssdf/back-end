@@ -21,7 +21,7 @@ namespace AgendaApi.Application.UseCases.SchedulingUseCases.DeleteScheduling
             var scheduling = await _unitOfWork.SchedulingRepository.GetById(s => s.SchedulingId == request.schedulingId, cancellationToken);
             if (scheduling is null) return default;
 
-            scheduling.SchedulingStatusId = 2;
+            scheduling.SchedulingStatusId = 3;
             scheduling.ConfirmationDate = DateTime.Now;
             _unitOfWork.SchedulingRepository.Update(scheduling);
 

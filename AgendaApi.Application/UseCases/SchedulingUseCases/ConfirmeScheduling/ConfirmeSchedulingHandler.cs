@@ -21,7 +21,7 @@ namespace AgendaApi.Application.UseCases.SchedulingUseCases.ConfirmeScheduling
             if (scheduling is null) return default;
 
             scheduling.ConfirmationDate = DateTime.Now;
-            scheduling.SchedulingStatusId = 1;
+            scheduling.SchedulingStatusId = 2;
             _unitOfWork.SchedulingRepository.Update(scheduling);
             await _unitOfWork.Commit(cancellationToken);
 

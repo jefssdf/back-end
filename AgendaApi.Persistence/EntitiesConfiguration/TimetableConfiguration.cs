@@ -19,10 +19,6 @@ namespace AgendaApi.Persistence.EntitiesConfiguration
             builder.HasOne(tt => tt.WeekDay)
                 .WithMany(wd => wd.Timetables)
                 .HasForeignKey(tt => tt.WeekDayId);
-            builder.HasMany(tt => tt.Schedulings)
-                .WithOne(s => s.Timetable)
-                .HasForeignKey(s => s.TimetableId);
-
         }
     }
 }

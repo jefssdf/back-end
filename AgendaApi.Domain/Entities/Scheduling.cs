@@ -15,7 +15,5 @@
         public Guid ServiceId { get; set; }
         public Service Service { get; set; }
         public Cancellation Cancellation { get; set; }
-        public Guid TimetableId { get; set; }
-        public Timetable Timetable { get; set; }
     }
 }

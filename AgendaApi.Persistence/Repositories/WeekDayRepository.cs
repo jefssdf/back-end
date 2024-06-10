@@ -11,7 +11,7 @@ namespace AgendaApi.Persistence.Repositories
         public WeekDayRepository(AgendaApiDbContext context) : base(context) { }
         public override async Task<WeekDay> GetById(Expression<Func<WeekDay, bool>> predicate, CancellationToken cancellationToken)
         {
-            return await Context.WeekDays.Include(wd => wd.Timetables).ThenInclude(tt => tt.Schedulings).FirstOrDefaultAsync(predicate, cancellationToken);
+            return await Context.WeekDays.Include(wd => wd.Timetables).FirstOrDefaultAsync(predicate, cancellationToken);
         }
         public override async Task<IEnumerable<WeekDay>> GetAll(CancellationToken cancellationToken)
         {

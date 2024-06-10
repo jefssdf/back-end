@@ -9,6 +9,5 @@
         public LegalEntity? LegalEntity { get; set; }
         public int WeekDayId { get; set; }
         public WeekDay? WeekDay { get; set; }
-        public ICollection<Scheduling> Schedulings { get; set; }
     }
 }

@@ -46,7 +46,7 @@ namespace AgendaApi.Persistence.Migrations
                 columns: table => new
                 {
                     SchedulingStatusId = table.Column<int>(type: "int", nullable: false),
-                    StatusName = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false)
+                    StatusName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -133,13 +133,12 @@ namespace AgendaApi.Persistence.Migrations
                 {
                     SchedulingId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     SolicitationDate = table.Column<DateTime>(type: "datetime2(0)", precision: 0, nullable: false),
-                    ConfirmationDate = table.Column<DateTime>(type: "datetime2(0)", precision: 0, nullable: false),
+                    ConfirmationDate = table.Column<DateTime>(type: "datetime2(0)", precision: 0, nullable: true),
                     SchedulingDate = table.Column<DateTime>(type: "datetime2(0)", precision: 0, nullable: false),
                     SchedulingStatusId = table.Column<int>(type: "int", nullable: false),
                     NaturalPersonId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     LegalEntityId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    ServiceId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    TimetableId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                    ServiceId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -167,12 +166,6 @@ namespace AgendaApi.Persistence.Migrations
                         column: x => x.ServiceId,
                         principalTable: "Services",
                         principalColumn: "ServiceId",
-                        onDelete: ReferentialAction.NoAction);
-                    table.ForeignKey(
-                        name: "FK_Schedulings_Timetables_TimetableId",
-                        column: x => x.TimetableId,
-                        principalTable: "Timetables",
-                        principalColumn: "TimetableId",
                         onDelete: ReferentialAction.NoAction);
                 });
 
@@ -225,11 +218,6 @@ namespace AgendaApi.Persistence.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_Schedulings_TimetableId",
-                table: "Schedulings",
-                column: "TimetableId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Services_LegalEntityId",
                 table: "Services",
                 column: "LegalEntityId");
@@ -255,7 +243,13 @@ namespace AgendaApi.Persistence.Migrations
                 name: "SuperAdmins");
 
             migrationBuilder.DropTable(
+                name: "Timetables");
+
+            migrationBuilder.DropTable(
                 name: "Schedulings");
+
+            migrationBuilder.DropTable(
+                name: "WeekDays");
 
             migrationBuilder.DropTable(
                 name: "NaturalPersons");
@@ -267,13 +261,7 @@ namespace AgendaApi.Persistence.Migrations
                 name: "Services");
 
             migrationBuilder.DropTable(
-                name: "Timetables");
-
-            migrationBuilder.DropTable(
                 name: "LegalEntities");
-
-            migrationBuilder.DropTable(
-                name: "WeekDays");
         }
     }
 }

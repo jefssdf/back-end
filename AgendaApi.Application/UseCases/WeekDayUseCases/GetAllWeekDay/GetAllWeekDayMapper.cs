@@ -1,4 +1,5 @@
-﻿using AgendaApi.Domain.Entities;
+﻿using AgendaApi.Application.UseCases.SchedulingUseCases.DTOs;
+using AgendaApi.Domain.Entities;
 using AutoMapper;
 
 namespace AgendaApi.Application.UseCases.WeekDayUseCases.GetAllWeekDay
@@ -7,10 +8,7 @@ namespace AgendaApi.Application.UseCases.WeekDayUseCases.GetAllWeekDay
     {
         public GetAllWeekDayMapper() 
         {
-            CreateMap<WeekDay, GetAllWeekDayResponse>();
-            CreateMap<AvailableTimeDTO, FreeSchedulingResponse>()
-                .ForMember(dest => dest.AvailableTime,
-                opt => opt.MapFrom(src =>  src.StartTime.ToString("HH:mm")));
+            CreateMap<Scheduling, SchedulingBaseResponse>();
         }
     }
 }

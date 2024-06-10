@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AgendaApi.Persistence.Migrations
 {
     [DbContext(typeof(AgendaApiDbContext))]
-    [Migration("20240607183346_Initial")]
+    [Migration("20240610141024_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -144,9 +144,6 @@ namespace AgendaApi.Persistence.Migrations
                         .HasPrecision(0)
                         .HasColumnType("datetime2");
 
-                    b.Property<Guid>("TimetableId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.HasKey("SchedulingId");
 
                     b.HasIndex("LegalEntityId");
@@ -158,8 +155,6 @@ namespace AgendaApi.Persistence.Migrations
 
                     b.HasIndex("ServiceId")
                         .IsUnique();
-
-                    b.HasIndex("TimetableId");
 
                     b.ToTable("Schedulings");
                 });
@@ -321,12 +316,6 @@ namespace AgendaApi.Persistence.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("AgendaApi.Domain.Entities.Timetable", "Timetable")
-                        .WithMany("Schedulings")
-                        .HasForeignKey("TimetableId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.Navigation("LegalEntity");
 
                     b.Navigation("NaturalPerson");
@@ -334,8 +323,6 @@ namespace AgendaApi.Persistence.Migrations
                     b.Navigation("SchedulingStatus");
 
                     b.Navigation("Service");
-
-                    b.Navigation("Timetable");
                 });
 
             modelBuilder.Entity("AgendaApi.Domain.Entities.Service", b =>
@@ -398,11 +385,6 @@ namespace AgendaApi.Persistence.Migrations
                 {
                     b.Navigation("Scheduling")
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("AgendaApi.Domain.Entities.Timetable", b =>
-                {
-                    b.Navigation("Schedulings");
                 });
 
             modelBuilder.Entity("AgendaApi.Domain.Entities.WeekDay", b =>

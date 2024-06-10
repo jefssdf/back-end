@@ -19,13 +19,13 @@ namespace AgendaApi.API.Controllers
             _mediator = mediator;
         }
 
-        [HttpGet]
-        public async Task<ActionResult<List<FreeSchedulingResponse>>> 
-            GetAll(CancellationToken cancellationToken)
-        {
-            var result = await _mediator.Send(new GetAllWeekDayRequest(), cancellationToken);
-            return Ok(result);
-        }
+        //[HttpGet]
+        //public async Task<ActionResult<List<FreeSchedulingResponse>>> 
+        //    GetAll(CancellationToken cancellationToken)
+        //{
+        //    var result = await _mediator.Send(new GetAllWeekDayRequest(), cancellationToken);
+        //    return Ok(result);
+        //}
 
         [HttpGet("{id:int}")]
         public async Task<ActionResult<GetWeekDayByIdResponseComplete>> 
