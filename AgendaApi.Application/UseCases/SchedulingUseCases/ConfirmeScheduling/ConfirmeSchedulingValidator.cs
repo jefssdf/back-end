@@ -7,7 +7,7 @@ namespace AgendaApi.Application.UseCases.SchedulingUseCases.ConfirmeScheduling
     {
         public ConfirmeSchedulingValidator() 
         {
-            RuleFor(s => s.id).NotEmpty()
+            RuleFor(s => s.schedulingId).NotEmpty()
                 .Must(GuidValidator.BeValid);
         }
     }

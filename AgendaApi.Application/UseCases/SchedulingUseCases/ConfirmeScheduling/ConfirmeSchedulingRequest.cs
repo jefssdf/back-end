@@ -2,6 +2,6 @@
 
 namespace AgendaApi.Application.UseCases.SchedulingUseCases.ConfirmeScheduling
 {
-    public sealed record ConfirmeSchedulingRequest(Guid id)
+    public sealed record ConfirmeSchedulingRequest(Guid schedulingId)
         : IRequest<ConfirmeSchedulingResponse>;
 }

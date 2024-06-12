@@ -83,7 +83,7 @@ namespace AgendaApi.API.Controllers
             CancellationToken cancellationToken)
         {
             if (request.schedulingId != id) return BadRequest();
-            var result = _mediator.Send(request, cancellationToken);
+            var result = await _mediator.Send(request, cancellationToken);
             return Ok(result);
         }
     }

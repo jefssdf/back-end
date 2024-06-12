@@ -3,7 +3,7 @@
 namespace AgendaApi.Application.UseCases.ServiceUseCase.UpdateService
 {
     public sealed record UpdateServiceRequest(
-        Guid id,
+        Guid serviceId,
         string? name,
         string? description,
         string duration,

@@ -17,7 +17,7 @@ namespace AgendaApi.Application.UseCases.SchedulingUseCases.ConfirmeScheduling
         public async Task<ConfirmeSchedulingResponse> Handle(ConfirmeSchedulingRequest request,
             CancellationToken cancellationToken)
         {
-            var scheduling = await _unitOfWork.SchedulingRepository.GetById(s => s.SchedulingId == request.id, cancellationToken);
+            var scheduling = await _unitOfWork.SchedulingRepository.GetById(s => s.SchedulingId == request.schedulingId, cancellationToken);
             if (scheduling is null) return default;
 
             scheduling.ConfirmationDate = DateTime.Now;

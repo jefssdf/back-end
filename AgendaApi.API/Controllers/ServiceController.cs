@@ -62,7 +62,7 @@ namespace AgendaApi.API.Controllers
         public async Task<ActionResult<UpdateServiceResponse>> Update(Guid id,
             UpdateServiceRequest request, CancellationToken cancellationToken)
         {
-            if (id != request.id) return BadRequest();
+            if (id != request.serviceId) return BadRequest();
             var result = await _mediator.Send(request, cancellationToken);
             return Ok(result);
         }
