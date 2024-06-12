@@ -19,16 +19,16 @@ namespace AgendaApi.API.Controllers
             _mediator = mediator;
         }
 
-        //[HttpGet]
-        //public async Task<ActionResult<List<FreeSchedulingResponse>>> 
-        //    GetAll(CancellationToken cancellationToken)
-        //{
-        //    var result = await _mediator.Send(new GetAllWeekDayRequest(), cancellationToken);
-        //    return Ok(result);
-        //}
+        [HttpGet]
+        public async Task<ActionResult<List<GetAllWeekDayResponse>>>
+            GetAll(CancellationToken cancellationToken)
+        {
+            var result = await _mediator.Send(new GetAllWeekDayRequest(), cancellationToken);
+            return Ok(result);
+        }
 
         [HttpGet("{id:int}")]
-        public async Task<ActionResult<GetWeekDayByIdResponseComplete>> 
+        public async Task<ActionResult<GetWeekDayByIdResponse>> 
             GetById(int id, CancellationToken cancellationToken)
         {
             if (id == null) return BadRequest();
@@ -59,7 +59,6 @@ namespace AgendaApi.API.Controllers
             Delete(int id, CancellationToken cancellationToken)
         {
             if (id == null) return BadRequest();
-
             var result = await _mediator.Send(new DeleteWeekDayRequest(id), cancellationToken);
             return Ok(result);
         }

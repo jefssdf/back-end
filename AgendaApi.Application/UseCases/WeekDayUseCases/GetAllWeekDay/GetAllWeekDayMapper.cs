@@ -8,7 +8,7 @@ namespace AgendaApi.Application.UseCases.WeekDayUseCases.GetAllWeekDay
     {
         public GetAllWeekDayMapper() 
         {
-            CreateMap<Scheduling, SchedulingBaseResponse>();
+            CreateMap<WeekDay, GetAllWeekDayResponse>();
         }
     }
 }

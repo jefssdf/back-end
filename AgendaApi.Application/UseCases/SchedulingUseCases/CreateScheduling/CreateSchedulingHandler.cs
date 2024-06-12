@@ -1,4 +1,4 @@
-﻿using AgendaApi.Application.Shared.Exceptions.SchedulingExceptions;
+﻿using AgendaApi.Application.Shared.Exceptions;
 using AgendaApi.Domain.Entities;
 using AgendaApi.Domain.Interfaces;
 using AutoMapper;
@@ -32,7 +32,7 @@ namespace AgendaApi.Application.UseCases.SchedulingUseCases.CreateScheduling
                 if (timetable.StartTime < schedulingStartTime && timetable.EndTime > schedulingEndTime) verificator = true; 
             }
 
-            if (verificator) throw new UnavailableScheduling("Horário indisponível.");
+            if (verificator) throw new BadRequestException("Horário indisponível.");
 
             foreach (var scheduling in schedulings)
             {
@@ -40,7 +40,7 @@ namespace AgendaApi.Application.UseCases.SchedulingUseCases.CreateScheduling
                     (request.schedulingDate.Add(service.Duration) > scheduling.SchedulingDate && request.schedulingDate.Add(service.Duration) <= scheduling.SchedulingDate.Add(scheduling.Service.Duration)) ||
                     request.schedulingDate <= scheduling.SchedulingDate && request.schedulingDate.Add(service.Duration) >= scheduling.SchedulingDate.Add(scheduling.Service.Duration))
                 {
-                        throw new UnavailableScheduling("Horário solicitado conflita com outros agendamentos.");
+                        throw new BadRequestException("Horário solicitado conflita com outros agendamentos.");
                 }
             }
 

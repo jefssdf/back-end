@@ -1,4 +1,5 @@
-﻿using AgendaApi.Domain.Interfaces;
+﻿using AgendaApi.Application.Shared.Exceptions;
+using AgendaApi.Domain.Interfaces;
 using AutoMapper;
 using MediatR;
 using System.Data;
@@ -19,6 +20,7 @@ namespace AgendaApi.Application.UseCases.CancellationUseCase.GetAllCancellationB
             CancellationToken cancellationToken)
         {
             var cancellations = await _unitOfWork.CancellationRepository.GetAllByOwner(c => c.Owner == request.id, cancellationToken);
+            if (cancellations is null) throw new NotFoundException("Não existem cancelamentos realizados pelo usuário.");
             return _mapper.Map<List<GetAllCancellationByOwnerResponse>>(cancellations);
         }
     }

@@ -18,7 +18,7 @@ namespace AgendaApi.Application.UseCases.ScheduleUseCases.GetMonthSchedule
         public async Task<GetMonthScheduleResponse> Handle(GetMonthScheduleRequest request,
             CancellationToken cancellationToken)
         {
-            var schedulings = await _unitOfWork.SchedulingRepository.GetAllByDate(s => s.SchedulingDate.Month == request.date.Month, cancellationToken);
+            var schedulings = await _unitOfWork.SchedulingRepository.GetAllByDate(s => s.SchedulingDate.Month == request.date.Month && s.LegalEntityId == request.legalEntityId, cancellationToken);
             var timetables = await _unitOfWork.TimetableRepository.GetAll(cancellationToken);
             List<FreeMonthScheduleResponse> freeMonthSchedule = new List<FreeMonthScheduleResponse>();
 

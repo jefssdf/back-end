@@ -4,7 +4,6 @@ using AgendaApi.Application.UseCases.SchedulingStatusUseCase.GetSchedulingStatus
 using AgendaApi.Application.UseCases.SchedulingStatusUseCase.UpdateSchedulingStatus;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using System.Runtime.InteropServices;
 
 namespace AgendaApi.API.Controllers
 {

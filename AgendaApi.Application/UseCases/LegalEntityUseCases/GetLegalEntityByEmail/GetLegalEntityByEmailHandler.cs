@@ -1,4 +1,5 @@
-﻿using AgendaApi.Domain.Interfaces;
+﻿using AgendaApi.Application.Shared.Exceptions;
+using AgendaApi.Domain.Interfaces;
 using AutoMapper;
 using MediatR;
 
@@ -21,7 +22,7 @@ namespace AgendaApi.Application.UseCases.LegalPersonUseCases.GetLegalEntityByEma
             CancellationToken cancellationToken)
         {
             var entity = await _unitOfWork.LegalEntityRepository.GetByEmail(le => le.Email == request.email, cancellationToken);
-            if (entity is null) return default;
+            if (entity is null) throw new NotFoundException("Usuário não encontrado.");
 
             return _mapper.Map<GetLegalEntityByEmailResponse>(entity);
         }

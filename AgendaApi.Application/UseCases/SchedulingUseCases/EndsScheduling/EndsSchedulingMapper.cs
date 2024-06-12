@@ -3,11 +3,11 @@ using AutoMapper;
 
 namespace AgendaApi.Application.UseCases.SchedulingUseCases.ConfirmeScheduling
 {
-    public sealed class ConfirmeSchedulingMapper : Profile
+    public sealed class EndsSchedulingMapper : Profile
     {
-        public ConfirmeSchedulingMapper() 
+        public EndsSchedulingMapper() 
         {
-            CreateMap<Scheduling, ConfirmeSchedulingResponse>();
+            CreateMap<Scheduling, EndsSchedulingResponse>();
         }
     }
 }

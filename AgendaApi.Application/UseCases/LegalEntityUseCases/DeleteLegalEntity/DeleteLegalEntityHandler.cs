@@ -1,4 +1,5 @@
-﻿using AgendaApi.Domain.Interfaces;
+﻿using AgendaApi.Application.Shared.Exceptions;
+using AgendaApi.Domain.Interfaces;
 using AutoMapper;
 using MediatR;
 
@@ -21,7 +22,7 @@ namespace AgendaApi.Application.UseCases.LegalPersonUseCases.DeleteLegalEntity
         {
             var entity = await _unitOfWork.LegalEntityRepository.GetById(
                 le => le.LegalEntityId == request.Id, cancellationToken);
-            if (entity == null) return default;
+            if (entity is null) throw new NotFoundException("Usuário não encontrado.");
 
             _unitOfWork.LegalEntityRepository.Delete(entity);
             await _unitOfWork.Commit(cancellationToken);

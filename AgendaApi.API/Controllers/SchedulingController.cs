@@ -1,5 +1,4 @@
-﻿using AgendaApi.Application.UseCases.SchedulingStatusUseCase.GetSchedulingStatusById;
-using AgendaApi.Application.UseCases.SchedulingUseCases.ConfirmeScheduling;
+﻿using AgendaApi.Application.UseCases.SchedulingUseCases.ConfirmeScheduling;
 using AgendaApi.Application.UseCases.SchedulingUseCases.CreateScheduling;
 using AgendaApi.Application.UseCases.SchedulingUseCases.DeleteScheduling;
 using AgendaApi.Application.UseCases.SchedulingUseCases.GetAllScheduling;
@@ -70,11 +69,11 @@ namespace AgendaApi.API.Controllers
         }
 
         [HttpPut("/confirme/{id:Guid}")]
-        public async Task<ActionResult<ConfirmeSchedulingResponse>> Confirme(Guid? id,
+        public async Task<ActionResult<EndsSchedulingResponse>> Confirme(Guid? id,
             CancellationToken cancellationToken)
         {
             if (id is null) return BadRequest();
-            var result = await _mediator.Send(new ConfirmeSchedulingRequest(id.Value), cancellationToken);
+            var result = await _mediator.Send(new EndsSchedulingRequest(id.Value), cancellationToken);
             return Ok(result);
         }
 

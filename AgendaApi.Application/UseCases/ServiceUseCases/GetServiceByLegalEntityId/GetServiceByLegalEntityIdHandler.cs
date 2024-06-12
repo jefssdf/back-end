@@ -1,4 +1,6 @@
-﻿using AgendaApi.Domain.Interfaces;
+﻿using AgendaApi.Application.Shared.Exceptions;
+using AgendaApi.Domain.Entities;
+using AgendaApi.Domain.Interfaces;
 using AutoMapper;
 using MediatR;
 
@@ -18,6 +20,7 @@ namespace AgendaApi.Application.UseCases.ServiceUseCases.GetServiceByLegalEntity
             CancellationToken cancellationToken)
         {
             var services = await _unitOfWork.ServiceRepository.GetAllById(s => s.LegalEntityId == request.id, cancellationToken);
+            if (services is null) throw new NotFoundException("Pessoa selecionada não possui serviços cadastrados.");
             return _mapper.Map<List<GetServiceByLegalEntityIdResponse>>(services);
         }
     }

@@ -9,9 +9,6 @@ namespace AgendaApi.Application.UseCases.WeekDayUseCases.GetWeekDayById
         public GetWeekDayByIdMapper() 
         {
             CreateMap<WeekDay, GetWeekDayByIdResponse>();
-            CreateMap<AvailableTimeDTOById, FreeSchedulingResponseById>()
-                .ForMember(dest => dest.AvailableTime,
-                opt => opt.MapFrom(src => src.StartTime.ToString("HH:mm")));
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using AgendaApi.Domain.Interfaces;
+﻿using AgendaApi.Application.Shared.Exceptions;
+using AgendaApi.Domain.Interfaces;
 using AutoMapper;
 using MediatR;
 
@@ -18,6 +19,7 @@ namespace AgendaApi.Application.UseCases.SchedulingUseCases.GetAllSchedulingByNa
             CancellationToken cancellationToken)
         {
             var schedulings = await _unitOfWork.SchedulingRepository.GetAllById(s => s.NaturalPersonId == request.id, cancellationToken);
+            if (schedulings is null) throw new NotFoundException("Não existem agendamentos para a pessoa selecionada.");
             return _mapper.Map<List<GetAllSchedulingByNaturalPersonResponse>>(schedulings);
         }
     }

@@ -2,6 +2,7 @@
 
 namespace AgendaApi.Application.UseCases.ScheduleUseCases.GetMonthSchedule
 {
-    public sealed record GetMonthScheduleRequest(DateTime date)
+    public sealed record GetMonthScheduleRequest(DateTime date,
+        Guid legalEntityId)
         : IRequest<GetMonthScheduleResponse>;
 }

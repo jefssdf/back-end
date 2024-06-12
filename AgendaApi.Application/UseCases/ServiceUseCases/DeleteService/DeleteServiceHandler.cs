@@ -1,4 +1,5 @@
-﻿using AgendaApi.Domain.Interfaces;
+﻿using AgendaApi.Application.Shared.Exceptions;
+using AgendaApi.Domain.Interfaces;
 using AutoMapper;
 using MediatR;
 
@@ -22,7 +23,7 @@ namespace AgendaApi.Application.UseCases.ServiceUseCase.DeleteService
             var service = await _unitOfWork.ServiceRepository.GetById(s => s.ServiceId == request.id,
                 cancellationToken);
             
-            if (service is null) return default;
+            if (service is null) throw new NotFoundException("Serviço não encontrado.");
 
             _unitOfWork.ServiceRepository.Delete(service);
             await _unitOfWork.Commit(cancellationToken);

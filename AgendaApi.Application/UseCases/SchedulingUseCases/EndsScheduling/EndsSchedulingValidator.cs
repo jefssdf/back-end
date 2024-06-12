@@ -3,9 +3,9 @@ using FluentValidation;
 
 namespace AgendaApi.Application.UseCases.SchedulingUseCases.ConfirmeScheduling
 {
-    public class ConfirmeSchedulingValidator : AbstractValidator<ConfirmeSchedulingRequest>
+    public class EndsSchedulingValidator : AbstractValidator<EndsSchedulingRequest>
     {
-        public ConfirmeSchedulingValidator() 
+        public EndsSchedulingValidator() 
         {
             RuleFor(s => s.schedulingId).NotEmpty()
                 .Must(GuidValidator.BeValid);

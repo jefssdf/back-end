@@ -8,14 +8,4 @@ namespace AgendaApi.Application.UseCases.WeekDayUseCases.GetWeekDayById
     {
         public ICollection<GetAllTimetablesResponse> Timetables { get; set; }
     }
-    public sealed record FreeSchedulingResponseById : BaseFreeSchedulingResponse;
-    public sealed record AvailableTimeDTOById : BaseAvailableTimeDTO;
-
-    public sealed record GetWeekDayByIdResponseComplete
-    {
-        public List<AvailableTimeDTOById> availableTimes { get; set; }
-        public List<SchedulingBaseResponse> schedulings { get; set; }
-        public int totalSchedulings { get; set; }
-    }
-                    
 }

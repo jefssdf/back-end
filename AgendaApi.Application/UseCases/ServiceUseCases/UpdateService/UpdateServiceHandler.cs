@@ -1,4 +1,5 @@
-﻿using AgendaApi.Domain.Interfaces;
+﻿using AgendaApi.Application.Shared.Exceptions;
+using AgendaApi.Domain.Interfaces;
 using AutoMapper;
 using MediatR;
 
@@ -21,8 +22,8 @@ namespace AgendaApi.Application.UseCases.ServiceUseCase.UpdateService
         {
             var service = await _unitOfWork.ServiceRepository.GetById(s => s.ServiceId == request.serviceId,
                 cancellationToken);
-            
-            if (service is null) return default;
+
+            if (service is null) throw new NotFoundException("Serviço não encontrado.");
 
             _mapper.Map(request, service);
             _unitOfWork.ServiceRepository.Update(service);

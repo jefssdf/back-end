@@ -1,4 +1,5 @@
-﻿using AgendaApi.Domain.Entities;
+﻿using AgendaApi.Application.Shared.Exceptions;
+using AgendaApi.Domain.Entities;
 using AgendaApi.Domain.Interfaces;
 using AutoMapper;
 using MediatR;
@@ -20,7 +21,7 @@ namespace AgendaApi.Application.UseCases.LegalPersonUseCases.CreateLegalEntity
             CancellationToken cancellationToken)
         {
             var validEmail = await _unitOfWork.LegalEntityRepository.GetByEmail(le => le.Email == request.email, cancellationToken);
-            if (validEmail != null) return default;
+            if (validEmail != null) throw new BadRequestException("Email já cadastrado.");
 
             var legalEntity = _mapper.Map<LegalEntity>(request);
             _unitOfWork.LegalEntityRepository.Create(legalEntity);

@@ -1,4 +1,5 @@
-﻿using AgendaApi.Domain.Interfaces;
+﻿using AgendaApi.Application.Shared.Exceptions;
+using AgendaApi.Domain.Interfaces;
 using AutoMapper;
 using MediatR;
 
@@ -18,6 +19,7 @@ namespace AgendaApi.Application.UseCases.SchedulingUseCases.GetSchedulingById
             CancellationToken cancellationToken)
         {
             var scheduling = await _unitOfWork.SchedulingRepository.GetById(s => s.SchedulingId == request.id, cancellationToken);
+            if (scheduling is null) throw new NotFoundException("Agendamento não encontrado.");
             return _mapper.Map<GetSchedulingByIdResponse>(scheduling);
         }
     }

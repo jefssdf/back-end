@@ -1,4 +1,5 @@
-﻿using AgendaApi.Domain.Interfaces;
+﻿using AgendaApi.Application.Shared.Exceptions;
+using AgendaApi.Domain.Interfaces;
 using AutoMapper;
 using MediatR;
 
@@ -22,7 +23,7 @@ namespace AgendaApi.Application.UseCases.LegalPersonUseCases.UpdateLegalEntity
             var entity = await _unitOfWork.LegalEntityRepository.GetById(le => le.LegalEntityId == request.id,
                 cancellationToken);
 
-            if (entity is null) return default;
+            if (entity is null) throw new NotFoundException("Usuário não encontrado.");
 
             _mapper.Map(request, entity);
             _unitOfWork.LegalEntityRepository.Update(entity);

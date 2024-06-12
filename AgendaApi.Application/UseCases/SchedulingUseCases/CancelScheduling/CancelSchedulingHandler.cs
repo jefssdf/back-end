@@ -1,4 +1,5 @@
-﻿using AgendaApi.Domain.Entities;
+﻿using AgendaApi.Application.Shared.Exceptions;
+using AgendaApi.Domain.Entities;
 using AgendaApi.Domain.Interfaces;
 using AutoMapper;
 using MediatR;
@@ -19,7 +20,7 @@ namespace AgendaApi.Application.UseCases.SchedulingUseCases.DeleteScheduling
             CancellationToken cancellationToken)
         {
             var scheduling = await _unitOfWork.SchedulingRepository.GetById(s => s.SchedulingId == request.schedulingId, cancellationToken);
-            if (scheduling is null) return default;
+            if (scheduling is null || scheduling.SchedulingStatusId != 1) throw new BadRequestException("Somente agendamentos não finalizados podem ser cancelados.");
 
             scheduling.SchedulingStatusId = 3;
             scheduling.ConfirmationDate = DateTime.Now;

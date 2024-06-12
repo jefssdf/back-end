@@ -1,7 +1,6 @@
 ﻿using AgendaApi.Domain.Interfaces;
 using AutoMapper;
 using MediatR;
-using MediatR.Pipeline;
 
 namespace AgendaApi.Application.UseCases.SchedulingUseCases.GetAllScheduling
 {

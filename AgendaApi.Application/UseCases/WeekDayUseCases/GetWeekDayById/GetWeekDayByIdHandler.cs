@@ -1,13 +1,11 @@
-﻿using AgendaApi.Application.UseCases.SchedulingUseCases.DTOs;
-using AgendaApi.Domain.Interfaces;
+﻿using AgendaApi.Domain.Interfaces;
 using AutoMapper;
 using MediatR;
-using System.Data;
 
 namespace AgendaApi.Application.UseCases.WeekDayUseCases.GetWeekDayById
 {
     public sealed class GetWeekDayByIdHandler
-        : IRequestHandler<GetWeekDayByIdRequest, GetWeekDayByIdResponseComplete>
+        : IRequestHandler<GetWeekDayByIdRequest, GetWeekDayByIdResponse>
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
@@ -16,10 +14,11 @@ namespace AgendaApi.Application.UseCases.WeekDayUseCases.GetWeekDayById
             _unitOfWork = unitOfWork;
             _mapper = mapper;
         }
-        public async Task<GetWeekDayByIdResponseComplete> Handle(GetWeekDayByIdRequest request,
+        public async Task<GetWeekDayByIdResponse> Handle(GetWeekDayByIdRequest request,
             CancellationToken cancellationToken)
         {
-            throw new NotImplementedException();
+            var weekDay = await _unitOfWork.WeekDayRepository.GetById(wd => wd.WeekDayId == request.id, cancellationToken);
+            return _mapper.Map<GetWeekDayByIdResponse>(weekDay);
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using AgendaApi.Domain.Interfaces;
+﻿using AgendaApi.Application.Shared.Exceptions;
+using AgendaApi.Domain.Interfaces;
 using AutoMapper;
 using MediatR;
 
@@ -22,7 +23,7 @@ namespace AgendaApi.Application.UseCases.NaturalPersonUseCases.UpdateNaturalPers
             var naturalPerson = await _unitOfWork.NaturalPersonRepository.GetById(
                 np => np.NaturalPersonId == request.id, cancellationToken);
 
-            if (naturalPerson is null) return default;
+            if (naturalPerson is null) throw new NotFoundException("Usuário não encontrado.");
 
             _mapper.Map(request, naturalPerson);
             _unitOfWork.NaturalPersonRepository.Update(naturalPerson);

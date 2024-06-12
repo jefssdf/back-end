@@ -43,6 +43,7 @@ namespace AgendaApi.API
             {
                 app.UseSwagger();
                 app.UseSwaggerUI();
+                app.ConfigureExceptionHandler();
             }
 
             app.UseCors();
