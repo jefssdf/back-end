@@ -1,6 +1,7 @@
 stages:
   - build
   - push
+  - deploy
 
 variables:
   DOCKER_IMAGE: $CI_REGISTRY_IMAGE
@@ -11,9 +12,30 @@ build:
   services:
     - docker:dind
   script:
-    - echo "$CI_REGISTRY_PASSWORD" | docker login -u "$CI_REGISTRY_USER" --password-stdin $CI_REGISTRY
     - docker build -t $DOCKER_IMAGE:$CI_COMMIT_SHA .
+  only:
+    - main
+
+push:
+  stage: push
+  image: docker:latest
+  services:
+    - docker:dind
+  script:
+    - echo "$CI_REGISTRY_PASSWORD" | docker login -u "$CI_REGISTRY_USER" --password-stdin $CI_REGISTRY
     - docker tag $DOCKER_IMAGE:$CI_COMMIT_SHA $DOCKER_IMAGE:latest
+    - docker push $DOCKER_IMAGE:$CI_COMMIT_SHA
     - docker push $DOCKER_IMAGE:latest
+  only:
+    - main
+
+deploy:
+  stage: deploy
+  image: amazon/aws-cli
+  script:
+    - echo "$AWS_SECRET_ACCESS_KEY" | aws configure set aws_secret_access_key --profile default
+    - echo "$AWS_ACCESS_KEY_ID" | aws configure set aws_access_key_id --profile default
+    - export IMAGE_TAG=$DOCKER_IMAGE:$CI_COMMIT_SHA
+    - aws ecs update-service --cluster $AWS_ECS_CLUSTER_NAME --service $AWS_ECS_SERVICE_NAME --force-new-deployment
   only:
     - main
