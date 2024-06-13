@@ -14,14 +14,14 @@ namespace AgendaApi.Persistence.Repositories
         public override void Create(Scheduling entity)
         {
             entity.SchedulingStatusId = 1;
-            entity.SolicitationDate = DateTime.UtcNow;
-            base.Create(entity);
+            entity.SolicitationDate = DateTime.Now;
+            Context.Schedulings.Add(entity);
         }
 
         public override void Update(Scheduling entity)
         {
-            entity.ConfirmationDate = DateTime.UtcNow;
-            base.Update(entity);
+            entity.ConfirmationDate = DateTime.Now;
+            Context.Schedulings.Update(entity);
         }
 
         public async Task<IEnumerable<Scheduling>> GetAllById(Expression<Func<Scheduling, bool>> predicate, CancellationToken cancellationToken)
@@ -31,7 +31,7 @@ namespace AgendaApi.Persistence.Repositories
 
         public async Task<IEnumerable<Scheduling>> GetAllByDate(Expression<Func<Scheduling, bool>> predicate, CancellationToken cancellationToken)
         {
-            return await Context.Schedulings.Include(s => s.Service).Where(predicate).ToListAsync(cancellationToken);
+            return await Context.Schedulings.Where(predicate).Include(s => s.Service).ToListAsync(cancellationToken);
         }
     }
 }

@@ -186,7 +186,7 @@ namespace AgendaApi.Persistence.Migrations
                         column: x => x.SchedulingId,
                         principalTable: "Schedulings",
                         principalColumn: "SchedulingId",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.NoAction);
                 });
 
             migrationBuilder.CreateIndex(
@@ -208,14 +208,12 @@ namespace AgendaApi.Persistence.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_Schedulings_SchedulingStatusId",
                 table: "Schedulings",
-                column: "SchedulingStatusId",
-                unique: true);
+                column: "SchedulingStatusId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Schedulings_ServiceId",
                 table: "Schedulings",
-                column: "ServiceId",
-                unique: true);
+                column: "ServiceId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Services_LegalEntityId",

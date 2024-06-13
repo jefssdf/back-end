@@ -11,9 +11,9 @@ namespace AgendaApi.Persistence.EntitiesConfiguration
             builder.HasKey(ss => ss.SchedulingStatusId);
             builder.Property(ss => ss.StatusName)
                 .HasMaxLength(50).IsRequired();
-            builder.HasOne(ss => ss.Scheduling)
+            builder.HasMany(ss => ss.Schedulings)
                 .WithOne(s => s.SchedulingStatus)
-                .HasForeignKey<Scheduling>(s => s.SchedulingStatusId);
+                .HasForeignKey(s => s.SchedulingStatusId);
         }
     }
 }

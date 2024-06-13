@@ -18,24 +18,9 @@ namespace AgendaApi.Persistence.EntitiesConfiguration
             builder.HasOne(s => s.LegalEntity)
                 .WithMany(le => le.Services)
                 .HasForeignKey(s => s.LegalEntityId);
-            builder.HasOne(s => s.Scheduling)
+            builder.HasMany( s => s.Schedulings)
                 .WithOne(s => s.Service)
-                .HasForeignKey<Scheduling>(s => s.ServiceId);
+                .HasForeignKey(s => s.ServiceId);
         }
     }
 }
-
-
-/*
-         public Guid ServiceId { get; set; }
-        public string? Name { get; set; }
-        public string? Description { get; set; }
-        public TimeSpan Duration { get; set; }
-        public decimal Price { get; set; }
-        public Guid? LegalEntityId { get; set; }
-        public LegalEntity? LegalEntity { get; set; }
-        //public Guid? ServiceCategoryId { get; set; }
-        //public ServiceCategory? ServiceCategory { get; set; }
-        public Scheduling Scheduling { get; set; }
-    }
- */

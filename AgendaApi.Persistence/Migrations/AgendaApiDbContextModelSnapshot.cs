@@ -28,8 +28,7 @@ namespace AgendaApi.Persistence.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<DateTime?>("CancellationTime")
-                        .IsRequired()
+                    b.Property<DateTime>("CancellationTime")
                         .HasPrecision(0)
                         .HasColumnType("datetime2");
 
@@ -147,11 +146,9 @@ namespace AgendaApi.Persistence.Migrations
 
                     b.HasIndex("NaturalPersonId");
 
-                    b.HasIndex("SchedulingStatusId")
-                        .IsUnique();
+                    b.HasIndex("SchedulingStatusId");
 
-                    b.HasIndex("ServiceId")
-                        .IsUnique();
+                    b.HasIndex("ServiceId");
 
                     b.ToTable("Schedulings");
                 });
@@ -166,8 +163,8 @@ namespace AgendaApi.Persistence.Migrations
 
                     b.Property<string>("StatusName")
                         .IsRequired()
-                        .HasMaxLength(20)
-                        .HasColumnType("nvarchar(20)");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.HasKey("SchedulingStatusId");
 
@@ -302,14 +299,14 @@ namespace AgendaApi.Persistence.Migrations
                         .IsRequired();
 
                     b.HasOne("AgendaApi.Domain.Entities.SchedulingStatus", "SchedulingStatus")
-                        .WithOne("Scheduling")
-                        .HasForeignKey("AgendaApi.Domain.Entities.Scheduling", "SchedulingStatusId")
+                        .WithMany("Schedulings")
+                        .HasForeignKey("SchedulingStatusId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("AgendaApi.Domain.Entities.Service", "Service")
-                        .WithOne("Scheduling")
-                        .HasForeignKey("AgendaApi.Domain.Entities.Scheduling", "ServiceId")
+                        .WithMany("Schedulings")
+                        .HasForeignKey("ServiceId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -374,14 +371,12 @@ namespace AgendaApi.Persistence.Migrations
 
             modelBuilder.Entity("AgendaApi.Domain.Entities.SchedulingStatus", b =>
                 {
-                    b.Navigation("Scheduling")
-                        .IsRequired();
+                    b.Navigation("Schedulings");
                 });
 
             modelBuilder.Entity("AgendaApi.Domain.Entities.Service", b =>
                 {
-                    b.Navigation("Scheduling")
-                        .IsRequired();
+                    b.Navigation("Schedulings");
                 });
 
             modelBuilder.Entity("AgendaApi.Domain.Entities.WeekDay", b =>

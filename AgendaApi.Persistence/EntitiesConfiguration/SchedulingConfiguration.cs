@@ -18,8 +18,8 @@ namespace AgendaApi.Persistence.EntitiesConfiguration
                 .HasColumnType("datetime2").HasPrecision(0)
                 .IsRequired();
             builder.HasOne(s => s.SchedulingStatus)
-                .WithOne(ss => ss.Scheduling)
-                .HasForeignKey<Scheduling>(s => s.SchedulingStatusId);
+                .WithMany(ss => ss.Schedulings)
+                .HasForeignKey(s => s.SchedulingStatusId);
             builder.HasOne(s => s.NaturalPerson)
                 .WithMany(np => np.Schedulings)
                 .HasForeignKey(s => s.NaturalPersonId);
@@ -27,8 +27,11 @@ namespace AgendaApi.Persistence.EntitiesConfiguration
                 .WithMany(le => le.Schedulings)
                 .HasForeignKey(s => s.LegalEntityId);
             builder.HasOne(s => s.Service)
-                .WithOne(s => s.Scheduling)
-                .HasForeignKey<Scheduling>(s => s.ServiceId);
+                .WithMany(s => s.Schedulings)
+                .HasForeignKey(s => s.ServiceId);
+            builder.HasOne(s => s.Cancellation)
+                .WithOne(c => c.Scheduling)
+                .HasForeignKey<Cancellation>(c => c.SchedulingId);
         }
     }
 }

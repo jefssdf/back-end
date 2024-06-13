@@ -14,10 +14,11 @@ namespace AgendaApi.API.Controllers
             _mediator = mediator;
         }
 
-        [HttpGet("{id:Guid}")]
+        [HttpGet]
         public async Task<ActionResult<GetMonthScheduleResponse>> GetMonthSchedule(Guid? id, DateTime? date, CancellationToken cancellationToken)
         {
             if (date is null) date = DateTime.UtcNow;
+            if (id is null) return BadRequest("Um identificador de pessoa juridica é necessário.");
             var result = await _mediator.Send(new GetMonthScheduleRequest(date.Value, id.Value), cancellationToken);
             return Ok(result);
         }

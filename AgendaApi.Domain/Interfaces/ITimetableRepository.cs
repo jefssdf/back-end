@@ -6,6 +6,6 @@ namespace AgendaApi.Domain.Interfaces
     public interface ITimetableRepository : IBaseRepository<Timetable>
     {
         Task<IEnumerable<Timetable>> Delete(CancellationToken cancellationToken);
-        Task<Timetable> GetAllById(Expression<Func<Timetable, bool>> predicate, CancellationToken cancellationToken);
+        Task<IEnumerable<Timetable>> GetAllById(Expression<Func<Timetable, bool>> predicate, CancellationToken cancellationToken);
     }
 }

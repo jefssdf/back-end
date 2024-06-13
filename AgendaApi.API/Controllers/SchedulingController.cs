@@ -58,14 +58,8 @@ namespace AgendaApi.API.Controllers
             CancellationToken cancellationToken)
         {
             if (request is null) return BadRequest();
-            try
-            {
-                var result = await _mediator.Send(request, cancellationToken);
-                return Ok(result);
-            } catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
+            var result = await _mediator.Send(request, cancellationToken);
+            return Ok(result);
         }
 
         [HttpPut("/confirme/{id:Guid}")]

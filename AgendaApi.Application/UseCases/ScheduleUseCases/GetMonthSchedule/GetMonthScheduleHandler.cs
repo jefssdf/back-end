@@ -18,8 +18,8 @@ namespace AgendaApi.Application.UseCases.ScheduleUseCases.GetMonthSchedule
         public async Task<GetMonthScheduleResponse> Handle(GetMonthScheduleRequest request,
             CancellationToken cancellationToken)
         {
-            var schedulings = await _unitOfWork.SchedulingRepository.GetAllByDate(s => s.SchedulingDate.Month == request.date.Month && s.LegalEntityId == request.legalEntityId, cancellationToken);
-            var timetables = await _unitOfWork.TimetableRepository.GetAll(cancellationToken);
+            var schedulings = await _unitOfWork.SchedulingRepository.GetAllByDate(s => s.SchedulingDate.Month == request.date.Month && s.LegalEntityId == request.id, cancellationToken);
+            var timetables = await _unitOfWork.TimetableRepository.GetAllById(tt => tt.LegalEntityId == request.id, cancellationToken);
             List<FreeMonthScheduleResponse> freeMonthSchedule = new List<FreeMonthScheduleResponse>();
 
             foreach ( var timetable in timetables )
@@ -33,7 +33,7 @@ namespace AgendaApi.Application.UseCases.ScheduleUseCases.GetMonthSchedule
                         WeekDayId = timetable.WeekDayId,
                     });
 
-                    currentTime.AddMinutes(30);
+                    currentTime = currentTime.AddMinutes(30);
                 }
             }
             return new GetMonthScheduleResponse

@@ -9,8 +9,6 @@
         public decimal Price { get; set; }
         public Guid? LegalEntityId { get; set; }
         public LegalEntity? LegalEntity { get; set; }
-        //public Guid? ServiceCategoryId { get; set; }
-        //public ServiceCategory? ServiceCategory { get; set; }
-        public Scheduling Scheduling { get; set; }
+        public ICollection<Scheduling> Schedulings { get; set; }
     }
 }

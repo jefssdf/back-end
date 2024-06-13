@@ -19,20 +19,22 @@ namespace AgendaApi.Application.UseCases.SchedulingUseCases.CreateScheduling
         public async Task<CreateSchedulingResponse> Handle(CreateSchedulingRequest request,
             CancellationToken cancellationToken)
         {
+            try
+            {
             int weekDayId = (int)request.schedulingDate.DayOfWeek + 1;
             WeekDay weekDay = await _unitOfWork.WeekDayRepository.GetById(wd => wd.WeekDayId == weekDayId, cancellationToken);
             Service service = await _unitOfWork.ServiceRepository.GetById(s => s.ServiceId == request.serviceId, cancellationToken);
-            IEnumerable<Scheduling> schedulings= await _unitOfWork.SchedulingRepository.GetAllByDate(s => s.SchedulingDate.Date == request.schedulingDate.Date, cancellationToken);
+            IEnumerable<Scheduling> schedulings= await _unitOfWork.SchedulingRepository.GetAllByDate(s => s.SchedulingDate.Date == request.schedulingDate.Date && s.LegalEntityId == request.legalEntityId, cancellationToken);
             TimeOnly schedulingStartTime = TimeOnly.FromDateTime(request.schedulingDate);
             TimeOnly schedulingEndTime = schedulingStartTime.Add(service.Duration);
             bool verificator = false;
 
             foreach (var timetable in weekDay.Timetables)
             {
-                if (timetable.StartTime < schedulingStartTime && timetable.EndTime > schedulingEndTime) verificator = true; 
+                if (timetable.StartTime <= schedulingStartTime && timetable.EndTime > schedulingEndTime) verificator = true; 
             }
 
-            if (verificator) throw new BadRequestException("Horário indisponível.");
+            if (!verificator) throw new BadRequestException("Horário indisponível.");
 
             foreach (var scheduling in schedulings)
             {
@@ -44,11 +46,21 @@ namespace AgendaApi.Application.UseCases.SchedulingUseCases.CreateScheduling
                 }
             }
 
-            Scheduling newScheduling = _mapper.Map<Scheduling>(request);
+            var newScheduling = _mapper.Map<Scheduling>(request);
             _unitOfWork.SchedulingRepository.Create(newScheduling);
             await _unitOfWork.Commit(cancellationToken);
 
             return _mapper.Map<CreateSchedulingResponse>(newScheduling);
+
+            } catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                if (ex.InnerException != null)
+                {
+                    Console.WriteLine(ex.InnerException.Message);
+                }
+                throw;
+            }
         }
     }
 }

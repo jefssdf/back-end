@@ -4,6 +4,6 @@
     {
         public int SchedulingStatusId { get; set; }
         public string StatusName { get; set; }
-        public Scheduling Scheduling { get; set; }
+        public ICollection<Scheduling> Schedulings { get; set; }
     }
 }
