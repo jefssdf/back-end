@@ -15,7 +15,6 @@ namespace AgendaApi.Persistence.Context
         public DbSet<NaturalPerson> NaturalPersons { get; set; }
         public DbSet<LegalEntity> LegalEntities { get; set; }
         public DbSet<SuperAdmin> SuperAdmins { get; set; }
-        //public DbSet<ServiceCategory> ServiceCategories { get; set; }
         public DbSet<Service> Services { get; set; }
         public DbSet<WeekDay> WeekDays { get; set; }
         public DbSet<Timetable> Timetables { get; set; }
