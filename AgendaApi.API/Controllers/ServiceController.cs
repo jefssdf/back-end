@@ -4,6 +4,7 @@ using AgendaApi.Application.UseCases.ServiceUseCase.GetAllService;
 using AgendaApi.Application.UseCases.ServiceUseCase.GetServiceById;
 using AgendaApi.Application.UseCases.ServiceUseCase.UpdateService;
 using AgendaApi.Application.UseCases.ServiceUseCases.GetServiceByLegalEntityId;
+using AgendaApi.Application.UseCases.ServiceUseCases.UpdateServiceAvailability;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -56,8 +57,17 @@ namespace AgendaApi.API.Controllers
         }
 
         [HttpPut("{id:Guid}")]
-        public async Task<ActionResult<UpdateServiceResponse>> Update(Guid id,
+        public async Task<ActionResult<UpdateServiceResponse>> Update(Guid? id,
             UpdateServiceRequest request, CancellationToken cancellationToken)
+        {
+            if (id != request.serviceId) return BadRequest();
+            var result = await _mediator.Send(request, cancellationToken);
+            return Ok(result);
+        }
+
+        [HttpPut("/availability/{id:Guid}")]
+        public async Task<ActionResult<UpdateServiceAvailabilityResponse>> UpdateAvailability(Guid? id,
+            UpdateServiceAvailabilityRequest request, CancellationToken cancellationToken)
         {
             if (id != request.serviceId) return BadRequest();
             var result = await _mediator.Send(request, cancellationToken);

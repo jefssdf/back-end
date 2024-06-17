@@ -1,6 +1,6 @@
 ﻿namespace AgendaApi.Domain.Entities
 {
-    public abstract class Person
+    public abstract class Person : BaseEntity
     {
         public string? Name { get; set; }
         public string? Email { get; set; }

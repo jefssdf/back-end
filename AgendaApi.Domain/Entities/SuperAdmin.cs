@@ -1,6 +1,6 @@
 ﻿namespace AgendaApi.Domain.Entities
 {
-    public class SuperAdmin
+    public class SuperAdmin : BaseEntity
     {
         public Guid SuperAdminId { get; set; }
         public string? Email { get; set; }

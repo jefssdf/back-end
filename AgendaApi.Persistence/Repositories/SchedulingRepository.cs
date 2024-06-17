@@ -14,13 +14,11 @@ namespace AgendaApi.Persistence.Repositories
         public override void Create(Scheduling entity)
         {
             entity.SchedulingStatusId = 1;
-            entity.SolicitationDate = DateTime.Now;
-            Context.Schedulings.Add(entity);
+            base.Create(entity);
         }
 
         public override void Update(Scheduling entity)
         {
-            entity.ConfirmationDate = DateTime.Now;
             Context.Schedulings.Update(entity);
         }
 

@@ -21,7 +21,6 @@ namespace AgendaApi.Application.UseCases.SchedulingUseCases.ConfirmeScheduling
             var scheduling = await _unitOfWork.SchedulingRepository.GetById(s => s.SchedulingId == request.schedulingId, cancellationToken);
             if (scheduling is null || scheduling.SchedulingStatusId != 1) throw new BadRequestException("Agendamentos cancelados não podem ser finalizados.");
 
-            scheduling.ConfirmationDate = DateTime.Now;
             scheduling.SchedulingStatusId = 2;
             _unitOfWork.SchedulingRepository.Update(scheduling);
             await _unitOfWork.Commit(cancellationToken);

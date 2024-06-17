@@ -2,7 +2,7 @@
 
 namespace AgendaApi.Domain.Entities
 {
-    public class Cancellation
+    public class Cancellation : BaseEntity
     {
         public Guid CancellationId { get; set; }
         public DateTime CancellationTime { get; set; }

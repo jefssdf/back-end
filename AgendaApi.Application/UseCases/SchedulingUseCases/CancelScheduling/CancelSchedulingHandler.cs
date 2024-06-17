@@ -23,7 +23,6 @@ namespace AgendaApi.Application.UseCases.SchedulingUseCases.DeleteScheduling
             if (scheduling is null || scheduling.SchedulingStatusId != 1) throw new BadRequestException("Somente agendamentos não finalizados podem ser cancelados.");
 
             scheduling.SchedulingStatusId = 3;
-            scheduling.ConfirmationDate = DateTime.Now;
             _unitOfWork.SchedulingRepository.Update(scheduling);
 
             var cancellation = _mapper.Map<Cancellation>(request);

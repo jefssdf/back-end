@@ -1,10 +1,8 @@
 ﻿namespace AgendaApi.Domain.Entities
 {
-    public class Scheduling
+    public class Scheduling : BaseEntity
     {
         public Guid SchedulingId { get; set; }
-        public DateTime SolicitationDate {  get; set; }
-        public DateTime ConfirmationDate { get; set; }
         public DateTime SchedulingDate { get; set; }
         public int SchedulingStatusId { get; set; }
         public SchedulingStatus SchedulingStatus { get; set; }

@@ -8,8 +8,8 @@ namespace AgendaApi.Persistence.Repositories
         private readonly ISuperAdminRepository _superAdminRepository;
         private readonly ILegalEntityRepository _legalEntityRepository;
         private readonly INaturalPersonRepository _naturalPersonRepository;
-        private readonly IServiceCategoryRepository _serviceCategoryRepository;
         private readonly IServiceRepository _serviceRepository;
+        private readonly IServiceStatusRepository _serviceStatusRepository;
         private readonly IWeekDayRepository _weekDayRepository;
         private readonly ITimetableRepository _timetableRepository;
         private readonly ISchedulingStatusRepository _schedulingStatusRepository;
@@ -26,10 +26,10 @@ namespace AgendaApi.Persistence.Repositories
             _legalEntityRepository ?? new LegalEntityRepository(_context);
         public INaturalPersonRepository NaturalPersonRepository =>
             _naturalPersonRepository ?? new NaturalPersonRepository(_context);
-        public IServiceCategoryRepository ServiceCategoryRepository =>
-            _serviceCategoryRepository ?? new ServiceCategoryRepository(_context);
         public IServiceRepository ServiceRepository =>
             _serviceRepository ?? new ServiceRepository(_context);
+        public IServiceStatusRepository ServiceStatusRepository =>
+            _serviceStatusRepository ?? new ServiceStatusRepository(_context);
         public IWeekDayRepository WeekDayRepository =>
             _weekDayRepository ?? new WeekDayRepository(_context);
         public ITimetableRepository TimetableRepository =>

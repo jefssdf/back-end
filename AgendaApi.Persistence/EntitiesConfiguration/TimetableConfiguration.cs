@@ -18,7 +18,8 @@ namespace AgendaApi.Persistence.EntitiesConfiguration
                 .HasForeignKey(tt => tt.LegalEntityId);
             builder.HasOne(tt => tt.WeekDay)
                 .WithMany(wd => wd.Timetables)
-                .HasForeignKey(tt => tt.WeekDayId);
+                .HasForeignKey(tt => tt.WeekDayId)
+                .OnDelete(DeleteBehavior.NoAction);
         }
     }
 }

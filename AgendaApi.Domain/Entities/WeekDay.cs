@@ -1,6 +1,6 @@
 ﻿namespace AgendaApi.Domain.Entities
 {
-    public class WeekDay
+    public class WeekDay : BaseEntity
     {
         public int WeekDayId { get; set; }
         public string Name { get; set; }

@@ -4,8 +4,8 @@
     {
         ILegalEntityRepository LegalEntityRepository { get; }
         INaturalPersonRepository NaturalPersonRepository { get; }
-        IServiceCategoryRepository ServiceCategoryRepository { get; }
         IServiceRepository ServiceRepository { get; }
+        IServiceStatusRepository ServiceStatusRepository { get; }
         IWeekDayRepository WeekDayRepository { get; }
         ITimetableRepository TimetableRepository { get; }
         ISchedulingRepository SchedulingRepository { get; }

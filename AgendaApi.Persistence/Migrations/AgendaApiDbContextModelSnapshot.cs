@@ -32,12 +32,21 @@ namespace AgendaApi.Persistence.Migrations
                         .HasPrecision(0)
                         .HasColumnType("datetime2");
 
+                    b.Property<DateTime?>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DeletedAt")
+                        .HasColumnType("datetime2");
+
                     b.Property<Guid>("Owner")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid?>("SchedulingId")
                         .IsRequired()
                         .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("datetime2");
 
                     b.HasKey("CancellationId");
 
@@ -52,6 +61,12 @@ namespace AgendaApi.Persistence.Migrations
                     b.Property<Guid>("LegalEntityId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime?>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DeletedAt")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("Email")
                         .IsRequired()
@@ -73,6 +88,9 @@ namespace AgendaApi.Persistence.Migrations
                         .HasColumnType("nvarchar(11)")
                         .HasAnnotation("RegularExpression", "^\\(?[1-9]{2}\\)? ?(?:[2-8]|9[0-9])[0-9]{3}\\-?[0-9]{4}$");
 
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
                     b.HasKey("LegalEntityId");
 
                     b.ToTable("LegalEntities");
@@ -83,6 +101,12 @@ namespace AgendaApi.Persistence.Migrations
                     b.Property<Guid>("NaturalPersonId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime?>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DeletedAt")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("Email")
                         .IsRequired()
@@ -105,6 +129,9 @@ namespace AgendaApi.Persistence.Migrations
                         .HasColumnType("nvarchar(11)")
                         .HasAnnotation("RegularExpression", "^\\(?[1-9]{2}\\)? ?(?:[2-8]|9[0-9])[0-9]{3}\\-?[0-9]{4}$");
 
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
                     b.HasKey("NaturalPersonId");
 
                     b.ToTable("NaturalPersons");
@@ -116,8 +143,10 @@ namespace AgendaApi.Persistence.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<DateTime>("ConfirmationDate")
-                        .HasPrecision(0)
+                    b.Property<DateTime?>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DeletedAt")
                         .HasColumnType("datetime2");
 
                     b.Property<Guid>("LegalEntityId")
@@ -136,8 +165,7 @@ namespace AgendaApi.Persistence.Migrations
                     b.Property<Guid>("ServiceId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<DateTime>("SolicitationDate")
-                        .HasPrecision(0)
+                    b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("datetime2");
 
                     b.HasKey("SchedulingId");
@@ -156,15 +184,21 @@ namespace AgendaApi.Persistence.Migrations
             modelBuilder.Entity("AgendaApi.Domain.Entities.SchedulingStatus", b =>
                 {
                     b.Property<int>("SchedulingStatusId")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("SchedulingStatusId"));
+                    b.Property<DateTime?>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DeletedAt")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("StatusName")
                         .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasMaxLength(70)
+                        .HasColumnType("nvarchar(70)");
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("datetime2");
 
                     b.HasKey("SchedulingStatusId");
 
@@ -176,6 +210,12 @@ namespace AgendaApi.Persistence.Migrations
                     b.Property<Guid>("ServiceId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime?>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DeletedAt")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("Description")
                         .IsRequired()
@@ -198,11 +238,44 @@ namespace AgendaApi.Persistence.Migrations
                     b.Property<decimal>("Price")
                         .HasColumnType("decimal(10, 2)");
 
+                    b.Property<int?>("ServiceStatusId")
+                        .IsRequired()
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
                     b.HasKey("ServiceId");
 
                     b.HasIndex("LegalEntityId");
 
+                    b.HasIndex("ServiceStatusId");
+
                     b.ToTable("Services");
+                });
+
+            modelBuilder.Entity("AgendaApi.Domain.Entities.ServiceStatus", b =>
+                {
+                    b.Property<int>("ServiceStatusId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DeletedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("StatusName")
+                        .IsRequired()
+                        .HasMaxLength(70)
+                        .HasColumnType("nvarchar(70)");
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("ServiceStatusId");
+
+                    b.ToTable("ServiceStatus");
                 });
 
             modelBuilder.Entity("AgendaApi.Domain.Entities.SuperAdmin", b =>
@@ -210,6 +283,12 @@ namespace AgendaApi.Persistence.Migrations
                     b.Property<Guid>("SuperAdminId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime?>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DeletedAt")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("Email")
                         .IsRequired()
@@ -220,6 +299,9 @@ namespace AgendaApi.Persistence.Migrations
                         .IsRequired()
                         .HasMaxLength(30)
                         .HasColumnType("nvarchar(30)");
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("datetime2");
 
                     b.HasKey("SuperAdminId");
 
@@ -232,6 +314,12 @@ namespace AgendaApi.Persistence.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<DateTime?>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DeletedAt")
+                        .HasColumnType("datetime2");
+
                     b.Property<TimeOnly>("EndTime")
                         .HasPrecision(0)
                         .HasColumnType("time");
@@ -242,6 +330,9 @@ namespace AgendaApi.Persistence.Migrations
                     b.Property<TimeOnly>("StartTime")
                         .HasPrecision(0)
                         .HasColumnType("time");
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("datetime2");
 
                     b.Property<int>("WeekDayId")
                         .HasColumnType("int");
@@ -258,15 +349,21 @@ namespace AgendaApi.Persistence.Migrations
             modelBuilder.Entity("AgendaApi.Domain.Entities.WeekDay", b =>
                 {
                     b.Property<int>("WeekDayId")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("WeekDayId"));
+                    b.Property<DateTime?>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DeletedAt")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(20)
                         .HasColumnType("nvarchar(20)");
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("datetime2");
 
                     b.HasKey("WeekDayId");
 
@@ -278,7 +375,7 @@ namespace AgendaApi.Persistence.Migrations
                     b.HasOne("AgendaApi.Domain.Entities.Scheduling", "Scheduling")
                         .WithOne("Cancellation")
                         .HasForeignKey("AgendaApi.Domain.Entities.Cancellation", "SchedulingId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.Navigation("Scheduling");
@@ -289,25 +386,25 @@ namespace AgendaApi.Persistence.Migrations
                     b.HasOne("AgendaApi.Domain.Entities.LegalEntity", "LegalEntity")
                         .WithMany("Schedulings")
                         .HasForeignKey("LegalEntityId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.HasOne("AgendaApi.Domain.Entities.NaturalPerson", "NaturalPerson")
                         .WithMany("Schedulings")
                         .HasForeignKey("NaturalPersonId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.HasOne("AgendaApi.Domain.Entities.SchedulingStatus", "SchedulingStatus")
                         .WithMany("Schedulings")
                         .HasForeignKey("SchedulingStatusId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.HasOne("AgendaApi.Domain.Entities.Service", "Service")
                         .WithMany("Schedulings")
                         .HasForeignKey("ServiceId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.Navigation("LegalEntity");
@@ -327,7 +424,15 @@ namespace AgendaApi.Persistence.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("AgendaApi.Domain.Entities.ServiceStatus", "ServiceStatus")
+                        .WithMany("Services")
+                        .HasForeignKey("ServiceStatusId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
                     b.Navigation("LegalEntity");
+
+                    b.Navigation("ServiceStatus");
                 });
 
             modelBuilder.Entity("AgendaApi.Domain.Entities.Timetable", b =>
@@ -341,7 +446,7 @@ namespace AgendaApi.Persistence.Migrations
                     b.HasOne("AgendaApi.Domain.Entities.WeekDay", "WeekDay")
                         .WithMany("Timetables")
                         .HasForeignKey("WeekDayId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.Navigation("LegalEntity");
@@ -377,6 +482,11 @@ namespace AgendaApi.Persistence.Migrations
             modelBuilder.Entity("AgendaApi.Domain.Entities.Service", b =>
                 {
                     b.Navigation("Schedulings");
+                });
+
+            modelBuilder.Entity("AgendaApi.Domain.Entities.ServiceStatus", b =>
+                {
+                    b.Navigation("Services");
                 });
 
             modelBuilder.Entity("AgendaApi.Domain.Entities.WeekDay", b =>

@@ -22,8 +22,8 @@ namespace AgendaApi.Persistence
             services.AddScoped<ISuperAdminRepository, SuperAdminRepository>();
             services.AddScoped<INaturalPersonRepository, NaturalPersonRepository>();
             services.AddScoped<ILegalEntityRepository, LegalEntityRepository>();
-            services.AddScoped<IServiceCategoryRepository, ServiceCategoryRepository>();
             services.AddScoped<IServiceRepository, ServiceRepository>();
+            services.AddScoped<IServiceStatusRepository, ServiceStatusRepository>();
             services.AddScoped<IWeekDayRepository, WeekDayRepository>();
             services.AddScoped<ITimetableRepository, TimetableRepository>();
             services.AddScoped<ISchedulingStatusRepository, SchedulingStatusRepository>();

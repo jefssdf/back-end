@@ -1,6 +1,6 @@
 ﻿namespace AgendaApi.Domain.Entities
 {
-    public class Timetable
+    public class Timetable : BaseEntity
     {
         public Guid TimetableId { get; set; }
         public TimeOnly StartTime { get; set; }

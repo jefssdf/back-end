@@ -1,4 +1,5 @@
-﻿using FluentValidation;
+﻿using AgendaApi.Application.Shared.GlobalValidators;
+using FluentValidation;
 
 namespace AgendaApi.Application.UseCases.ServiceUseCase.DeleteService
 {
@@ -6,7 +7,8 @@ namespace AgendaApi.Application.UseCases.ServiceUseCase.DeleteService
     {
         public DeleteServiceValidator() 
         {
-            RuleFor(s => s.id).NotEmpty();
+            RuleFor(s => s.id).NotEmpty()
+                .Must(GuidValidator.BeValid);
         }
     }
 }

@@ -15,7 +15,8 @@ namespace AgendaApi.Persistence.EntitiesConfiguration
             builder.Property(c => c.SchedulingId).IsRequired();
             builder.HasOne(c => c.Scheduling)
                 .WithOne(s => s.Cancellation)
-                .HasForeignKey<Cancellation>(c => c.SchedulingId);
+                .HasForeignKey<Cancellation>(c => c.SchedulingId)
+                .OnDelete(DeleteBehavior.NoAction);
         }
     }
 }

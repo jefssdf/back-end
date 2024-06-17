@@ -20,6 +20,8 @@ namespace AgendaApi.Application.UseCases.ServiceUseCase.DeleteService
         public async Task<DeleteServiceResponse> Handle(DeleteServiceRequest request,
             CancellationToken cancellationToken)
         {
+            try
+            {
             var service = await _unitOfWork.ServiceRepository.GetById(s => s.ServiceId == request.id,
                 cancellationToken);
             
@@ -29,6 +31,12 @@ namespace AgendaApi.Application.UseCases.ServiceUseCase.DeleteService
             await _unitOfWork.Commit(cancellationToken);
 
             return _mapper.Map<DeleteServiceResponse>(service);
+
+            } catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                throw;
+            }
         }
     }
 }
