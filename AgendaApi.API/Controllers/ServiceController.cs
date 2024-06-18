@@ -20,7 +20,7 @@ namespace AgendaApi.API.Controllers
             _mediator = mediator;
         }
 
-        [HttpGet("/LegalEntityServices{id:Guid}")]
+        [HttpGet("/LegalEntityServices/{id:Guid}")]
         public async Task<ActionResult<List<GetAllServiceResponse>>> 
             GetAll(Guid? id, CancellationToken cancellationToken)
         {
