@@ -20,30 +20,30 @@ namespace AgendaApi.API.Controllers
             _mediator = mediator;
         }
 
-        [HttpGet("/LegalEntityServices/{id:Guid}")]
+        [HttpGet("LegalEntityServices/{legalEntityId:Guid}")]
         public async Task<ActionResult<List<GetAllServiceResponse>>> 
-            GetAll(Guid? id, CancellationToken cancellationToken)
+            GetAll(Guid? legalEntityId, CancellationToken cancellationToken)
         {
-            if (id is null) return BadRequest();
-            var result = await _mediator.Send(new GetAllServiceRequest(id.Value), cancellationToken);
+            if (legalEntityId is null) return BadRequest();
+            var result = await _mediator.Send(new GetAllServiceRequest(legalEntityId.Value), cancellationToken);
             return Ok(result);
         }
 
-        [HttpGet("{id:Guid}")]
-        public async Task<ActionResult<GetServiceByIdResponse>> GetById(Guid? id,
+        [HttpGet("{serviceId:Guid}")]
+        public async Task<ActionResult<GetServiceByIdResponse>> GetById(Guid? serviceId,
             CancellationToken cancellationToken)
         {
-            if (id is null) return BadRequest();
-            var result = await _mediator.Send(new GetServiceByIdRequest(id.Value), cancellationToken);
+            if (serviceId is null) return BadRequest();
+            var result = await _mediator.Send(new GetServiceByIdRequest(serviceId.Value), cancellationToken);
             return Ok(result);
         }
 
-        [HttpGet("LegalEntityId/{id:Guid}")]
-        public async Task<ActionResult<List<GetServiceByLegalEntityIdResponse>>> GetByLegalEntityId(Guid? id,
+        [HttpGet("LegalEntityId/{legalEntityId:Guid}")]
+        public async Task<ActionResult<List<GetServiceByLegalEntityIdResponse>>> GetByLegalEntityId(Guid? legalEntityId,
             CancellationToken cancellationToken)
         {
-            if (id is null) return BadRequest();
-            var result = await _mediator.Send(new GetServiceByLegalEntityIdRequest(id.Value), cancellationToken);
+            if (legalEntityId is null) return BadRequest();
+            var result = await _mediator.Send(new GetServiceByLegalEntityIdRequest(legalEntityId.Value), cancellationToken);
             return Ok(result);
         }
 
@@ -56,20 +56,20 @@ namespace AgendaApi.API.Controllers
             return Ok(result);
         }
 
-        [HttpPut("{id:Guid}")]
-        public async Task<ActionResult<UpdateServiceResponse>> Update(Guid? id,
+        [HttpPut("{serviceId:Guid}")]
+        public async Task<ActionResult<UpdateServiceResponse>> Update(Guid? serviceId,
             UpdateServiceRequest request, CancellationToken cancellationToken)
         {
-            if (id != request.serviceId) return BadRequest();
+            if (serviceId != request.serviceId) return BadRequest();
             var result = await _mediator.Send(request, cancellationToken);
             return Ok(result);
         }
 
-        [HttpPut("/availability/{id:Guid}")]
-        public async Task<ActionResult<UpdateServiceAvailabilityResponse>> UpdateAvailability(Guid? id,
+        [HttpPut("availability/{serviceId:Guid}")]
+        public async Task<ActionResult<UpdateServiceAvailabilityResponse>> UpdateAvailability(Guid? serviceId,
             UpdateServiceAvailabilityRequest request, CancellationToken cancellationToken)
         {
-            if (id != request.serviceId) return BadRequest();
+            if (serviceId != request.serviceId) return BadRequest();
             var result = await _mediator.Send(request, cancellationToken);
             return Ok(result);
         }

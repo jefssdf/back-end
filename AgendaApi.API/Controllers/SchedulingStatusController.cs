@@ -24,13 +24,13 @@ namespace AgendaApi.API.Controllers
             return Ok(result);
         }
 
-        [HttpGet("{id:Guid}")]
-        public async Task<ActionResult<GetSchedulingStatusByIdResponse>> GetById(int id,
+        [HttpGet("{schedulingStatusId:int}")]
+        public async Task<ActionResult<GetSchedulingStatusByIdResponse>> GetById(int? schedulingStatusId,
             CancellationToken cancellationToken)
         {
-            if (id == null) return BadRequest();
+            if (schedulingStatusId == null) return BadRequest();
 
-            var result = await _mediator.Send(new GetSchedulingStatusByIdRequest(id), cancellationToken);
+            var result = await _mediator.Send(new GetSchedulingStatusByIdRequest(schedulingStatusId.Value), cancellationToken);
             return Ok(result);
         }
 
@@ -44,11 +44,11 @@ namespace AgendaApi.API.Controllers
             return Ok(result);
         }
 
-        [HttpPut("{id:int}")]
-        public async Task<ActionResult<UpdateSchedulingStatusResponse>> Update(int id,UpdateSchedulingStatusRequest request,
+        [HttpPut("{schedulingStatusId:int}")]
+        public async Task<ActionResult<UpdateSchedulingStatusResponse>> Update(int schedulingStatusId, UpdateSchedulingStatusRequest request,
             CancellationToken cancellationToken)
         {
-            if (request.schedulingStatusId != id) return BadRequest();
+            if (request.schedulingStatusId != schedulingStatusId) return BadRequest();
 
             var result = await _mediator.Send(request, cancellationToken);
             return Ok(result);

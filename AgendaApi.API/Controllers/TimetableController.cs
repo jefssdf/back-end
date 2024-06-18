@@ -17,12 +17,12 @@ namespace AgendaApi.API.Controllers
             _mediator = mediator;
         }
 
-        [HttpGet("/LegalEntityTimetables{id:Guid}")]
+        [HttpGet("LegalEntityTimetables{legalEntityId:Guid}")]
         public async Task<ActionResult<List<GetAllTimetablesResponse>>> 
-            GetAll(Guid? id, CancellationToken cancellationToken)
+            GetAll(Guid? legalEntityId, CancellationToken cancellationToken)
         {
-            if (id is null) return BadRequest();
-            var result = await _mediator.Send(new GetAllTimetablesRequest(id.Value), cancellationToken);
+            if (legalEntityId is null) return BadRequest();
+            var result = await _mediator.Send(new GetAllTimetablesRequest(legalEntityId.Value), cancellationToken);
             return Ok(result);
         }
         [HttpPost]
@@ -33,11 +33,11 @@ namespace AgendaApi.API.Controllers
             var result = await _mediator.Send(request, cancellationToken);
             return Ok(result);
         }
-        [HttpPut("{id:Guid}")]
+        [HttpPut("{timetableId:Guid}")]
         public async Task<ActionResult<UpdateTimetableResponse>> 
-            Update(Guid id, UpdateTimetableRequest request, CancellationToken cancellationToken)
+            Update(Guid timetableId, UpdateTimetableRequest request, CancellationToken cancellationToken)
         {
-            if (id != request.id) return BadRequest();
+            if (timetableId != request.id) return BadRequest();
             var result = await _mediator.Send(request, cancellationToken);
             return Ok(result);
         }

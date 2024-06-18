@@ -19,7 +19,7 @@ namespace AgendaApi.API.Controllers
             _mediator = mediator;
         }
 
-        [HttpGet("/LegalEntityWeekDays{legalEntityId:Guid}")]
+        [HttpGet("LegalEntityWeekDays{legalEntityId:Guid}")]
         public async Task<ActionResult<List<GetAllWeekDayResponse>>>
             GetAll(Guid? legalEntityId, CancellationToken cancellationToken)
         {
@@ -28,12 +28,12 @@ namespace AgendaApi.API.Controllers
             return Ok(result);
         }
 
-        [HttpGet("{id:int}")]
+        [HttpGet("{weekDayId:int}")]
         public async Task<ActionResult<GetWeekDayByIdResponse>> 
-            GetById(int id, CancellationToken cancellationToken)
+            GetById(int? weekDayId, CancellationToken cancellationToken)
         {
-            if (id == null) return BadRequest();
-            var result = await _mediator.Send(new GetWeekDayByIdRequest(id), cancellationToken);
+            if (weekDayId == null) return BadRequest();
+            var result = await _mediator.Send(new GetWeekDayByIdRequest(weekDayId.Value), cancellationToken);
             return Ok(result);
         }
 
@@ -46,21 +46,21 @@ namespace AgendaApi.API.Controllers
             return Ok(result);
         }
 
-        [HttpPut("{id:int}")]
+        [HttpPut("{weekDayId:int}")]
         public async Task<ActionResult<UpdateWeekDayResponse>> 
-            Update(int id, UpdateWeekDayRequest request, CancellationToken cancellationToken)
+            Update(int weekDayId, UpdateWeekDayRequest request, CancellationToken cancellationToken)
         {
-            if (id != request.id) return BadRequest();
+            if (weekDayId != request.id) return BadRequest();
             var result = await _mediator.Send(request, cancellationToken);
             return Ok(result);
         }
 
-        [HttpDelete("{id:int}")]
+        [HttpDelete("{weekDayId:int}")]
         public async Task<ActionResult<DeleteWeekDayResponse>> 
-            Delete(int id, CancellationToken cancellationToken)
+            Delete(int? weekDayId, CancellationToken cancellationToken)
         {
-            if (id == null) return BadRequest();
-            var result = await _mediator.Send(new DeleteWeekDayRequest(id), cancellationToken);
+            if (weekDayId == null) return BadRequest();
+            var result = await _mediator.Send(new DeleteWeekDayRequest(weekDayId.Value), cancellationToken);
             return Ok(result);
         }
     }

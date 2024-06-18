@@ -46,23 +46,23 @@ namespace AgendaApi.API.Controllers
             return Ok(response);
         }
 
-        [HttpPut("{id:Guid}")]
-        public async Task<ActionResult<UpdateLegalEntityResponse>> Update(Guid id, 
+        [HttpPut("{legalEntityId:Guid}")]
+        public async Task<ActionResult<UpdateLegalEntityResponse>> Update(Guid legalEntityId, 
             UpdateLegalEntityRequest request, CancellationToken cancellationToken)
         {
-            if (id != request.id) return BadRequest();
+            if (legalEntityId != request.id) return BadRequest();
 
             var result = await _mediator.Send(request, cancellationToken);
             return Ok(result);
         }
 
-        [HttpDelete("{id:Guid}")]
-        public async Task<ActionResult<DeleteLegalEntityResponse>> Delete(Guid? id,
+        [HttpDelete("{legalEntityId:Guid}")]
+        public async Task<ActionResult<DeleteLegalEntityResponse>> Delete(Guid? legalEntityId,
             CancellationToken cancellationToken)
         {
-            if (id is null) return BadRequest();
+            if (legalEntityId is null) return BadRequest();
 
-            var response = await _mediator.Send(new DeleteLegalEntityRequest(id.Value), cancellationToken);
+            var response = await _mediator.Send(new DeleteLegalEntityRequest(legalEntityId.Value), cancellationToken);
             return Ok(response);
         }
     }

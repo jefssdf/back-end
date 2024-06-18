@@ -27,29 +27,29 @@ namespace AgendaApi.API.Controllers
             return Ok(result);
         }
 
-        [HttpGet("{id:Guid}")]
-        public async Task<ActionResult<GetSchedulingByIdResponse>> GetById(Guid? id, CancellationToken cancellationToken)
+        [HttpGet("{schedulingId:Guid}")]
+        public async Task<ActionResult<GetSchedulingByIdResponse>> GetById(Guid? schedulingId, CancellationToken cancellationToken)
         {
-            if (id is null) return BadRequest();
-            var result = await _mediator.Send(new GetSchedulingByIdRequest(id.Value), cancellationToken);
+            if (schedulingId is null) return BadRequest();
+            var result = await _mediator.Send(new GetSchedulingByIdRequest(schedulingId.Value), cancellationToken);
             return Ok(result);
         }
 
-        [HttpGet("/legalEntity/{id:Guid}")]
+        [HttpGet("legalEntity/{legalEntityId:Guid}")]
         public async Task<ActionResult<List<GetAllSchedulingByLegalEntityResponse>>>
-            GetAllByLegalEntity(Guid? id, CancellationToken cancellationToken)
+            GetAllByLegalEntity(Guid? legalEntityId, CancellationToken cancellationToken)
         {
-            if (id is null) return BadRequest();
-            var result = await _mediator.Send(new GetAllSchedulingByLegalEntityRequest(id.Value), cancellationToken);
+            if (legalEntityId is null) return BadRequest();
+            var result = await _mediator.Send(new GetAllSchedulingByLegalEntityRequest(legalEntityId.Value), cancellationToken);
             return Ok(result);
         }
 
-        [HttpGet("/naturalPerson/{id:Guid}")]
+        [HttpGet("naturalPerson/{naturalPersonId:Guid}")]
         public async Task<ActionResult<List<GetAllSchedulingByNaturalPersonResponse>>>
-            GetAllByNaturalPerson(Guid? id, CancellationToken cancellationToken)
+            GetAllByNaturalPerson(Guid? naturalPersonId, CancellationToken cancellationToken)
         {
-            if (id is null) return BadRequest();
-            var result = await _mediator.Send(new GetAllSchedulingByNaturalPersonRequest(id.Value), cancellationToken);
+            if (naturalPersonId is null) return BadRequest();
+            var result = await _mediator.Send(new GetAllSchedulingByNaturalPersonRequest(naturalPersonId.Value), cancellationToken);
             return Ok(result);
         }
 
@@ -62,20 +62,20 @@ namespace AgendaApi.API.Controllers
             return Ok(result);
         }
 
-        [HttpPut("/confirme/{id:Guid}")]
-        public async Task<ActionResult<EndsSchedulingResponse>> Confirme(Guid? id,
+        [HttpPut("ends/{schedulingId:Guid}")]
+        public async Task<ActionResult<EndsSchedulingResponse>> Confirme(Guid? schedulingId,
             CancellationToken cancellationToken)
         {
-            if (id is null) return BadRequest();
-            var result = await _mediator.Send(new EndsSchedulingRequest(id.Value), cancellationToken);
+            if (schedulingId is null) return BadRequest();
+            var result = await _mediator.Send(new EndsSchedulingRequest(schedulingId.Value), cancellationToken);
             return Ok(result);
         }
 
-        [HttpPut("/cancel/{id:Guid}")]
-        public async Task<ActionResult<CancelSchedulingResponse>> Cancel(Guid id, CancelSchedulingRequest request,
+        [HttpPut("cancel/{schedulingId:Guid}")]
+        public async Task<ActionResult<CancelSchedulingResponse>> Cancel(Guid? schedulingId, CancelSchedulingRequest request,
             CancellationToken cancellationToken)
         {
-            if (request.schedulingId != id) return BadRequest();
+            if (request.schedulingId != schedulingId) return BadRequest();
             var result = await _mediator.Send(request, cancellationToken);
             return Ok(result);
         }

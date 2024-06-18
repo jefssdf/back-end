@@ -33,20 +33,20 @@ namespace AgendaApi.API.Controllers
             return Ok(result);
         }
 
-        [HttpDelete("{id:int}")]
-        public async Task<ActionResult<DeleteServiceStatusResponse>> Delete(int? id, 
+        [HttpDelete("{serviceStatusId:int}")]
+        public async Task<ActionResult<DeleteServiceStatusResponse>> Delete(int? serviceStatusId, 
             CancellationToken cancellationToken)
         {
-            if (id is null) return BadRequest();
-            var result = await _mediator.Send(new DeleteServiceStatusRequest(id.Value), cancellationToken);
+            if (serviceStatusId is null) return BadRequest();
+            var result = await _mediator.Send(new DeleteServiceStatusRequest(serviceStatusId.Value), cancellationToken);
             return Ok(result);
         }
 
-        [HttpPut("{id:int}")]
-        public async Task<ActionResult<UpdateServiceStatusResponse>> Update(int? id, UpdateServiceStatusRequest request,
+        [HttpPut("{serviceStatusId:int}")]
+        public async Task<ActionResult<UpdateServiceStatusResponse>> Update(int? serviceStatusId, UpdateServiceStatusRequest request,
             CancellationToken cancellationToken)
         {
-            if (id != request.serviceStatusId) return BadRequest();
+            if (serviceStatusId != request.serviceStatusId) return BadRequest();
             var result = await _mediator.Send(request, cancellationToken);
             return Ok(result);
         }

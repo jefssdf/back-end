@@ -22,13 +22,13 @@ namespace AgendaApi.API.Controllers
             return Ok(result);
         }
 
-        [HttpGet("{id:Guid}")]
-        public async Task<ActionResult<GetAllCancellationByOwnerRequest>> GetAllByOwner(Guid? id, 
+        [HttpGet("{cancellationId:Guid}")]
+        public async Task<ActionResult<GetAllCancellationByOwnerRequest>> GetAllByOwner(Guid? cancellationId, 
             CancellationToken cancellationToken)
         {
-            if (id is null) return BadRequest();
+            if (cancellationId is null) return BadRequest();
 
-            var result = await _mediator.Send(new GetAllCancellationByOwnerRequest(id.Value), cancellationToken);
+            var result = await _mediator.Send(new GetAllCancellationByOwnerRequest(cancellationId.Value), cancellationToken);
             return Ok(result);
         }
     }
