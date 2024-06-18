@@ -20,8 +20,9 @@ namespace AgendaApi.Application.UseCases.LegalPersonUseCases.CreateLegalEntity
         public async Task<CreateLegalEntityResponse> Handle(CreateLegalEntityRequest request,
             CancellationToken cancellationToken)
         {
-            var validEmail = await _unitOfWork.LegalEntityRepository.GetByEmail(le => le.Email == request.email, cancellationToken);
-            if (validEmail != null) throw new BadRequestException("Email já cadastrado.");
+            var legalEntityRegistered = await _unitOfWork.LegalEntityRepository.GetByEmail(le => le.Email == request.email, cancellationToken);
+            var naturalPersonRegistered = await _unitOfWork.NaturalPersonRepository.GetByEmail(np => np.Email == request.email, cancellationToken);
+            if (legalEntityRegistered != null || naturalPersonRegistered != null) throw new BadRequestException("Email já cadastrado.");
 
             var legalEntity = _mapper.Map<LegalEntity>(request);
             _unitOfWork.LegalEntityRepository.Create(legalEntity);

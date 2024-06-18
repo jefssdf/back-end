@@ -2,6 +2,7 @@
 using AgendaApi.Domain.Interfaces;
 using AgendaApi.Persistence.Context;
 using Microsoft.EntityFrameworkCore;
+using System.Linq;
 using System.Linq.Expressions;
 
 namespace AgendaApi.Persistence.Repositories
@@ -16,6 +17,11 @@ namespace AgendaApi.Persistence.Repositories
         public override async Task<IEnumerable<WeekDay>> GetAll(CancellationToken cancellationToken)
         {
             return await Context.WeekDays.Include(wd => wd.Timetables).ToListAsync(cancellationToken);
+        }
+
+        public async Task<IEnumerable<WeekDay>> GetAllById(Guid legalEntityId, CancellationToken cancellationToken)
+        {
+            return await Context.WeekDays.Include(wd => wd.Timetables.Where(tt => tt.LegalEntityId == legalEntityId)).ToListAsync(cancellationToken);
         }
     }
 }

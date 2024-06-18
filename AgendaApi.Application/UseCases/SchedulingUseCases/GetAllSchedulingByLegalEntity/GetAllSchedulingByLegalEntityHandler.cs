@@ -18,7 +18,7 @@ namespace AgendaApi.Application.UseCases.SchedulingUseCases.GetAllSchedulingByLe
         public async Task<List<GetAllSchedulingByLegalEntityResponse>> Handle(GetAllSchedulingByLegalEntityRequest request,
             CancellationToken cancellationToken)
         {
-            var schedulings = await _unitOfWork.SchedulingRepository.GetAllById(s => s.LegalEntityId == request.id, cancellationToken);
+            var schedulings = await _unitOfWork.SchedulingRepository.GetAllById(s => s.LegalEntityId == request.legalEntityId, cancellationToken);
             if (schedulings is null) throw new NotFoundException("Não existem agendamentos para a pessoa selecionada.");
             return _mapper.Map<List<GetAllSchedulingByLegalEntityResponse>>(schedulings);
         }

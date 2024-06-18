@@ -1,5 +1,4 @@
 ﻿using AgendaApi.Application.UseCases.ServiceUseCase.CreateService;
-using AgendaApi.Application.UseCases.ServiceUseCase.DeleteService;
 using AgendaApi.Application.UseCases.ServiceUseCase.GetAllService;
 using AgendaApi.Application.UseCases.ServiceUseCase.GetServiceById;
 using AgendaApi.Application.UseCases.ServiceUseCase.UpdateService;
@@ -21,11 +20,12 @@ namespace AgendaApi.API.Controllers
             _mediator = mediator;
         }
 
-        [HttpGet]
+        [HttpGet("/LegalEntityServices{id:Guid}")]
         public async Task<ActionResult<List<GetAllServiceResponse>>> 
-            GetAll(CancellationToken cancellationToken)
+            GetAll(Guid? id, CancellationToken cancellationToken)
         {
-            var result = await _mediator.Send(new GetAllServiceRequest(), cancellationToken);
+            if (id is null) return BadRequest();
+            var result = await _mediator.Send(new GetAllServiceRequest(id.Value), cancellationToken);
             return Ok(result);
         }
 
@@ -71,15 +71,6 @@ namespace AgendaApi.API.Controllers
         {
             if (id != request.serviceId) return BadRequest();
             var result = await _mediator.Send(request, cancellationToken);
-            return Ok(result);
-        }
-
-        [HttpDelete("{id:Guid}")]
-        public async Task<ActionResult<DeleteServiceResponse>> Delete(Guid? id,
-            CancellationToken cancellationToken)
-        {
-            if (id is null) return BadRequest();
-            var result = await _mediator.Send(new DeleteServiceRequest(id.Value), cancellationToken);
             return Ok(result);
         }
     }

@@ -19,11 +19,12 @@ namespace AgendaApi.API.Controllers
             _mediator = mediator;
         }
 
-        [HttpGet]
+        [HttpGet("/LegalEntityWeekDays{legalEntityId:Guid}")]
         public async Task<ActionResult<List<GetAllWeekDayResponse>>>
-            GetAll(CancellationToken cancellationToken)
+            GetAll(Guid? legalEntityId, CancellationToken cancellationToken)
         {
-            var result = await _mediator.Send(new GetAllWeekDayRequest(), cancellationToken);
+            if (legalEntityId is null) return BadRequest();
+            var result = await _mediator.Send(new GetAllWeekDayRequest(legalEntityId.Value), cancellationToken);
             return Ok(result);
         }
 

@@ -7,6 +7,7 @@ namespace AgendaApi.Application.UseCases.ServiceStatusUsecases.CreateServiceStat
     {
         public CreateServiceStatusMapper() 
         {
+            CreateMap<CreateServiceStatusRequest, ServiceStatus>();
             CreateMap<ServiceStatus, CreateServiceStatusResponse>();
         }
     }

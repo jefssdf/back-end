@@ -17,11 +17,12 @@ namespace AgendaApi.API.Controllers
             _mediator = mediator;
         }
 
-        [HttpGet]
+        [HttpGet("/LegalEntityTimetables{id:Guid}")]
         public async Task<ActionResult<List<GetAllTimetablesResponse>>> 
-            GetAll(CancellationToken cancellationToken)
+            GetAll(Guid? id, CancellationToken cancellationToken)
         {
-            var result = await _mediator.Send(new GetAllTimetablesRequest(), cancellationToken);
+            if (id is null) return BadRequest();
+            var result = await _mediator.Send(new GetAllTimetablesRequest(id.Value), cancellationToken);
             return Ok(result);
         }
         [HttpPost]

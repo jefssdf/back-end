@@ -1,4 +1,5 @@
-﻿using AgendaApi.Domain.Entities;
+﻿using AgendaApi.Application.UseCases.SchedulingUseCases.GetSchedulingById;
+using AgendaApi.Domain.Entities;
 using AutoMapper;
 
 namespace AgendaApi.Application.UseCases.SchedulingUseCases.GetAllSchedulingByNaturalPerson
@@ -7,7 +8,7 @@ namespace AgendaApi.Application.UseCases.SchedulingUseCases.GetAllSchedulingByNa
     {
         public GetAllSchedulingByNaturalPersonMapper() 
         {
-            CreateMap<Scheduling, GetAllSchedulingByNaturalPersonResponse>();
+            CreateMap<Scheduling, GetSchedulingByIdResponse>();
         }
     }
 }

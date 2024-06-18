@@ -44,11 +44,11 @@ namespace AgendaApi.API.Controllers
             return Ok(result);
         }
 
-        [HttpPut("{id:Guid}")]
-        public async Task<ActionResult<UpdateSchedulingStatusResponse>> Update(UpdateSchedulingStatusRequest request,
+        [HttpPut("{id:int}")]
+        public async Task<ActionResult<UpdateSchedulingStatusResponse>> Update(int id,UpdateSchedulingStatusRequest request,
             CancellationToken cancellationToken)
         {
-            if (request is null) return BadRequest();
+            if (request.schedulingStatusId != id) return BadRequest();
 
             var result = await _mediator.Send(request, cancellationToken);
             return Ok(result);

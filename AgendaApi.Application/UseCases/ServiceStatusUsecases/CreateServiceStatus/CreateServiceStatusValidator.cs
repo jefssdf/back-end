@@ -7,6 +7,8 @@ namespace AgendaApi.Application.UseCases.ServiceStatusUsecases.CreateServiceStat
     {
         public CreateServiceStatusValidator() 
         {
+            RuleFor(ss => ss.serviceStatusId).NotEmpty()
+                .InclusiveBetween(1, 2);
             RuleFor(ss => ss.statusName).NotEmpty();
         }
     }

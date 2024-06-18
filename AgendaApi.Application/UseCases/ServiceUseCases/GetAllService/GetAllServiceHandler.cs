@@ -19,7 +19,7 @@ namespace AgendaApi.Application.UseCases.ServiceUseCase.GetAllService
         public async Task<List<GetAllServiceResponse>> Handle(GetAllServiceRequest request,
             CancellationToken cancellationToken)
         {
-            var services = await _unitOfWork.ServiceRepository.GetAll(cancellationToken);
+            var services = await _unitOfWork.ServiceRepository.GetAllById(s => s.LegalEntityId == request.legalEntityId,cancellationToken);
             return _mapper.Map<List<GetAllServiceResponse>>(services);
         }
     }

@@ -31,5 +31,10 @@ namespace AgendaApi.Persistence.Repositories
         {
             return await Context.Schedulings.Where(predicate).Include(s => s.Service).ToListAsync(cancellationToken);
         }
+
+        public async Task<IEnumerable<Scheduling>> GetAllByIdComplete(Expression<Func<Scheduling, bool>> predicate, CancellationToken cancellationToken)
+        {
+            return await Context.Schedulings.Where(predicate).Include(s => s.NaturalPerson).Include(s => s.Service).ToListAsync(cancellationToken);
+        }
     }
 }

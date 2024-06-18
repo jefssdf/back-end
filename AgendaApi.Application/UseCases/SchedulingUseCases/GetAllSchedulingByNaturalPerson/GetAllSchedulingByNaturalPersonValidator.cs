@@ -7,7 +7,7 @@ namespace AgendaApi.Application.UseCases.SchedulingUseCases.GetAllSchedulingByNa
     {
         public GetAllSchedulingByNaturalPersonValidator() 
         {
-            RuleFor(s => s.id).NotEmpty()
+            RuleFor(s => s.naturalPersonId).NotEmpty()
                 .Must(GuidValidator.BeValid);
         }
     }

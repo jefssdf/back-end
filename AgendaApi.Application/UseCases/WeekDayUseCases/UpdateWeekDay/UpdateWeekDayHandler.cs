@@ -24,7 +24,7 @@ namespace AgendaApi.Application.UseCases.WeekDayUseCases.UpdateWeekDay
 
             _mapper.Map(request, weekDay);
             _unitOfWork.WeekDayRepository.Update(weekDay);
-            _unitOfWork.Commit(cancellationToken);
+            await _unitOfWork.Commit(cancellationToken);
 
             return _mapper.Map<UpdateWeekDayResponse>(weekDay);
         }
