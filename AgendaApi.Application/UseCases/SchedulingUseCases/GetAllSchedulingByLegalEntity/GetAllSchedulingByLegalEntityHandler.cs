@@ -1,4 +1,5 @@
 ﻿using AgendaApi.Application.Shared.Exceptions;
+using AgendaApi.Application.UseCases.SchedulingUseCases.GetSchedulingById;
 using AgendaApi.Domain.Interfaces;
 using AutoMapper;
 using MediatR;
@@ -18,9 +19,20 @@ namespace AgendaApi.Application.UseCases.SchedulingUseCases.GetAllSchedulingByLe
         public async Task<List<GetAllSchedulingByLegalEntityResponse>> Handle(GetAllSchedulingByLegalEntityRequest request,
             CancellationToken cancellationToken)
         {
-            var schedulings = await _unitOfWork.SchedulingRepository.GetAllById(s => s.LegalEntityId == request.legalEntityId, cancellationToken);
+            var schedulings = await _unitOfWork.SchedulingRepository.GetAllByIdComplete(s => s.LegalEntityId == request.legalEntityId && s.SchedulingStatusId == 1, cancellationToken);
             if (schedulings is null) throw new NotFoundException("Não existem agendamentos para a pessoa selecionada.");
-            return _mapper.Map<List<GetAllSchedulingByLegalEntityResponse>>(schedulings);
+            List<GetAllSchedulingByLegalEntityResponse> result = new List<GetAllSchedulingByLegalEntityResponse>();
+            foreach (var scheduling in schedulings)
+            {
+                result.Add(new GetAllSchedulingByLegalEntityResponse
+                {
+                    schedulingByIdResponse = _mapper.Map<GetSchedulingByIdResponse>(scheduling),
+                    naturalPersonName = scheduling.NaturalPerson.Name,
+                    naturalPersonPhone = scheduling.NaturalPerson.PhoneNumber,
+                    serviceName = scheduling.Service.Name
+                });
+            }
+            return result;
         }
     }
 }
