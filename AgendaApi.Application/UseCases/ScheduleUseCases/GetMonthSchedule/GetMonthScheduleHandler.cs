@@ -1,4 +1,5 @@
 ﻿using AgendaApi.Application.UseCases.SchedulingUseCases.GetAllScheduling;
+using AgendaApi.Application.UseCases.TimetableUseCases.GetAllTimetables;
 using AgendaApi.Domain.Interfaces;
 using AutoMapper;
 using MediatR;
@@ -22,24 +23,24 @@ namespace AgendaApi.Application.UseCases.ScheduleUseCases.GetMonthSchedule
             var timetables = await _unitOfWork.TimetableRepository.GetAllById(tt => tt.LegalEntityId == request.id, cancellationToken);
             List<FreeMonthScheduleResponse> freeMonthSchedule = new List<FreeMonthScheduleResponse>();
 
-            foreach ( var timetable in timetables )
-            {
-                TimeOnly currentTime = timetable.StartTime;
-                while (currentTime < timetable.EndTime )
-                {
-                    freeMonthSchedule.Add(new FreeMonthScheduleResponse
-                    {
-                        AvailableTime = currentTime.ToString("HH:mm"),
-                        WeekDayId = timetable.WeekDayId,
-                    });
+            //foreach ( var timetable in timetables )
+            //{
+            //    TimeOnly currentTime = timetable.StartTime;
+            //    while (currentTime < timetable.EndTime )
+            //    {
+            //        freeMonthSchedule.Add(new FreeMonthScheduleResponse
+            //        {
+            //            AvailableTime = currentTime.ToString("HH:mm"),
+            //            WeekDayId = timetable.WeekDayId,
+            //        });
 
-                    currentTime = currentTime.AddMinutes(30);
-                }
-            }
+            //        currentTime = currentTime.AddMinutes(30);
+            //    }
+            //}
             return new GetMonthScheduleResponse
             {
                 Schedulings = _mapper.Map<List<GetAllSchedulingResponse>>(schedulings),
-                AvailableTimes = freeMonthSchedule
+                AvailableTimes = _mapper.Map<List<GetAllTimetablesResponse>>(timetables)
             };
         }
     }

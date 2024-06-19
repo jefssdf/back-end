@@ -1,4 +1,5 @@
 ﻿using AgendaApi.Application.Shared.Exceptions;
+using AgendaApi.Application.Shared.GlobalValidators;
 using AgendaApi.Domain.Entities;
 using AgendaApi.Domain.Interfaces;
 using AutoMapper;
@@ -21,9 +22,7 @@ namespace AgendaApi.Application.UseCases.NaturalPersonUseCases.CreateNaturalPers
         public async Task<CreateNaturalPersonResponse> Handle(CreateNaturalPersonRequest request,
             CancellationToken cancellationToken)
         {
-            var legalEntityRegistered = await _unitOfWork.LegalEntityRepository.GetByEmail(le => le.Email == request.email, cancellationToken);
-            var naturalPersonRegistered = await _unitOfWork.NaturalPersonRepository.GetByEmail(np => np.Email == request.email, cancellationToken);
-            if (legalEntityRegistered != null || naturalPersonRegistered != null) throw new BadRequestException("Email já cadastrado.");
+            if (await _unitOfWork.IsValidEmail(request.email, cancellationToken)) throw new BadRequestException("Email já cadastrado.");
 
             NaturalPerson naturalPerson = _mapper.Map<NaturalPerson>(request);
             _unitOfWork.NaturalPersonRepository.Create(naturalPerson);
