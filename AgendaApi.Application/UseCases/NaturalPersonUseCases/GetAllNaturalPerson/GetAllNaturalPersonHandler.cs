@@ -21,7 +21,7 @@ namespace AgendaApi.Application.UseCases.NaturalPersonUseCases.GetAllNaturalPers
             CancellationToken cancellationToken)
         {
             var naturalPersons = await _unitOfWork.NaturalPersonRepository.GetAll(cancellationToken);
-            return _mapper.Map<List<GetAllNaturalPersonResponse>>(naturalPersons);
+            return _mapper.Map<List<GetAllNaturalPersonResponse>>(naturalPersons.Where(np => np.Name != "Bloqueio"));
         }
     }
 }
