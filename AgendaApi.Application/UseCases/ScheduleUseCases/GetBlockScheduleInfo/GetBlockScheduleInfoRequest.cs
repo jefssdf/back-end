@@ -2,6 +2,6 @@
 
 namespace AgendaApi.Application.UseCases.ScheduleUseCases.GetBlockScheduleInfo
 {
-    public sealed record GetBlockScheduleInfoRequest 
+    public sealed record GetBlockScheduleInfoRequest(Guid legalEntityId) 
         : IRequest<GetBlockScheduleInfoResponse>;
 }

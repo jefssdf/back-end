@@ -19,7 +19,8 @@ namespace AgendaApi.Application.UseCases.SchedulingUseCases.GetAllSchedulingByLe
         public async Task<List<GetAllSchedulingByLegalEntityResponse>> Handle(GetAllSchedulingByLegalEntityRequest request,
             CancellationToken cancellationToken)
         {
-            var schedulings = await _unitOfWork.SchedulingRepository.GetAllByIdComplete(s => s.LegalEntityId == request.legalEntityId && s.SchedulingStatusId == 1, cancellationToken);
+            var schedulings = await _unitOfWork.SchedulingRepository.GetAllByIdComplete(
+                s => s.LegalEntityId == request.legalEntityId && s.SchedulingStatusId == 1 && s.NaturalPerson.Name != "Bloqueio", cancellationToken);
             if (schedulings is null) throw new NotFoundException("Não existem agendamentos para a pessoa selecionada.");
             List<GetAllSchedulingByLegalEntityResponse> result = new List<GetAllSchedulingByLegalEntityResponse>();
             foreach (var scheduling in schedulings)

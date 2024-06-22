@@ -24,10 +24,10 @@ namespace AgendaApi.API.Controllers
             return Ok(result);
         }
 
-        [HttpGet("blockService")]
-        public async Task<ActionResult<GetBlockScheduleInfoResponse>> GetBlockScheduleInfo(CancellationToken cancellationToken)
+        [HttpGet("blockService/{legalEntityId:Guid}")]
+        public async Task<ActionResult<GetBlockScheduleInfoResponse>> GetBlockScheduleInfo(Guid legalEntityId, CancellationToken cancellationToken)
         {
-            var result = await _mediator.Send(new GetBlockScheduleInfoRequest(), cancellationToken);
+            var result = await _mediator.Send(new GetBlockScheduleInfoRequest(legalEntityId), cancellationToken);
             return Ok(result);
         }
     }
