@@ -386,7 +386,7 @@ namespace AgendaApi.Persistence.Migrations
                     b.HasOne("AgendaApi.Domain.Entities.LegalEntity", "LegalEntity")
                         .WithMany("Schedulings")
                         .HasForeignKey("LegalEntityId")
-                        .OnDelete(DeleteBehavior.NoAction)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("AgendaApi.Domain.Entities.NaturalPerson", "NaturalPerson")

@@ -8,6 +8,7 @@ namespace AgendaApi.Application.UseCases.ScheduleUseCases.GetMonthSchedule
         {
             RuleFor(s => s.date).NotEmpty()
                 .WithMessage("É necessário uma data como referência para filtrar os agendamentos");
+            RuleFor(s => s.legalEntityId).NotEmpty();
         }
     }
 }

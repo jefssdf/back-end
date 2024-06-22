@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AgendaApi.Persistence.Migrations
 {
     [DbContext(typeof(AgendaApiDbContext))]
-    [Migration("20240614184234_Initial")]
+    [Migration("20240622140656_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -389,7 +389,7 @@ namespace AgendaApi.Persistence.Migrations
                     b.HasOne("AgendaApi.Domain.Entities.LegalEntity", "LegalEntity")
                         .WithMany("Schedulings")
                         .HasForeignKey("LegalEntityId")
-                        .OnDelete(DeleteBehavior.NoAction)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("AgendaApi.Domain.Entities.NaturalPerson", "NaturalPerson")

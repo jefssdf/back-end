@@ -19,24 +19,9 @@ namespace AgendaApi.Application.UseCases.ScheduleUseCases.GetMonthSchedule
         public async Task<GetMonthScheduleResponse> Handle(GetMonthScheduleRequest request,
             CancellationToken cancellationToken)
         {
-            var schedulings = await _unitOfWork.SchedulingRepository.GetAllByDate(s => s.SchedulingDate.Month == request.date.Month && s.LegalEntityId == request.id && s.SchedulingStatusId == 1, cancellationToken);
-            var timetables = await _unitOfWork.TimetableRepository.GetAllById(tt => tt.LegalEntityId == request.id, cancellationToken);
-            List<FreeMonthScheduleResponse> freeMonthSchedule = new List<FreeMonthScheduleResponse>();
+            var schedulings = await _unitOfWork.SchedulingRepository.GetAllByDate(s => s.SchedulingDate.Month == request.date.Month && s.LegalEntityId == request.legalEntityId && s.SchedulingStatusId == 1, cancellationToken);
+            var timetables = await _unitOfWork.TimetableRepository.GetAllById(tt => tt.LegalEntityId == request.legalEntityId, cancellationToken);
 
-            //foreach ( var timetable in timetables )
-            //{
-            //    TimeOnly currentTime = timetable.StartTime;
-            //    while (currentTime < timetable.EndTime )
-            //    {
-            //        freeMonthSchedule.Add(new FreeMonthScheduleResponse
-            //        {
-            //            AvailableTime = currentTime.ToString("HH:mm"),
-            //            WeekDayId = timetable.WeekDayId,
-            //        });
-
-            //        currentTime = currentTime.AddMinutes(30);
-            //    }
-            //}
             return new GetMonthScheduleResponse
             {
                 Schedulings = _mapper.Map<List<GetAllSchedulingResponse>>(schedulings),

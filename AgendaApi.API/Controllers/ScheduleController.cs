@@ -14,7 +14,7 @@ namespace AgendaApi.API.Controllers
             _mediator = mediator;
         }
 
-        [HttpGet]
+        [HttpGet("{legalEntityId:Guid}")]
         public async Task<ActionResult<GetMonthScheduleResponse>> GetMonthSchedule(Guid? id, DateTime? date, CancellationToken cancellationToken)
         {
             if (date is null) date = DateTime.UtcNow;

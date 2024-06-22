@@ -19,11 +19,10 @@ namespace AgendaApi.Persistence.EntitiesConfiguration
             builder.HasOne(s => s.NaturalPerson)
                 .WithMany(np => np.Schedulings)
                 .HasForeignKey(s => s.NaturalPersonId)
-                .OnDelete(DeleteBehavior.NoAction); 
+                .OnDelete(DeleteBehavior.NoAction);
             builder.HasOne(s => s.LegalEntity)
                 .WithMany(le => le.Schedulings)
-                .HasForeignKey(s => s.LegalEntityId)
-                .OnDelete(DeleteBehavior.NoAction); 
+                .HasForeignKey(s => s.LegalEntityId); 
             builder.HasOne(s => s.Service)
                 .WithMany(s => s.Schedulings)
                 .HasForeignKey(s => s.ServiceId)

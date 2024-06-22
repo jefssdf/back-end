@@ -189,7 +189,8 @@ namespace AgendaApi.Persistence.Migrations
                         name: "FK_Schedulings_LegalEntities_LegalEntityId",
                         column: x => x.LegalEntityId,
                         principalTable: "LegalEntities",
-                        principalColumn: "LegalEntityId");
+                        principalColumn: "LegalEntityId",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Schedulings_NaturalPersons_NaturalPersonId",
                         column: x => x.NaturalPersonId,
