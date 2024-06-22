@@ -20,15 +20,6 @@ namespace AgendaApi.API.Controllers
             _mediator = mediator;
         }
 
-        [HttpGet]
-        public async Task<ActionResult<List<GetAllServiceResponse>>> 
-            GetAll(Guid? legalEntityId, CancellationToken cancellationToken)
-        {
-            if (legalEntityId is null) return BadRequest();
-            var result = await _mediator.Send(new GetAllServiceRequest(legalEntityId.Value), cancellationToken);
-            return Ok(result);
-        }
-
         [HttpGet("{serviceId:Guid}")]
         public async Task<ActionResult<GetServiceByIdResponse>> GetById(Guid? serviceId,
             CancellationToken cancellationToken)
