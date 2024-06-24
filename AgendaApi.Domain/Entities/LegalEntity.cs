@@ -7,6 +7,4 @@
         public ICollection<Timetable> Timetables { get; set; }
         public ICollection<Scheduling> Schedulings { get; set; }
     }
-
-
 }

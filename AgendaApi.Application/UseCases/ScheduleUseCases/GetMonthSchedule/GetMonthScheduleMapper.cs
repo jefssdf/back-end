@@ -9,7 +9,7 @@ namespace AgendaApi.Application.UseCases.ScheduleUseCases.GetMonthSchedule
     {
         public GetMonthScheduleMapper() 
         {
-            CreateMap<Scheduling, GetAllSchedulingResponse>();
+            //CreateMap<Scheduling, GetCompleteSchedulingInfo>();
             CreateMap<Timetable, GetAllTimetablesResponse>();
         }
     }

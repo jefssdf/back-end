@@ -1,4 +1,5 @@
 ﻿using AgendaApi.Application.UseCases.SchedulingUseCases.GetAllScheduling;
+using AgendaApi.Application.UseCases.ServiceUseCases.GetServiceByLegalEntityId;
 using AgendaApi.Application.UseCases.TimetableUseCases.GetAllTimetables;
 using AgendaApi.Domain.Interfaces;
 using AutoMapper;
@@ -21,11 +22,24 @@ namespace AgendaApi.Application.UseCases.ScheduleUseCases.GetMonthSchedule
         {
             var schedulings = await _unitOfWork.SchedulingRepository.GetAllByDate(s => s.SchedulingDate.Month == request.date.Month && s.LegalEntityId == request.legalEntityId && s.SchedulingStatusId == 1, cancellationToken);
             var timetables = await _unitOfWork.TimetableRepository.GetAllById(tt => tt.LegalEntityId == request.legalEntityId, cancellationToken);
+            List<RequestedInfo> requestedInfos = new List<RequestedInfo>();
+
+            foreach (var scheduling in schedulings)
+            {
+                requestedInfos.Add(new RequestedInfo
+                {
+                    ServiceName = scheduling.Service.Name,
+                    ServiceDuration = scheduling.Service.Duration.ToString(),
+                    NaturalPersonName = scheduling.NaturalPerson.Name
+                });
+            }
+
 
             return new GetMonthScheduleResponse
             {
                 Schedulings = _mapper.Map<List<GetAllSchedulingResponse>>(schedulings),
-                AvailableTimes = _mapper.Map<List<GetAllTimetablesResponse>>(timetables)
+                AvailableTimes = _mapper.Map<List<GetAllTimetablesResponse>>(timetables),
+                Info = requestedInfos
             };
         }
     }

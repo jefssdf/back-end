@@ -1,5 +1,4 @@
 ﻿using AgendaApi.Application.UseCases.ServiceUseCase.CreateService;
-using AgendaApi.Application.UseCases.ServiceUseCase.GetAllService;
 using AgendaApi.Application.UseCases.ServiceUseCase.GetServiceById;
 using AgendaApi.Application.UseCases.ServiceUseCase.UpdateService;
 using AgendaApi.Application.UseCases.ServiceUseCases.GetServiceByLegalEntityId;
