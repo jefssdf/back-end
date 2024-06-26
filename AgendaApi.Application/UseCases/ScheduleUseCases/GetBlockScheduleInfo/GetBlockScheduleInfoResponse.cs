@@ -1,6 +1,5 @@
 ﻿using AgendaApi.Application.UseCases.NaturalPersonUseCases.DTOs;
 using AgendaApi.Application.UseCases.ServiceUseCase.DTOs;
-using AgendaApi.Application.UseCases.ServiceUseCase.GetServiceById;
 
 namespace AgendaApi.Application.UseCases.ScheduleUseCases.GetBlockScheduleInfo
 {

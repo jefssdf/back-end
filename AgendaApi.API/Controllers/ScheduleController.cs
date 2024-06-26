@@ -16,7 +16,7 @@ namespace AgendaApi.API.Controllers
         }
 
         [HttpGet("{legalEntityId:Guid}")]
-        public async Task<ActionResult<GetMonthScheduleResponse>> GetMonthSchedule(Guid? legalEntityId, DateTime? date, CancellationToken cancellationToken)
+        public async Task<ActionResult<FreeMonthScheduleResponse>> GetMonthSchedule(Guid? legalEntityId, DateTime? date, CancellationToken cancellationToken)
         {
             if (date is null) date = DateTime.UtcNow;
             if (legalEntityId is null) return BadRequest("Um identificador de pessoa juridica é necessário.");

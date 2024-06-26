@@ -1,5 +1,4 @@
-﻿using AgendaApi.Application.UseCases.ServiceUseCase.GetServiceById;
-using AgendaApi.Domain.Interfaces;
+﻿using AgendaApi.Domain.Interfaces;
 using AutoMapper;
 using MediatR;
 
