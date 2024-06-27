@@ -2,5 +2,5 @@
 
 namespace AgendaApi.Application.UseCases.SchedulingUseCases.ConfirmeScheduling
 {
-    public sealed record EndsSchedulingResponse : SchedulingBaseResponse;
+    public sealed record EndsPayedSchedulingResponse : SchedulingBaseResponse;
 }

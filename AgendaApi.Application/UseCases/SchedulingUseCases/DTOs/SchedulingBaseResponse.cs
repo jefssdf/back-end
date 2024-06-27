@@ -16,6 +16,7 @@
         public Guid schedulingId { get; set; }
         public DateTime schedulingDate { get; set; }
         public Guid legalEntityId { get; set; }
+        public string? schedulingStatusName { get; set; }
         public string? serviceName { get; set; }
         public string? serviceDuration { get; set; }
         public string? naturalPersonName { get; set; }
@@ -26,9 +27,10 @@
         public Guid schedulingId { get; set; }
         public DateTime schedulingDate { get; set; }
         public Guid legalEntityId { get; set; }
-        public string serviceName { get; set; }
-        public string serviceDuration { get; set; }
-        public string legalEntityName { get; set; }
-        public string legalEntityPhone { get; set; }
+        public string? schedulingStatusName { get; set; }
+        public string? serviceName { get; set; }
+        public string? serviceDuration { get; set; }
+        public string? legalEntityName { get; set; }
+        public string? legalEntityPhone { get; set; }
     }
 }

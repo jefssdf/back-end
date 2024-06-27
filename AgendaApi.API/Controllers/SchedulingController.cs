@@ -1,6 +1,8 @@
 ﻿using AgendaApi.Application.UseCases.SchedulingUseCases.ConfirmeScheduling;
 using AgendaApi.Application.UseCases.SchedulingUseCases.CreateScheduling;
 using AgendaApi.Application.UseCases.SchedulingUseCases.DeleteScheduling;
+using AgendaApi.Application.UseCases.SchedulingUseCases.EndsNotPayedScheduling;
+using AgendaApi.Application.UseCases.SchedulingUseCases.GetAllNaturalPersonSchedulingsBySchedulingStatus;
 using AgendaApi.Application.UseCases.SchedulingUseCases.GetAllScheduling;
 using AgendaApi.Application.UseCases.SchedulingUseCases.GetAllSchedulingByLegalEntity;
 using AgendaApi.Application.UseCases.SchedulingUseCases.GetAllSchedulingByNaturalPerson;
@@ -53,6 +55,17 @@ namespace AgendaApi.API.Controllers
             return Ok(result);
         }
 
+        [HttpGet("naturalPersonBySchedulingStatus/{naturalPersonId:Guid}")]
+        public async Task<ActionResult<List<GetAllNaturalPersonSchedulingsBySchedulingStatusResponse>>>
+            GetAllNaturalPersonSchedulingBySchedulingStatusId(Guid? naturalPersonId, int? schedulingStatusId, 
+            CancellationToken cancellationToken)
+        {
+            if (naturalPersonId is null || schedulingStatusId is null) return BadRequest();
+            var result = await _mediator.Send(
+                new GetAllNaturalPersonSchedulingsBySchedulingStatusRequest(naturalPersonId.Value, schedulingStatusId.Value), cancellationToken);
+            return Ok(result);
+        }
+
         [HttpPost]
         public async Task<ActionResult<CreateSchedulingResponse>> Create(CreateSchedulingRequest request,
             CancellationToken cancellationToken)
@@ -62,12 +75,21 @@ namespace AgendaApi.API.Controllers
             return Ok(result);
         }
 
-        [HttpPut("ends/{schedulingId:Guid}")]
-        public async Task<ActionResult<EndsSchedulingResponse>> Confirme(Guid? schedulingId,
+        [HttpPut("endsPayedSccheduling/{schedulingId:Guid}")]
+        public async Task<ActionResult<EndsPayedSchedulingResponse>> Payed(Guid? schedulingId,
             CancellationToken cancellationToken)
         {
             if (schedulingId is null) return BadRequest();
-            var result = await _mediator.Send(new EndsSchedulingRequest(schedulingId.Value), cancellationToken);
+            var result = await _mediator.Send(new EndsPayedSchedulingRequest(schedulingId.Value), cancellationToken);
+            return Ok(result);
+        }
+
+        [HttpPut("endsNotPayedScheduling/{schedulingId:Guid}")]
+        public async Task<ActionResult<EndsNotPayedSchedulingResponse>> NotPayed(Guid? schedulingId,
+            CancellationToken cancellationToken)
+        {
+            if (schedulingId is null) return BadRequest();
+            var result = await _mediator.Send(new EndsNotPayedSchedulingRequest(schedulingId.Value), cancellationToken);
             return Ok(result);
         }
 

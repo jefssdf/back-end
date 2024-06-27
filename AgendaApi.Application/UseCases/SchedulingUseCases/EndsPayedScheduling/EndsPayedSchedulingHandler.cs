@@ -5,17 +5,17 @@ using MediatR;
 
 namespace AgendaApi.Application.UseCases.SchedulingUseCases.ConfirmeScheduling
 {
-    public sealed class EndsSchedulingHandler
-        : IRequestHandler<EndsSchedulingRequest, EndsSchedulingResponse>
+    public sealed class EndsPayedSchedulingHandler
+        : IRequestHandler<EndsPayedSchedulingRequest, EndsPayedSchedulingResponse>
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
-        public EndsSchedulingHandler(IUnitOfWork unitOfWork, IMapper mapper)
+        public EndsPayedSchedulingHandler(IUnitOfWork unitOfWork, IMapper mapper)
         {
             _unitOfWork = unitOfWork;
             _mapper = mapper;
         }
-        public async Task<EndsSchedulingResponse> Handle(EndsSchedulingRequest request,
+        public async Task<EndsPayedSchedulingResponse> Handle(EndsPayedSchedulingRequest request,
             CancellationToken cancellationToken)
         {
             var scheduling = await _unitOfWork.SchedulingRepository.GetById(s => s.SchedulingId == request.schedulingId, cancellationToken);
@@ -25,7 +25,7 @@ namespace AgendaApi.Application.UseCases.SchedulingUseCases.ConfirmeScheduling
             _unitOfWork.SchedulingRepository.Update(scheduling);
             await _unitOfWork.Commit(cancellationToken);
 
-            return _mapper.Map<EndsSchedulingResponse>(scheduling);
+            return _mapper.Map<EndsPayedSchedulingResponse>(scheduling);
         }
     }
 }

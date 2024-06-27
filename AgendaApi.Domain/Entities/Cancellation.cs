@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
-
-namespace AgendaApi.Domain.Entities
+﻿namespace AgendaApi.Domain.Entities
 {
     public class Cancellation : BaseEntity
     {
