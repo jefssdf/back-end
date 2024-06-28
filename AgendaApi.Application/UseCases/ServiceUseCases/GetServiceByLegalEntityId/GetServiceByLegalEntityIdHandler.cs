@@ -1,5 +1,4 @@
 ﻿using AgendaApi.Application.Shared.Exceptions;
-using AgendaApi.Domain.Entities;
 using AgendaApi.Domain.Interfaces;
 using AutoMapper;
 using MediatR;

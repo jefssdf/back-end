@@ -1,9 +1,4 @@
 ﻿using AgendaApi.Domain.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace AgendaApi.Application.UseCases.CancellationUseCase.DTOs
 {
@@ -13,5 +8,6 @@ namespace AgendaApi.Application.UseCases.CancellationUseCase.DTOs
         public DateTime? CancellationTime { get; set; }
         public Guid Owner { get; set; }
         public Guid? SchedulingId { get; set; }
+        public Scheduling Scheduling { get; set; }
     }
 }
