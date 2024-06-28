@@ -17,6 +17,10 @@ namespace AgendaApi.Persistence.EntitiesConfiguration
                 .WithOne(s => s.SchedulingStatus)
                 .HasForeignKey(s => s.SchedulingStatusId)
                 .OnDelete(DeleteBehavior.NoAction);
+            builder.HasData(new SchedulingStatus { SchedulingStatusId = 1, StatusName = "Agendado" },
+                new SchedulingStatus { SchedulingStatusId = 2, StatusName = "Finalizado" },
+                new SchedulingStatus { SchedulingStatusId = 3, StatusName = "Aguardando pagamento" }
+                ,new SchedulingStatus { SchedulingStatusId = 4, StatusName  = "Cancelado" });
         }
     }
 }

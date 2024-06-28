@@ -18,6 +18,8 @@ namespace AgendaApi.Persistence.EntitiesConfiguration
             builder.HasMany(np => np.Schedulings)
                 .WithOne(s => s.NaturalPerson)
                 .HasForeignKey(s => s.NaturalPersonId);
+            builder.HasData(new NaturalPerson { Name = "Bloqueio", Email = "bloqueio@bloqueio.com",
+            Password = "********", PhoneNumber = "27999999999", CreatedAt = DateTime.Now });
         }
     }
 }
