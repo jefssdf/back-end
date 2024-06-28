@@ -22,7 +22,8 @@ namespace AgendaApi.Application.UseCases.SchedulingUseCases.CreateScheduling
             int weekDayId = (int)request.schedulingDate.DayOfWeek + 1;
             WeekDay weekDay = await _unitOfWork.WeekDayRepository.GetById(wd => wd.WeekDayId == weekDayId, cancellationToken);
             Service service = await _unitOfWork.ServiceRepository.GetById(s => s.ServiceId == request.serviceId, cancellationToken);
-            IEnumerable<Scheduling> schedulings = await _unitOfWork.SchedulingRepository.GetAllByDate(s => s.SchedulingDate.Date == request.schedulingDate.Date && s.LegalEntityId == request.legalEntityId, cancellationToken);
+            IEnumerable<Scheduling> schedulings = await _unitOfWork.SchedulingRepository.GetAllByDate(
+                s => s.SchedulingDate.Date == request.schedulingDate.Date && s.LegalEntityId == request.legalEntityId && s.SchedulingStatusId == 1, cancellationToken);
             TimeOnly schedulingStartTime = TimeOnly.FromDateTime(request.schedulingDate);
             TimeOnly schedulingEndTime = schedulingStartTime.Add(service.Duration);
             bool verificator = false;
@@ -44,7 +45,7 @@ namespace AgendaApi.Application.UseCases.SchedulingUseCases.CreateScheduling
                 }
             }
 
-            if (service.ServiceStatusId != 1) throw new BadRequestException("Serico solicitado se encontra indisponivel");
+            if (service.ServiceStatusId != 1) throw new BadRequestException("Serviço solicitado se encontra indisponivel");
 
             var newScheduling = _mapper.Map<Scheduling>(request);
             _unitOfWork.SchedulingRepository.Create(newScheduling);
