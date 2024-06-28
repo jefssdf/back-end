@@ -1,0 +1,7 @@
+organization=agendaapp23
+projectKey=agendaapp23_agendaapp2
+serverUrl=https://sonarcloud.io
+serverVersion=8.0.0.55486
+dashboardUrl=https://sonarcloud.io/dashboard?id=agendaapp23_agendaapp2
+ceTaskId=AZBcVYTVgDL8p9XeuByn
+ceTaskUrl=https://sonarcloud.io/api/ce/task?id=AZBcVYTVgDL8p9XeuByn
