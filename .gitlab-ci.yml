@@ -1,9 +1,12 @@
 stages:
   - build
   - deploy
+  - sonarcloud-check
 
 variables:
   DOCKER_IMAGE: $CI_REGISTRY_IMAGE
+  SONAR_USER_HOME: "${CI_PROJECT_DIR}/.sonar"
+  GIT_DEPTH: "0"
 
 build:
   stage: build
@@ -31,10 +34,8 @@ deploy:
   only:
     - main
 
-    variables:
-  SONAR_USER_HOME: "${CI_PROJECT_DIR}/.sonar"  # Defines the location of the analysis task cache
-  GIT_DEPTH: "0"  # Tells git to fetch all the branches of the project, required by the analysis task
 sonarcloud-check:
+  stage: sonarcloud-check
   image:
     name: sonarsource/sonar-scanner-cli:latest
     entrypoint: [""]
@@ -44,6 +45,10 @@ sonarcloud-check:
       - .sonar/cache
   script:
     - sonar-scanner
+      -Dsonar.projectKey=jno868214_agendaapp-cliente
+      -Dsonar.organization=jno868214
+      -Dsonar.host.url=https://sonarcloud.io
+      -Dsonar.login=$SONAR_TOKEN
   only:
     - merge_requests
     - master
