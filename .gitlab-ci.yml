@@ -45,11 +45,11 @@ sonarcloud-check:
       - .sonar/cache
   script:
     - sonar-scanner
-      -Dsonar.projectKey=jno868214_agendaapp-cliente
+      -Dsonar.projectKey=agendaApp-backend
       -Dsonar.organization=jno868214
       -Dsonar.host.url=https://sonarcloud.io
       -Dsonar.login=$SONAR_TOKEN
   only:
     - merge_requests
     - master
-    - develop
+    - main
