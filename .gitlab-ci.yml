@@ -14,7 +14,7 @@ sonarqube-check:
       -Dsonar.projectKey=jno868214_agendaapp-backend
       -Dsonar.organization=Jeferson Araujo 
       -Dsonar.host.url=https://sonarcloud.io
-      -Dsonar.login=backend
+      -Dsonar.login=$SONAR_TOKEN
   allow_failure: true
   only:
     - branches
