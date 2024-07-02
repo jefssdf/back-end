@@ -4,18 +4,18 @@ stages:
   - scan
 
 variables:
-  SONAR_USER_HOME: "${CI_PROJECT_DIR}/.sonar"  # Define a pasta para cache do Sonar
-  GIT_DEPTH: "0"  # Necessário para o SonarCloud obter todas as informações de histórico
+  SONAR_USER_HOME: "${CI_PROJECT_DIR}/.sonar"
+  GIT_DEPTH: "0"
 
 cache:
   paths:
     - .sonar/cache
 
 before_script:
-  - apt-get update -qq && apt-get install -y -qq openjdk-11-jre # Instalação do Java, necessário para o SonarScanner
-  - export PATH="$PATH:/root/.dotnet/tools" # Adiciona dotnet tools ao PATH
-  - dotnet tool install --global dotnet-sonarscanner # Instalação do SonarScanner para .NET
-  - dotnet restore # Restaura as dependências do .NET
+  - choco install openjdk11 --params 'installdir=c:\\java\\openjdk11' -y # Instala o OpenJDK 11 usando Chocolatey
+  - SET "JAVA_HOME=c:\java\openjdk11" # Define o JAVA_HOME para o OpenJDK 11
+  - SET "PATH=%JAVA_HOME%\bin;%PATH%" # Adiciona o OpenJDK 11 ao PATH
+  - dotnet tool install --global dotnet-sonarscanner
 
 build:
   stage: build
