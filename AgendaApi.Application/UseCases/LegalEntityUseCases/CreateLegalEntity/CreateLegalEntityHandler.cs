@@ -1,11 +1,10 @@
 ﻿using AgendaApi.Application.Shared.Exceptions;
 using AgendaApi.Application.Shared.GlobalValidators;
+using AgendaApi.Application.Shared.PasswordHashing;
 using AgendaApi.Domain.Entities;
 using AgendaApi.Domain.Interfaces;
 using AutoMapper;
 using MediatR;
-using System.Diagnostics;
-using System.Xml.Linq;
 
 namespace AgendaApi.Application.UseCases.LegalPersonUseCases.CreateLegalEntity
 {
@@ -23,9 +22,11 @@ namespace AgendaApi.Application.UseCases.LegalPersonUseCases.CreateLegalEntity
         public async Task<CreateLegalEntityResponse> Handle(CreateLegalEntityRequest request,
             CancellationToken cancellationToken)
         {
-            if (await _unitOfWork.IsValidEmail(request.email, cancellationToken)) throw new BadRequestException("Email já cadastrado.");
+            try
+            {if (await _unitOfWork.IsValidEmail(request.email, cancellationToken)) throw new BadRequestException("Email já cadastrado.");
 
             var legalEntity = _mapper.Map<LegalEntity>(request);
+            legalEntity.Password = PasswordHashingService.Hash(legalEntity.Password!);
             _unitOfWork.LegalEntityRepository.Create(legalEntity);
             await _unitOfWork.Commit(cancellationToken);
 
@@ -40,7 +41,13 @@ namespace AgendaApi.Application.UseCases.LegalPersonUseCases.CreateLegalEntity
             });
             await _unitOfWork.Commit(cancellationToken);
 
-            return _mapper.Map<CreateLegalEntityResponse>(legalEntity);
+                return _mapper.Map<CreateLegalEntityResponse>(legalEntity);
+            }
+            catch(Exception e)
+            {
+                Console.WriteLine(e.Message);
+                throw;
+            }
         }
     }
 }

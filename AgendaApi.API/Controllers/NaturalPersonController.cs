@@ -4,6 +4,7 @@ using AgendaApi.Application.UseCases.NaturalPersonUseCases.GetAllNaturalPerson;
 using AgendaApi.Application.UseCases.NaturalPersonUseCases.GetNaturalPersonByEmail;
 using AgendaApi.Application.UseCases.NaturalPersonUseCases.UpdateNaturalPerson;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AgendaApi.API.Controllers
@@ -20,6 +21,7 @@ namespace AgendaApi.API.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Client")]
         public async Task<ActionResult<List<GetAllNaturalPersonResponse>>> 
             GetAll(CancellationToken cancellationToken)
         {

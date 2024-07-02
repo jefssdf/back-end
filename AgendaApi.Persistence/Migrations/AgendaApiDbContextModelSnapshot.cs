@@ -53,7 +53,7 @@ namespace AgendaApi.Persistence.Migrations
                     b.HasIndex("SchedulingId")
                         .IsUnique();
 
-                    b.ToTable("Cancellations", (string)null);
+                    b.ToTable("Cancellations");
                 });
 
             modelBuilder.Entity("AgendaApi.Domain.Entities.LegalEntity", b =>
@@ -79,8 +79,8 @@ namespace AgendaApi.Persistence.Migrations
 
                     b.Property<string>("Password")
                         .IsRequired()
-                        .HasMaxLength(30)
-                        .HasColumnType("nvarchar(30)");
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<string>("PhoneNumber")
                         .IsRequired()
@@ -93,7 +93,7 @@ namespace AgendaApi.Persistence.Migrations
 
                     b.HasKey("LegalEntityId");
 
-                    b.ToTable("LegalEntities", (string)null);
+                    b.ToTable("LegalEntities");
                 });
 
             modelBuilder.Entity("AgendaApi.Domain.Entities.NaturalPerson", b =>
@@ -120,8 +120,8 @@ namespace AgendaApi.Persistence.Migrations
 
                     b.Property<string>("Password")
                         .IsRequired()
-                        .HasMaxLength(30)
-                        .HasColumnType("nvarchar(30)");
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<string>("PhoneNumber")
                         .IsRequired()
@@ -134,7 +134,7 @@ namespace AgendaApi.Persistence.Migrations
 
                     b.HasKey("NaturalPersonId");
 
-                    b.ToTable("NaturalPersons", (string)null);
+                    b.ToTable("NaturalPersons");
                 });
 
             modelBuilder.Entity("AgendaApi.Domain.Entities.Scheduling", b =>
@@ -178,7 +178,7 @@ namespace AgendaApi.Persistence.Migrations
 
                     b.HasIndex("ServiceId");
 
-                    b.ToTable("Schedulings", (string)null);
+                    b.ToTable("Schedulings");
                 });
 
             modelBuilder.Entity("AgendaApi.Domain.Entities.SchedulingStatus", b =>
@@ -202,7 +202,7 @@ namespace AgendaApi.Persistence.Migrations
 
                     b.HasKey("SchedulingStatusId");
 
-                    b.ToTable("SchedulingStatus", (string)null);
+                    b.ToTable("SchedulingStatus");
                 });
 
             modelBuilder.Entity("AgendaApi.Domain.Entities.Service", b =>
@@ -251,7 +251,7 @@ namespace AgendaApi.Persistence.Migrations
 
                     b.HasIndex("ServiceStatusId");
 
-                    b.ToTable("Services", (string)null);
+                    b.ToTable("Services");
                 });
 
             modelBuilder.Entity("AgendaApi.Domain.Entities.ServiceStatus", b =>
@@ -275,7 +275,7 @@ namespace AgendaApi.Persistence.Migrations
 
                     b.HasKey("ServiceStatusId");
 
-                    b.ToTable("ServiceStatus", (string)null);
+                    b.ToTable("ServiceStatus");
                 });
 
             modelBuilder.Entity("AgendaApi.Domain.Entities.SuperAdmin", b =>
@@ -297,15 +297,15 @@ namespace AgendaApi.Persistence.Migrations
 
                     b.Property<string>("Password")
                         .IsRequired()
-                        .HasMaxLength(30)
-                        .HasColumnType("nvarchar(30)");
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("datetime2");
 
                     b.HasKey("SuperAdminId");
 
-                    b.ToTable("SuperAdmins", (string)null);
+                    b.ToTable("SuperAdmins");
                 });
 
             modelBuilder.Entity("AgendaApi.Domain.Entities.Timetable", b =>
@@ -343,7 +343,7 @@ namespace AgendaApi.Persistence.Migrations
 
                     b.HasIndex("WeekDayId");
 
-                    b.ToTable("Timetables", (string)null);
+                    b.ToTable("Timetables");
                 });
 
             modelBuilder.Entity("AgendaApi.Domain.Entities.WeekDay", b =>
@@ -367,7 +367,7 @@ namespace AgendaApi.Persistence.Migrations
 
                     b.HasKey("WeekDayId");
 
-                    b.ToTable("WeekDays", (string)null);
+                    b.ToTable("WeekDays");
                 });
 
             modelBuilder.Entity("AgendaApi.Domain.Entities.Cancellation", b =>

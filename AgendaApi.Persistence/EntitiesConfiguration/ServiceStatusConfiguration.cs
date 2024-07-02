@@ -17,8 +17,8 @@ namespace AgendaApi.Persistence.EntitiesConfiguration
                 .WithOne(s => s.ServiceStatus)
                 .HasForeignKey(s => s.ServiceStatusId)
                 .OnDelete(DeleteBehavior.NoAction);
-            builder.HasData(new ServiceStatus { ServiceStatusId = 1, StatusName = "Disponível" , CreatedAt = DateTime.Now },
-                new ServiceStatus { ServiceStatusId = 2, StatusName = "Indisponível" , CreatedAt = DateTime.Now });
+            builder.HasData(new ServiceStatus { ServiceStatusId = 1, StatusName = "Disponível", CreatedAt = DateTime.Now },
+                new ServiceStatus { ServiceStatusId = 2, StatusName = "Indisponível", CreatedAt = DateTime.Now });
         }
     }
 }

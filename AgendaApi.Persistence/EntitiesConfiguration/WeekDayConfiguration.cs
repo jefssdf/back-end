@@ -21,7 +21,7 @@ namespace AgendaApi.Persistence.EntitiesConfiguration
                 new WeekDay { WeekDayId = 2, Name = "Segunda" },
                 new WeekDay { WeekDayId = 3, Name = "Terça" },
                 new WeekDay { WeekDayId = 4, Name = "Quarta" },
-                new WeekDay { WeekDayId  = 5, Name = "Quinta" },
+                new WeekDay { WeekDayId = 5, Name = "Quinta" },
                 new WeekDay { WeekDayId = 6, Name = "Sexta" },
                 new WeekDay { WeekDayId = 7, Name = "Sábado" });
         }

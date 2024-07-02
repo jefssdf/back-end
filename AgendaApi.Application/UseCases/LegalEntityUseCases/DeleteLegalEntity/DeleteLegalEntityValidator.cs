@@ -7,7 +7,7 @@ namespace AgendaApi.Application.UseCases.LegalPersonUseCases.DeleteLegalEntity
     {
         public DeleteLegalEntityValidator() 
         {
-            RuleFor(le => le.Id).NotEmpty()
+            RuleFor(le => le.Id).NotEmpty().NotNull()
                 .Must(GuidValidator.BeValid);
         }
     }

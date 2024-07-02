@@ -9,7 +9,7 @@ namespace AgendaApi.Application.UseCases.LegalPersonUseCases.UpdateLegalEntity
     {
         public UpdateLegalEntityValidator()
         {
-            RuleFor(le => le.id).NotEmpty()
+            RuleFor(le => le.id).NotEmpty().NotNull()
                 .Must(GuidValidator.BeValid);
             RuleFor(le => le.name).NotEmpty()
                 .WithMessage("Nome é um campo obrigatório.")

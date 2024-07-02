@@ -7,7 +7,7 @@ namespace AgendaApi.Application.UseCases.NaturalPersonUseCases.DeleteNaturalPers
     {
         public DeleteNaturalPersonValidator() 
         {
-            RuleFor(np => np.id).NotEmpty()
+            RuleFor(np => np.id).NotEmpty().NotNull()
                 .Must(GuidValidator.BeValid);
         }
     }

@@ -1,5 +1,6 @@
 ﻿using AgendaApi.Application.Shared.Exceptions;
 using AgendaApi.Application.Shared.GlobalValidators;
+using AgendaApi.Application.Shared.PasswordHashing;
 using AgendaApi.Domain.Entities;
 using AgendaApi.Domain.Interfaces;
 using AutoMapper;
@@ -25,6 +26,7 @@ namespace AgendaApi.Application.UseCases.NaturalPersonUseCases.CreateNaturalPers
             if (await _unitOfWork.IsValidEmail(request.email, cancellationToken)) throw new BadRequestException("Email já cadastrado.");
 
             NaturalPerson naturalPerson = _mapper.Map<NaturalPerson>(request);
+            naturalPerson.Password = PasswordHashingService.Hash(naturalPerson.Password!);
             _unitOfWork.NaturalPersonRepository.Create(naturalPerson);
             await _unitOfWork.Commit(cancellationToken);
 

@@ -11,7 +11,7 @@ namespace AgendaApi.Persistence.EntitiesConfiguration
             builder.HasKey(le => le.LegalEntityId);
             builder.Property(le => le.Name).HasMaxLength(70).IsRequired();
             builder.Property(le => le.Email).IsRequired();
-            builder.Property(le => le.Password).HasMaxLength(30).IsRequired();
+            builder.Property(le => le.Password).HasMaxLength(100).IsRequired();
             builder.Property(le => le.PhoneNumber).HasMaxLength(11)
                 .HasAnnotation("RegularExpression", 
                 "^\\(?[1-9]{2}\\)? ?(?:[2-8]|9[0-9])[0-9]{3}\\-?[0-9]{4}$").IsRequired();

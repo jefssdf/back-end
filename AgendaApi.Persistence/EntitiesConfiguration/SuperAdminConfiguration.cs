@@ -10,7 +10,7 @@ namespace AgendaApi.Persistence.EntitiesConfiguration
         {
             builder.HasKey(np => np.SuperAdminId);
             builder.Property(np => np.Email).HasMaxLength(70).IsRequired();
-            builder.Property(np => np.Password).HasMaxLength(30).IsRequired();
+            builder.Property(np => np.Password).HasMaxLength(100).IsRequired();
         }
     }
 }

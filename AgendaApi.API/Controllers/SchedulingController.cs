@@ -75,7 +75,7 @@ namespace AgendaApi.API.Controllers
             return Ok(result);
         }
 
-        [HttpPut("endsPayedSccheduling/{schedulingId:Guid}")]
+        [HttpPut("endsPayedScheduling/{schedulingId:Guid}")]
         public async Task<ActionResult<EndsPayedSchedulingResponse>> Payed(Guid? schedulingId,
             CancellationToken cancellationToken)
         {

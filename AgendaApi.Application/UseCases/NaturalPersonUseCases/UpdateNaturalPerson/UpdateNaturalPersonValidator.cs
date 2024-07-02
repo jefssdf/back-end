@@ -8,7 +8,7 @@ namespace AgendaApi.Application.UseCases.NaturalPersonUseCases.UpdateNaturalPers
     {
         public UpdateNaturalPersonValidator() 
         {
-            RuleFor(np => np.id).NotEmpty()
+            RuleFor(np => np.id).NotEmpty().NotNull()
                 .Must(GuidValidator.BeValid);
             RuleFor(np => np.name).NotEmpty()
                 .WithMessage("Nome é um campo obrigatório.")
