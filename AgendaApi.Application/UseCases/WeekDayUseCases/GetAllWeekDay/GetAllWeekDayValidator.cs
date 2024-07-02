@@ -8,7 +8,7 @@ namespace AgendaApi.Application.UseCases.WeekDayUseCases.GetAllWeekDay
     {
         public GetAllWeekDayValidator() 
         {
-            RuleFor(wd => wd.legalEntityId).NotEmpty()
+            RuleFor(wd => wd.legalEntityId).NotEmpty().NotNull()
                 .Must(GuidValidator.BeValid);
         }
     }

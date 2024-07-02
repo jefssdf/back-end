@@ -7,7 +7,7 @@ namespace AgendaApi.Application.UseCases.ServiceUseCase.GetServiceById
     {
         public GetServiceByIdValidator() 
         {
-            RuleFor(s => s.id).NotEmpty()
+            RuleFor(s => s.id).NotEmpty().NotNull()
                 .Must(GuidValidator.BeValid);
         }
     }

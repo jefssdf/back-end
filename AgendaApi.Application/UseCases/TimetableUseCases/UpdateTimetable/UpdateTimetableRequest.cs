@@ -1,5 +1,4 @@
-﻿using AgendaApi.Domain.Entities;
-using MediatR;
+﻿using MediatR;
 
 namespace AgendaApi.Application.UseCases.TimetableUseCases.UpdateTimetable
 {

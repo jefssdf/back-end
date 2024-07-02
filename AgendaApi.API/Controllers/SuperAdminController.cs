@@ -4,6 +4,7 @@ using AgendaApi.Application.UseCases.SuperAdminUseCases.GetAllSuperAdmin;
 using AgendaApi.Application.UseCases.SuperAdminUseCases.GetSuperAdminByEmail;
 using AgendaApi.Application.UseCases.SuperAdminUseCases.UpdateSuperAdmin;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AgendaApi.API.Controllers
@@ -20,6 +21,7 @@ namespace AgendaApi.API.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult> GetAll(CancellationToken cancellationToken)
         {
             var result = await _mediator.Send(new GetAllSuperAdminRequest(), cancellationToken);
@@ -27,6 +29,7 @@ namespace AgendaApi.API.Controllers
         }
 
         [HttpGet("{email}")]
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult<GetSuperAdminByEmailResponse>> GetById(string email,
             CancellationToken cancellationToken)
         {
@@ -45,6 +48,7 @@ namespace AgendaApi.API.Controllers
         }
 
         [HttpPut("{superAdminId:Guid}")]
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult<UpdateSuperAdminResponse>> Update(Guid? superAdminId, UpdateSuperAdminRequest request,
             CancellationToken cancellationToken)
         {
@@ -55,6 +59,7 @@ namespace AgendaApi.API.Controllers
         }
 
         [HttpDelete("{superAdminId:Guid}")]
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult<DeleteSuperAdminResponse>> Delete(Guid? superAdminId, 
             CancellationToken cancellationToken)
         {

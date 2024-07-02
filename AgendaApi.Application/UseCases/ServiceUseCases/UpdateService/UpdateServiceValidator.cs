@@ -7,14 +7,14 @@ namespace AgendaApi.Application.UseCases.ServiceUseCase.UpdateService
     {
         public UpdateServiceValidator() 
         {
-            RuleFor(s => s.name).NotEmpty()
+            RuleFor(s => s.name).NotEmpty().NotNull()
                 .WithMessage("Nome é um campo obrigatório")
                 .MinimumLength(3).MaximumLength(70);
-            RuleFor(s => s.description).NotEmpty();
-            RuleFor(s => s.duration).NotEmpty()
+            RuleFor(s => s.description).NotEmpty().NotNull();
+            RuleFor(s => s.duration).NotEmpty().NotNull()
                 .Must(TimeSpanValidator.BeMultipleOf30Minutes);
-            RuleFor(s => s.price).NotEmpty();
-            RuleFor(s => s.legalEntityId).NotEmpty()
+            RuleFor(s => s.price).NotEmpty().NotNull();
+            RuleFor(s => s.legalEntityId).NotEmpty().NotNull()
                 .Must(GuidValidator.BeValid);
         }
     }

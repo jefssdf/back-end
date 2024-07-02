@@ -6,8 +6,8 @@ namespace AgendaApi.Application.UseCases.ServiceStatusUsecases.UpdateServiceStat
     {
         public UpdateServiceStatusValidator() 
         {
-            RuleFor(ss => ss.serviceStatusId).NotEmpty();
-            RuleFor(ss => ss.statusName).NotEmpty();
+            RuleFor(ss => ss.serviceStatusId).NotEmpty().NotNull();
+            RuleFor(ss => ss.statusName).NotEmpty().NotNull();
         }
     }
 }

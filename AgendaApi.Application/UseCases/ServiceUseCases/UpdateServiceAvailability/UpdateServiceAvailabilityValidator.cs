@@ -6,7 +6,7 @@ namespace AgendaApi.Application.UseCases.ServiceUseCases.UpdateServiceAvailabili
     {
         public UpdateServiceAvailabilityValidator() 
         {
-            RuleFor(s => s.serviceStatusId).NotEmpty()
+            RuleFor(s => s.serviceStatusId).NotEmpty().NotNull()
                 .InclusiveBetween(1, 2);
         }
     }

@@ -6,7 +6,7 @@ namespace AgendaApi.Application.UseCases.NaturalPersonUseCases.GetNaturalPersonB
     {
         public GetNaturalPersonByEmailValidator() 
         {
-            RuleFor(np => np.email).NotEmpty()
+            RuleFor(np => np.email).NotEmpty().NotNull()
                 .WithMessage("Email é um campo obrigatório.")
                 .MaximumLength(70).EmailAddress();
         }

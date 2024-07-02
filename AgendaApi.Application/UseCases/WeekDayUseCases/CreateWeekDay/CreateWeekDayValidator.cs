@@ -6,8 +6,8 @@ namespace AgendaApi.Application.UseCases.WeekDayUseCases.CreateWeekDay
     {
         public CreateWeekDayValidator()
         {
-            RuleFor(wd => wd.WeekDayId).NotEmpty();
-            RuleFor(wd => wd.name).NotEmpty();
+            RuleFor(wd => wd.WeekDayId).NotEmpty().NotNull();
+            RuleFor(wd => wd.name).NotEmpty().NotNull();
         }
     }
 }

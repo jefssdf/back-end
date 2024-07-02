@@ -22,8 +22,7 @@ namespace AgendaApi.Application.UseCases.LegalPersonUseCases.CreateLegalEntity
         public async Task<CreateLegalEntityResponse> Handle(CreateLegalEntityRequest request,
             CancellationToken cancellationToken)
         {
-            try
-            {if (await _unitOfWork.IsValidEmail(request.email, cancellationToken)) throw new BadRequestException("Email já cadastrado.");
+            if (await _unitOfWork.IsValidEmail(request.email, cancellationToken)) throw new BadRequestException("Email já cadastrado.");
 
             var legalEntity = _mapper.Map<LegalEntity>(request);
             legalEntity.Password = PasswordHashingService.Hash(legalEntity.Password!);
@@ -41,13 +40,7 @@ namespace AgendaApi.Application.UseCases.LegalPersonUseCases.CreateLegalEntity
             });
             await _unitOfWork.Commit(cancellationToken);
 
-                return _mapper.Map<CreateLegalEntityResponse>(legalEntity);
-            }
-            catch(Exception e)
-            {
-                Console.WriteLine(e.Message);
-                throw;
-            }
+            return _mapper.Map<CreateLegalEntityResponse>(legalEntity);
         }
     }
 }

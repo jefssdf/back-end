@@ -7,7 +7,7 @@ namespace AgendaApi.Application.UseCases.SchedulingUseCases.EndsNotPayedScheduli
     {
         public EndsNotPayedSchedulingValidator() 
         {
-            RuleFor(s => s.schedulingId).NotEmpty()
+            RuleFor(s => s.schedulingId).NotEmpty().NotNull()
                 .Must(GuidValidator.BeValid);
         }
     }

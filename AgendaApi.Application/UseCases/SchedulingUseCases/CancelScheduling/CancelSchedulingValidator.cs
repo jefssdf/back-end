@@ -7,9 +7,9 @@ namespace AgendaApi.Application.UseCases.SchedulingUseCases.DeleteScheduling
     {
         public CancelSchedulingValidator() 
         {
-            RuleFor(s => s.schedulingId).NotEmpty()
+            RuleFor(s => s.schedulingId).NotEmpty().NotNull()
                 .Must(GuidValidator.BeValid);
-            RuleFor(s => s.owner).NotEmpty()
+            RuleFor(s => s.owner).NotEmpty().NotNull()
                 .Must(GuidValidator.BeValid);
         }
     }

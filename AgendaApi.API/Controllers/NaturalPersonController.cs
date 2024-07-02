@@ -21,7 +21,7 @@ namespace AgendaApi.API.Controllers
         }
 
         [HttpGet]
-        [Authorize(Roles = "Client")]
+        [Authorize(Roles = "Admin,PJ,PF")]
         public async Task<ActionResult<List<GetAllNaturalPersonResponse>>> 
             GetAll(CancellationToken cancellationToken)
         {
@@ -30,6 +30,7 @@ namespace AgendaApi.API.Controllers
         }
 
         [HttpGet("{email}")]
+        [Authorize(Roles = "Admin,PJ,PF")]
         public async Task<ActionResult<GetNaturalPersonByEmailResponse>> GetByEmail(string email,
             CancellationToken cancellationToken)
         {
@@ -50,6 +51,7 @@ namespace AgendaApi.API.Controllers
         }
 
         [HttpPut("{naturalPersonId:Guid}")]
+        [Authorize(Roles = "Admin,PF")]
         public async Task<ActionResult<UpdateNaturalPersonResponse>> Update(Guid? naturalPersonId, UpdateNaturalPersonRequest request,
             CancellationToken cancellationToken)
         {
@@ -60,6 +62,7 @@ namespace AgendaApi.API.Controllers
         }
 
         [HttpDelete("{naturalPersonId:Guid}")]
+        [Authorize(Roles = "Admin,PF")]
         public async Task<ActionResult<DeleteNaturalPersonResponse>> Delete(Guid? naturalPersonId,
             CancellationToken cancellationToken)
         {

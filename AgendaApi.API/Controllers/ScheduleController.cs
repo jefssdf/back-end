@@ -1,6 +1,7 @@
 ﻿using AgendaApi.Application.UseCases.ScheduleUseCases.GetBlockScheduleInfo;
 using AgendaApi.Application.UseCases.ScheduleUseCases.GetMonthSchedule;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AgendaApi.API.Controllers
@@ -16,6 +17,7 @@ namespace AgendaApi.API.Controllers
         }
 
         [HttpGet("{legalEntityId:Guid}")]
+        [Authorize(Roles = "Admin,PJ,PF")]
         public async Task<ActionResult<FreeMonthScheduleResponse>> GetMonthSchedule(Guid? legalEntityId, DateTime? date, CancellationToken cancellationToken)
         {
             if (date is null) date = DateTime.UtcNow;
@@ -25,6 +27,7 @@ namespace AgendaApi.API.Controllers
         }
 
         [HttpGet("blockService/{legalEntityId:Guid}")]
+        [Authorize(Roles = "Admin,PJ")]
         public async Task<ActionResult<GetBlockScheduleInfoResponse>> GetBlockScheduleInfo(Guid legalEntityId, CancellationToken cancellationToken)
         {
             var result = await _mediator.Send(new GetBlockScheduleInfoRequest(legalEntityId), cancellationToken);

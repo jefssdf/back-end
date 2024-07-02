@@ -4,6 +4,7 @@ using AgendaApi.Application.UseCases.ServiceUseCase.UpdateService;
 using AgendaApi.Application.UseCases.ServiceUseCases.GetServiceByLegalEntityId;
 using AgendaApi.Application.UseCases.ServiceUseCases.UpdateServiceAvailability;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AgendaApi.API.Controllers
@@ -20,6 +21,7 @@ namespace AgendaApi.API.Controllers
         }
 
         [HttpGet("{serviceId:Guid}")]
+        [Authorize(Roles = "Admin,PJ")]
         public async Task<ActionResult<GetServiceByIdResponse>> GetById(Guid? serviceId,
             CancellationToken cancellationToken)
         {
@@ -29,6 +31,7 @@ namespace AgendaApi.API.Controllers
         }
 
         [HttpGet("LegalEntityId/{legalEntityId:Guid}")]
+        [Authorize(Roles = "Admin,PJ,PF")]
         public async Task<ActionResult<List<GetServiceByLegalEntityIdResponse>>> GetByLegalEntityId(Guid? legalEntityId,
             CancellationToken cancellationToken)
         {
@@ -38,6 +41,7 @@ namespace AgendaApi.API.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin,PJ")]
         public async Task<ActionResult<CreateServiceResponse>> Create(CreateServiceRequest request,
             CancellationToken cancellationToken)
         {
@@ -47,6 +51,7 @@ namespace AgendaApi.API.Controllers
         }
 
         [HttpPut("{serviceId:Guid}")]
+        [Authorize(Roles = "Admin,PJ")]
         public async Task<ActionResult<UpdateServiceResponse>> Update(Guid? serviceId,
             UpdateServiceRequest request, CancellationToken cancellationToken)
         {
@@ -56,6 +61,7 @@ namespace AgendaApi.API.Controllers
         }
 
         [HttpPut("availability/{serviceId:Guid}")]
+        [Authorize(Roles = "Admin,PJ")]
         public async Task<ActionResult<UpdateServiceAvailabilityResponse>> UpdateAvailability(Guid? serviceId,
             UpdateServiceAvailabilityRequest request, CancellationToken cancellationToken)
         {

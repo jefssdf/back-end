@@ -8,6 +8,7 @@ using AgendaApi.Application.UseCases.SchedulingUseCases.GetAllSchedulingByLegalE
 using AgendaApi.Application.UseCases.SchedulingUseCases.GetAllSchedulingByNaturalPerson;
 using AgendaApi.Application.UseCases.SchedulingUseCases.GetSchedulingById;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AgendaApi.API.Controllers
@@ -23,6 +24,7 @@ namespace AgendaApi.API.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Admin,PJ,PF")]
         public async Task<ActionResult<List<GetAllSchedulingResponse>>> GetAll(CancellationToken cancellationToken)
         {
             var result = await _mediator.Send(new GetAllSchedulingRequest(), cancellationToken);
@@ -30,6 +32,7 @@ namespace AgendaApi.API.Controllers
         }
 
         [HttpGet("{schedulingId:Guid}")]
+        [Authorize(Roles = "Admin,PJ,PF")]
         public async Task<ActionResult<GetSchedulingByIdResponse>> GetById(Guid? schedulingId, CancellationToken cancellationToken)
         {
             if (schedulingId is null) return BadRequest();
@@ -38,6 +41,7 @@ namespace AgendaApi.API.Controllers
         }
 
         [HttpGet("legalEntity/{legalEntityId:Guid}")]
+        [Authorize(Roles = "Admin,PJ")]
         public async Task<ActionResult<List<GetAllSchedulingByLegalEntityResponse>>>
             GetAllByLegalEntity(Guid? legalEntityId, CancellationToken cancellationToken)
         {
@@ -47,6 +51,7 @@ namespace AgendaApi.API.Controllers
         }
 
         [HttpGet("naturalPerson/{naturalPersonId:Guid}")]
+        [Authorize(Roles = "Admin,PF")]
         public async Task<ActionResult<List<GetAllSchedulingByNaturalPersonResponse>>>
             GetAllByNaturalPerson(Guid? naturalPersonId, CancellationToken cancellationToken)
         {
@@ -56,6 +61,7 @@ namespace AgendaApi.API.Controllers
         }
 
         [HttpGet("naturalPersonBySchedulingStatus/{naturalPersonId:Guid}")]
+        [Authorize(Roles = "Admin,PJ,PF")]
         public async Task<ActionResult<List<GetAllNaturalPersonSchedulingsBySchedulingStatusResponse>>>
             GetAllNaturalPersonSchedulingBySchedulingStatusId(Guid? naturalPersonId, int? schedulingStatusId, 
             CancellationToken cancellationToken)
@@ -67,6 +73,7 @@ namespace AgendaApi.API.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin,PJ,PF")]
         public async Task<ActionResult<CreateSchedulingResponse>> Create(CreateSchedulingRequest request,
             CancellationToken cancellationToken)
         {
@@ -76,6 +83,7 @@ namespace AgendaApi.API.Controllers
         }
 
         [HttpPut("endsPayedScheduling/{schedulingId:Guid}")]
+        [Authorize(Roles = "Admin,PJ")]
         public async Task<ActionResult<EndsPayedSchedulingResponse>> Payed(Guid? schedulingId,
             CancellationToken cancellationToken)
         {
@@ -85,6 +93,7 @@ namespace AgendaApi.API.Controllers
         }
 
         [HttpPut("endsNotPayedScheduling/{schedulingId:Guid}")]
+        [Authorize(Roles = "Admin,PJ")]
         public async Task<ActionResult<EndsNotPayedSchedulingResponse>> NotPayed(Guid? schedulingId,
             CancellationToken cancellationToken)
         {
@@ -94,6 +103,7 @@ namespace AgendaApi.API.Controllers
         }
 
         [HttpPut("cancel/{schedulingId:Guid}")]
+        [Authorize(Roles = "Admin,PJ,PF")]
         public async Task<ActionResult<CancelSchedulingResponse>> Cancel(Guid? schedulingId, CancelSchedulingRequest request,
             CancellationToken cancellationToken)
         {

@@ -1,7 +1,6 @@
 ﻿using AgendaApi.Application.Shared.Exceptions;
 using AgendaApi.Application.Shared.PasswordHashing;
 using AgendaApi.Application.Shared.TokenServices;
-using AgendaApi.Domain.Entities;
 using AgendaApi.Domain.Interfaces;
 using AutoMapper;
 using MediatR;
@@ -28,7 +27,19 @@ namespace AgendaApi.Application.UseCases.AuthenticationUseCases.Login
             {
                 var naturalPerson = await _unitOfWork.NaturalPersonRepository.GetByEmail(
                     np => np.Email == request.email, cancellationToken);
-                if (naturalPerson is null) throw new NotFoundException("Usuário não encontrado.");
+                if (naturalPerson is null)
+                {
+                    var superAdmin = await _unitOfWork.SuperAdminRepository.GetByEmail(
+                        sa => sa.Email == request.email, cancellationToken);
+                    if (superAdmin is null) throw new NotFoundException("Usuário não encontrado.");
+                    
+                    var saIsVerified = PasswordHashingService.Verify(request.password, superAdmin.Password!);
+                    if (!saIsVerified) throw new BadRequestException("Seha inncorreta.");
+
+                    var superAdminResponse = _mapper.Map<LoginResponse>(superAdmin);
+                    superAdminResponse.Token = TokenService.GenerateAccessToken(superAdminResponse);
+                    return superAdminResponse;
+                }
                 
                 var npIsVerified = PasswordHashingService.Verify(request.password, naturalPerson.Password!);
                 if (!npIsVerified) throw new BadRequestException("Seha inncorreta.");
@@ -37,9 +48,10 @@ namespace AgendaApi.Application.UseCases.AuthenticationUseCases.Login
                 naturalPersoResponse.Token = TokenService.GenerateAccessToken(naturalPersoResponse);
                 return naturalPersoResponse;
             }
-            var legalEntityResponse = _mapper.Map<LoginResponse>(legalEntity);
             var lpIsVerified = PasswordHashingService.Verify(request.password, legalEntity.Password!);
             if (!lpIsVerified) throw new BadRequestException("Seha incorreta.");
+            
+            var legalEntityResponse = _mapper.Map<LoginResponse>(legalEntity);
             legalEntityResponse.Token = TokenService.GenerateAccessToken(legalEntityResponse);
             return legalEntityResponse;
         }

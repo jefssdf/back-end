@@ -8,7 +8,7 @@ namespace AgendaApi.Application.UseCases.TimetableUseCases.GetAllTimetables
     {
         public GetAllTimetablesValidator() 
         {
-            RuleFor(tt => tt.legalEntityId).NotEmpty()
+            RuleFor(tt => tt.legalEntityId).NotEmpty().NotNull()
                 .Must(GuidValidator.BeValid);
         }
     }

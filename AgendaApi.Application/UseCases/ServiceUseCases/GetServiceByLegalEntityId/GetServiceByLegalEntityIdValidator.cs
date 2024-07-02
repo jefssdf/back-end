@@ -1,4 +1,5 @@
-﻿using FluentValidation;
+﻿using AgendaApi.Application.Shared.GlobalValidators;
+using FluentValidation;
 
 namespace AgendaApi.Application.UseCases.ServiceUseCases.GetServiceByLegalEntityId
 {
@@ -7,7 +8,8 @@ namespace AgendaApi.Application.UseCases.ServiceUseCases.GetServiceByLegalEntity
     {
         public GetServiceByLegalEntityIdValidator() 
         {
-            RuleFor(s => s.id).NotEmpty();
+            RuleFor(s => s.id).NotEmpty().NotNull()
+                .Must(GuidValidator.BeValid);
         }
     }
 }

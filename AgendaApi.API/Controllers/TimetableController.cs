@@ -3,6 +3,7 @@ using AgendaApi.Application.UseCases.TimetableUseCases.DeleteTimetable;
 using AgendaApi.Application.UseCases.TimetableUseCases.GetAllTimetables;
 using AgendaApi.Application.UseCases.TimetableUseCases.UpdateTimetable;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AgendaApi.API.Controllers
@@ -17,7 +18,8 @@ namespace AgendaApi.API.Controllers
             _mediator = mediator;
         }
 
-        [HttpGet("LegalEntityTimetables{legalEntityId:Guid}")]
+        [HttpGet("LegalEntityTimetables/{legalEntityId:Guid}")]
+        [Authorize(Roles = "Admin,PJ")]
         public async Task<ActionResult<List<GetAllTimetablesResponse>>> 
             GetAll(Guid? legalEntityId, CancellationToken cancellationToken)
         {
@@ -26,6 +28,7 @@ namespace AgendaApi.API.Controllers
             return Ok(result);
         }
         [HttpPost]
+        [Authorize(Roles = "Admin,PJ")]
         public async Task<ActionResult<List<CreateTimetableResponse>>> 
             Create(CreateMultipleTimetableRequest request, CancellationToken cancellationToken)
         {
@@ -34,6 +37,7 @@ namespace AgendaApi.API.Controllers
             return Ok(result);
         }
         [HttpPut("{timetableId:Guid}")]
+        [Authorize(Roles = "Admin,PJ")]
         public async Task<ActionResult<UpdateTimetableResponse>> 
             Update(Guid timetableId, UpdateTimetableRequest request, CancellationToken cancellationToken)
         {
@@ -42,6 +46,7 @@ namespace AgendaApi.API.Controllers
             return Ok(result);
         }
         [HttpDelete]
+        [Authorize(Roles = "Admin,PJ")]
         public async Task<ActionResult<DeleteTimetableResponse>> 
             Delete(CancellationToken cancellationToken)
         {

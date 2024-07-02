@@ -7,17 +7,17 @@ namespace AgendaApi.Application.UseCases.TimetableUseCases.UpdateTimetable
     {
         public UpdateTimetableValidator() 
         {
-            RuleFor(tt => tt.id).NotEmpty()
+            RuleFor(tt => tt.id).NotEmpty().NotNull()
                 .Must(GuidValidator.BeValid);
-            RuleFor(tt => tt.startTime).NotEmpty()
+            RuleFor(tt => tt.startTime).NotEmpty().NotNull()
                 .Must(TimeOnlyValidFormat)
                 .WithMessage("O tempo deve estar no formato HH:mm.");
-            RuleFor(tt => tt.endTime).NotEmpty()
+            RuleFor(tt => tt.endTime).NotEmpty().NotNull()
                 .Must(TimeOnlyValidFormat)
                 .WithMessage("O tempo deve estar no formato HH:mm.");
-            RuleFor(tt => tt.legalEntityId).NotEmpty()
+            RuleFor(tt => tt.legalEntityId).NotEmpty().NotNull()
                 .Must(GuidValidator.BeValid);
-            RuleFor(tt => tt.weekDayId).NotEmpty()
+            RuleFor(tt => tt.weekDayId).NotEmpty().NotNull()
                 .InclusiveBetween(1, 7)
                 .WithMessage("O identificador do dia da semana deve estar entre 1 e 7.");
         }

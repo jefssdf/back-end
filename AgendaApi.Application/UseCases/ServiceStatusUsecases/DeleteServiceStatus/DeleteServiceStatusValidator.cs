@@ -6,7 +6,7 @@ namespace AgendaApi.Application.UseCases.ServiceStatusUsecases.DeleteServiceStat
     {
         public DeleteServiceStatusValidator() 
         {
-            RuleFor(ss => ss.serviceStatusId).NotEmpty();
+            RuleFor(ss => ss.serviceStatusId).NotEmpty().NotNull();
         }
     }
 }

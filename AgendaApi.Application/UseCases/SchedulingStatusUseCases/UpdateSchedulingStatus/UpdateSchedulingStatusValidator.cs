@@ -8,8 +8,8 @@ namespace AgendaApi.Application.UseCases.SchedulingStatusUseCase.UpdateSchedulin
     {
         public UpdateSchedulingStatusValidator() 
         {
-            RuleFor(ss => ss.schedulingStatusId).NotEmpty();
-            RuleFor(ss => ss.statusName).NotEmpty();
+            RuleFor(ss => ss.schedulingStatusId).NotEmpty().NotNull();
+            RuleFor(ss => ss.statusName).NotEmpty().NotNull();
         }
     }
 }

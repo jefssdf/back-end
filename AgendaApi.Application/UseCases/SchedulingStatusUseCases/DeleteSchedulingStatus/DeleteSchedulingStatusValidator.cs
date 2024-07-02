@@ -1,5 +1,4 @@
-﻿using AgendaApi.Application.Shared.GlobalValidators;
-using FluentValidation;
+﻿using FluentValidation;
 
 namespace AgendaApi.Application.UseCases.SchedulingStatusUseCase.DeleteSchedulingStatus
 {
@@ -7,7 +6,7 @@ namespace AgendaApi.Application.UseCases.SchedulingStatusUseCase.DeleteSchedulin
     {
         public DeleteSchedulingStatusValidator() 
         {
-            RuleFor(ss => ss.id).NotEmpty();
+            RuleFor(ss => ss.id).NotEmpty().NotNull();
         }
     }
 }

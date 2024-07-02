@@ -7,9 +7,9 @@ namespace AgendaApi.Application.UseCases.WeekDayUseCases.UpdateWeekDay
         public UpdateWeekDayValidator() 
         {
             RuleFor(wd => wd.id)
-                .NotEmpty();
+                .NotEmpty().NotNull();
             RuleFor(wd => wd.name)
-                .NotEmpty();
+                .NotEmpty().NotNull();
         }
     }
 }

@@ -4,6 +4,7 @@ using AgendaApi.Application.UseCases.LegalPersonUseCases.GetAllLegalEntity;
 using AgendaApi.Application.UseCases.LegalPersonUseCases.GetLegalEntityByEmail;
 using AgendaApi.Application.UseCases.LegalPersonUseCases.UpdateLegalEntity;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AgendaApi.API.Controllers
@@ -20,6 +21,7 @@ namespace AgendaApi.API.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Admin,PJ,PF")]
         public async Task<ActionResult<List<GetAllLegalEntityResponse>>> 
             GetAll(CancellationToken cancellationToken)
         {
@@ -28,6 +30,7 @@ namespace AgendaApi.API.Controllers
         }
 
         [HttpGet("{email}")]
+        [Authorize(Roles = "Admin,PJ")]
         public async Task<ActionResult<GetLegalEntityByEmailResponse>> GetByEmail(string email,
             CancellationToken cancellationToken)
         {
@@ -38,6 +41,7 @@ namespace AgendaApi.API.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult<CreateLegalEntityResponse>> Create(CreateLegalEntityRequest request,
             CancellationToken cancellationToken)
         {
@@ -47,6 +51,7 @@ namespace AgendaApi.API.Controllers
         }
 
         [HttpPut("{legalEntityId:Guid}")]
+        [Authorize(Roles = "Admin,PJ")]
         public async Task<ActionResult<UpdateLegalEntityResponse>> Update(Guid legalEntityId, 
             UpdateLegalEntityRequest request, CancellationToken cancellationToken)
         {
@@ -57,6 +62,7 @@ namespace AgendaApi.API.Controllers
         }
 
         [HttpDelete("{legalEntityId:Guid}")]
+        [Authorize(Roles = "Admin,PJ")]
         public async Task<ActionResult<DeleteLegalEntityResponse>> Delete(Guid? legalEntityId,
             CancellationToken cancellationToken)
         {

@@ -6,7 +6,7 @@ namespace AgendaApi.Application.UseCases.WeekDayUseCases.DeleteWeekDay
     {
         public DeleteWeekDayValidator() 
         {
-            RuleFor(wd => wd.id).NotEmpty();
+            RuleFor(wd => wd.id).NotEmpty().NotNull();
         }
     }
 }

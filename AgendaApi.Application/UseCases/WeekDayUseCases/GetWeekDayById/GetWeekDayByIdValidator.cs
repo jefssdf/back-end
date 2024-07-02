@@ -6,7 +6,7 @@ namespace AgendaApi.Application.UseCases.WeekDayUseCases.GetWeekDayById
     {
         public GetWeekDayByIdValidator() 
         {
-            RuleFor(wd => wd.id).NotEmpty();
+            RuleFor(wd => wd.id).NotEmpty().NotNull();
         }
     }
 }

@@ -6,7 +6,7 @@ namespace AgendaApi.Application.UseCases.LegalPersonUseCases.GetLegalEntityByEma
     {
         public GetLegalEntityByEmailValidator()
         {
-            RuleFor(le => le.email).NotEmpty()
+            RuleFor(le => le.email).NotEmpty().NotNull()
                 .WithMessage("Email é um campo obrigatório.")
                 .MaximumLength(70).EmailAddress();
         }

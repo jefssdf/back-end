@@ -2,7 +2,6 @@
 using AgendaApi.Domain.Interfaces;
 using AutoMapper;
 using MediatR;
-using System.Data;
 
 namespace AgendaApi.Application.UseCases.CancellationUseCase.GetAllCancellationByOwner
 {

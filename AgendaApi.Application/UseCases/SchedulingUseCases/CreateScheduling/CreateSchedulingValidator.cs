@@ -7,13 +7,13 @@ namespace AgendaApi.Application.UseCases.SchedulingUseCases.CreateScheduling
     {
         public CreateSchedulingValidator() 
         {
-            RuleFor(s => s.schedulingDate).NotEmpty()
+            RuleFor(s => s.schedulingDate).NotEmpty().NotNull()
                 .GreaterThan(DateTime.Now);
-            RuleFor(s => s.naturalPersonId).NotEmpty()
+            RuleFor(s => s.naturalPersonId).NotEmpty().NotNull()
                 .Must(GuidValidator.BeValid);
-            RuleFor(s => s.legalEntityId).NotEmpty()
+            RuleFor(s => s.legalEntityId).NotEmpty().NotNull()
                 .Must(GuidValidator.BeValid);
-            RuleFor(s => s.serviceId).NotEmpty()
+            RuleFor(s => s.serviceId).NotEmpty().NotNull()
                 .Must(GuidValidator.BeValid);
         }
     }

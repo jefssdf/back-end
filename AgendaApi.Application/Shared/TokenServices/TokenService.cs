@@ -3,7 +3,6 @@ using AgendaApi.Domain.Security;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
-using System.Security.Cryptography;
 using System.Text;
 
 namespace AgendaApi.Application.Shared.TokenServices
@@ -24,14 +23,6 @@ namespace AgendaApi.Application.Shared.TokenServices
             };
             var token = handler.CreateToken(tokenDescriptor);
             return handler.WriteToken(token);
-        }
-
-        public static string GenerateRefreshToken()
-        {
-            var randomBytes = new byte[128];
-            using var randomNumberGenerator = RandomNumberGenerator.Create();
-            randomNumberGenerator.GetBytes(randomBytes);
-            return Convert.ToBase64String(randomBytes);
         }
 
         private static ClaimsIdentity GenerateClaims(LoginResponse response)
