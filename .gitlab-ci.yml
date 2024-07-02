@@ -1,21 +1,35 @@
 stages:
   - build
   - test
-  - sonarqube
+  - scan
 
 variables:
-  SONAR_USER_HOME: "${CI_PROJECT_DIR}/.sonar"  # Diretório onde o scanner será instalado
+  SONAR_USER_HOME: "${CI_PROJECT_DIR}/.sonar"  # Define a pasta para cache do Sonar
+  GIT_DEPTH: "0"  # Necessário para o SonarCloud obter todas as informações de histórico
+
+cache:
+  paths:
+    - .sonar/cache
+
+before_script:
+  - apt-get update -qq && apt-get install -y -qq openjdk-11-jre # Instalação do Java, necessário para o SonarScanner
+  - export PATH="$PATH:/root/.dotnet/tools" # Adiciona dotnet tools ao PATH
+  - dotnet tool install --global dotnet-sonarscanner # Instalação do SonarScanner para .NET
+  - dotnet restore # Restaura as dependências do .NET
+
+build:
+  stage: build
+  script:
+    - dotnet build --configuration Release
+
+test:
+  stage: test
+  script:
+    - dotnet test --configuration Release --no-build
 
 sonarqube-check:
-  stage: sonarqube
-  image: sonarsource/sonar-scanner-cli:latest
+  stage: scan
   script:
-    - sonar-scanner
-      -Dsonar.projectKey=jno868214_agendaapp-backend
-      -Dsonar.organization=Jeferson Araujo 
-      -Dsonar.host.url=https://sonarcloud.io
-      -Dsonar.login=$SONAR_TOKEN
-  allow_failure: true
-  only:
-    - branches
-    - main
+    - dotnet sonarscanner begin /k:"jno868214_agendaapp-backend" /o:"jno868214" /d:sonar.login="${SONAR_TOKEN}" /d:sonar.host.url="https://sonarcloud.io"
+    - dotnet build --configuration Release
+    - dotnet sonarscanner end /d:sonar.login="${SONAR_TOKEN}"
