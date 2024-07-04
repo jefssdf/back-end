@@ -1,10 +1,15 @@
-﻿using System.Globalization;
-
-namespace AgendaApi.Application.Shared.GlobalValidators
+﻿namespace AgendaApi.Application.Shared.GlobalValidators
 {
-    public static class TimeSpanValidator
+    public sealed class TimeSpanValidator
     {
-        public static bool BeMultipleOf30Minutes(string timespan) =>
-            TimeSpan.ParseExact(timespan.ToString(), "HH:mm:ss", CultureInfo.InvariantCulture).TotalMinutes % 30 == 0;
+        public static bool BeMultipleOf30Minutes(string timespan)
+        {
+            if (TimeSpan.TryParse(timespan, out TimeSpan parsedTimeSpan))
+            {
+                return parsedTimeSpan.TotalMinutes % 30 == 0;
+            }
+            return false;
+        }
     }
 }
+
