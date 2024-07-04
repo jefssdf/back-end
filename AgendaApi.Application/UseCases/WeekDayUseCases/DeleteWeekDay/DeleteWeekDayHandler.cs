@@ -1,4 +1,5 @@
-﻿using AgendaApi.Domain.Interfaces;
+﻿using AgendaApi.Application.Shared.Exceptions;
+using AgendaApi.Domain.Interfaces;
 using AutoMapper;
 using MediatR;
 
@@ -20,7 +21,7 @@ namespace AgendaApi.Application.UseCases.WeekDayUseCases.DeleteWeekDay
             var weekDay = await _unitOfWork.WeekDayRepository.GetById(
                 wd => wd.WeekDayId == request.id, cancellationToken);
 
-            if (weekDay is null) return default;
+            if (weekDay is null) throw new NotFoundException("Dia da semana não encontrado.");
 
             _unitOfWork.WeekDayRepository.Delete(weekDay);
             await _unitOfWork.Commit(cancellationToken);

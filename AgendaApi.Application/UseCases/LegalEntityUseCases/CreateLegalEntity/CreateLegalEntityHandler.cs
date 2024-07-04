@@ -5,6 +5,7 @@ using AgendaApi.Domain.Entities;
 using AgendaApi.Domain.Interfaces;
 using AutoMapper;
 using MediatR;
+using System.Globalization;
 
 namespace AgendaApi.Application.UseCases.LegalPersonUseCases.CreateLegalEntity
 {
@@ -35,7 +36,7 @@ namespace AgendaApi.Application.UseCases.LegalPersonUseCases.CreateLegalEntity
                 LegalEntityId = searchedLegalEntity.LegalEntityId,
                 Name = "Bloqueio",
                 Description = "Serviço criado para ser utilizado como bloqueio de agenda.",
-                Duration = TimeSpan.Parse("00:30:00"),
+                Duration = TimeSpan.Parse("00:30:00", CultureInfo.InvariantCulture),
                 Price = 0
             });
             await _unitOfWork.Commit(cancellationToken);

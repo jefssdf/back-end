@@ -5,16 +5,16 @@ namespace AgendaApi.Persistence.Repositories
 {
     public class UnitOfWork : IUnitOfWork
     {
-        private readonly ISuperAdminRepository _superAdminRepository;
-        private readonly ILegalEntityRepository _legalEntityRepository;
-        private readonly INaturalPersonRepository _naturalPersonRepository;
-        private readonly IServiceRepository _serviceRepository;
-        private readonly IServiceStatusRepository _serviceStatusRepository;
-        private readonly IWeekDayRepository _weekDayRepository;
-        private readonly ITimetableRepository _timetableRepository;
-        private readonly ISchedulingStatusRepository _schedulingStatusRepository;
-        private readonly ISchedulingRepository _schedulingRepository;
-        private readonly ICancellationRepository _cancellationRepository;
+        private readonly ISuperAdminRepository? _superAdminRepository;
+        private readonly ILegalEntityRepository? _legalEntityRepository;
+        private readonly INaturalPersonRepository? _naturalPersonRepository;
+        private readonly IServiceRepository? _serviceRepository;
+        private readonly IServiceStatusRepository? _serviceStatusRepository;
+        private readonly IWeekDayRepository? _weekDayRepository;
+        private readonly ITimetableRepository? _timetableRepository;
+        private readonly ISchedulingStatusRepository? _schedulingStatusRepository;
+        private readonly ISchedulingRepository? _schedulingRepository;
+        private readonly ICancellationRepository? _cancellationRepository;
         private readonly AgendaApiDbContext _context;
         public UnitOfWork(AgendaApiDbContext context)
         {
@@ -40,14 +40,9 @@ namespace AgendaApi.Persistence.Repositories
             _schedulingRepository ?? new SchedulingRepository(_context);
         public ICancellationRepository CancellationRepository =>
             _cancellationRepository ?? new CancellationRepository(_context);
-        public async Task Commit(CancellationToken canellationToken)
+        public async Task Commit(CancellationToken cancellationToken)
         {
-            await _context.SaveChangesAsync(canellationToken);
-        }
-
-        public async Task Dispose()
-        {
-            await _context.DisposeAsync();
+            await _context.SaveChangesAsync(cancellationToken);
         }
     }
 }
