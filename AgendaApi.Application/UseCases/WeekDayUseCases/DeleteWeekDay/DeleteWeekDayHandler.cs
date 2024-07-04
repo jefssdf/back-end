@@ -18,7 +18,7 @@ namespace AgendaApi.Application.UseCases.WeekDayUseCases.DeleteWeekDay
         public async Task<DeleteWeekDayResponse> Handle(DeleteWeekDayRequest request, 
             CancellationToken cancellationToken)
         {
-            var weekDay = await _unitOfWork.WeekDayRepository.GetById(
+            var weekDay = await _unitOfWork.WeekDayRepository!.GetById(
                 wd => wd.WeekDayId == request.id, cancellationToken);
 
             if (weekDay is null) throw new NotFoundException("Dia da semana não encontrado.");

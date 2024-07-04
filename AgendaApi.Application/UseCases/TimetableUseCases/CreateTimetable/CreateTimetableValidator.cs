@@ -28,7 +28,7 @@ namespace AgendaApi.Application.UseCases.TimetableUseCases.CreateTimetable
                 .WithMessage("O identificador do dia da semana deve estar entre 1 e 7.");
         }
 
-        private bool TimeOnlyValidFormat(TimeOnly time) => 
-            TimeOnly.TryParseExact(time.ToString(CultureInfo.InvariantCulture), "HH:mm", out _);
+        private bool TimeOnlyValidFormat(TimeOnly time) =>
+            TimeOnly.TryParseExact(time.ToString(), "HH:mm", CultureInfo.InvariantCulture, DateTimeStyles.None, out _);
     }
 }

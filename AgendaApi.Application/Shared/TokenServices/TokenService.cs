@@ -12,7 +12,7 @@ namespace AgendaApi.Application.Shared.TokenServices
         public static string GenerateAccessToken(LoginResponse response)
         {
             var handler = new JwtSecurityTokenHandler();
-            var key = Encoding.ASCII.GetBytes(Configuration.Secrets.JwtPrivateKey);
+            var key = Encoding.ASCII.GetBytes(Configuration.Secrets.JwtPrivateKey!);
             var credentials = new SigningCredentials(
                 new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature);
             var tokenDescriptor = new SecurityTokenDescriptor

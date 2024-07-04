@@ -17,8 +17,8 @@ namespace AgendaApi.Application.UseCases.SchedulingStatusUseCase.DeleteSchedulin
         public async Task<DeleteSchedulingStatusResponse> Handle(DeleteSchedulingStatusRequest request, 
             CancellationToken cancellationToken)
         {
-            var schedulingStatus = await _unitOfWork.SchedulingStatusRepository.GetById(ss => ss.SchedulingStatusId == request.id, cancellationToken);
-            _unitOfWork.SchedulingStatusRepository.Delete(schedulingStatus);
+            var schedulingStatus = await _unitOfWork.SchedulingStatusRepository!.GetById(ss => ss.SchedulingStatusId == request.id, cancellationToken);
+            _unitOfWork.SchedulingStatusRepository.Delete(schedulingStatus!);
             await _unitOfWork.Commit(cancellationToken);
 
             return _mapper.Map<DeleteSchedulingStatusResponse>(schedulingStatus);
